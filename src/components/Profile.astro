@@ -1,0 +1,232 @@
+---
+import PieChart from "./PieChart.astro";
+import ProjectCard from "./ProjectCard.astro";
+import { Image } from "astro:assets";
+import javascriptWhite from './../assets/javascript-white.svg'; 
+import typescriptWhite from './../assets/typescript-white.svg';
+import astro from './../assets/astro.svg';
+import angular from './../assets/angular.svg';
+import blockchain from './../assets/blockchain.svg';
+import cpp from './../assets/cpp.svg';
+import docker from './../assets/docker.svg';
+import express from './../assets/express.svg';
+import java from './../assets/java.svg';
+import mongodb from './../assets/mongodb.svg';
+import nextjs from './../assets/nextjs.svg';
+import nodejs from './../assets/nodejs.svg';
+import openai from './../assets/openai.svg';
+import python from './../assets/python.svg';
+import react from './../assets/react.svg';
+import solidity from './../assets/solidity.svg';
+
+
+interface Project { 
+  title: string;
+  description: string;
+  github?: string;
+  href?: string;
+  tags: string[];
+  commits?: number;
+}
+interface Technology {
+    image: any,
+    title: string
+} 
+
+const projects: Project[] = [
+    {
+        title: "dMed",
+        description: "dMed that enables storing Electronic Health Records on the Ethereum blockchain using the ERC-721 protocol for NFTs. Prescriptions created by doctors are stored as NFTs on IPFS",
+        tags: ['blockchain', 'solidity', 'ethereum', 'React.js', 'Node.js', 'web3.js', 'NFT', 'ERC-721', 'IPFS'],
+        github: "https://github.com/anasM0hammad/dMed_frontend",
+        commits: 20,
+    },
+    {
+        title: "spaceZ",
+        description: "A C++ based desktop arcade game created using SFML library",
+        tags: ['C++', 'SFML', 'Game Dev', 'XCode', 'Python'],
+        github: "https://github.com/anasM0hammad/spaceZ",
+        commits: 5,
+    }
+]
+
+const technologies: Technology[] = [
+    { image: javascriptWhite, title: 'JavaScript'},
+    { image: typescriptWhite, title: 'TypeScript'},
+    { image: react, title: 'React'},
+    { image: nextjs, title: 'Next.js'},
+    { image: angular, title: 'Angular'},
+    { image: nodejs, title: 'Node.js'},
+    { image: express, title: 'Express'},
+    { image: cpp, title: 'C++'},
+    { image: openai, title: 'OpenAI'},
+    { image: solidity, title: 'Solidity'},
+    { image: blockchain, title: 'Blockchain'},
+    { image: python, title: 'Python'},
+    { image: java, title: 'Java'},
+    { image: mongodb, title: 'MongoDB'},
+    { image: astro, title: 'Astro'},
+    { image: docker, title: 'Docker'},
+]
+---
+
+<div class="container-bg profile-details">
+    <div class="row my-2">
+        <div class="col-lg-8 colx">
+            <div class="card box">
+                <div class="card-body intro">
+                    <h3 class="monospace-font">Introduction</h3>
+                    <p class="righteous"><small><b>@anaslyzer</b></small></p>
+                    <p>Hey there I am Anas, an AI full-stack engineer from Delhi. I've spent the last few years building things that scale at Adobe and Samsung, and tinkering with side projects in healthtech, blockchain and AI . I love clean architecture, expressive code, and solving problems that matter.</p>
+                    <p>Beyond coding, I'm a self-learned guitarist who loves experimenting with melodies, a beginner table tennis player, and a fitness enthusiast—committed to working out at least four times a week. I believe building great software is a lot like learning music or sport: it takes discipline, curiosity, and rhythm.</p>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 colx">
+            <div class="card box">
+                <div class="card-body stats">
+                    <h3 class="monospace-font">Github Space</h3>
+                    <div class="d-flex m-4" style="justify-content: space-between;">
+                        <div class="text-center git-stats">
+                            <i class="fa fa-bookmark text-primary"></i>
+                            <small class="text-primary">48</small>
+                            <small>Repositories</small>
+                        </div>
+                        <div class="text-center git-stats">
+                            <i class="fa fa-user-plus text-danger"></i>
+                            <small class="text-danger">18</small>
+                            <small>Followers</small>
+                        </div>
+                        <div class="text-center git-stats">
+                            <i class="fa fa-star text-warning"></i>
+                            <small class="text-warning">53</small>
+                            <small>Stars</small>
+                        </div>
+                        <div class="text-center git-stats">
+                            <i class="fa fa-code text-success"></i>
+                            <small class="text-success">112</small>
+                            <small>Commits</small>
+                        </div>
+                    </div>
+                    <p class="monospace-font"><b>Languages Used:</b></p>
+                    <PieChart />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 colx">
+            <div class="card box technology">
+                <div class="card-body"  style="padding-top: 40px; padding-bottom: 40px">
+                    <h3 class="monospace-font">Personal Garage</h3>
+                    <div class="row">
+                        {
+                            projects.map((project) => <div class="col-lg-6 colx"><ProjectCard title={project.title} description={project.description} tags={project.tags} github={project?.github} href={project.href} commits={project.commits}/></div> )
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 colx">
+            <div class="card box">
+                <div class="card-body" style="padding-top: 40px; padding-bottom: 40px">
+                    <h3 class="monospace-font">Tech Stack</h3>
+                    <div class="row mt-3">
+                        {   
+                            technologies.map((technology: Technology) => {
+                                return (
+                                <div class="col-3">
+                                    <Image src={technology.image} class="img-size img-thumbnail mx-auto d-block"  alt="Javascript logo"/>
+                                    <p class="text-center"><small>{technology.title}</small></p>
+                                </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .profile-details{
+       margin-top: 5vh;
+       margin-bottom: 5vh;
+    }
+
+    .colx{
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .profile-details p{
+        font-size: medium;
+    }
+
+    .card-body h3{
+        color: #4D57DE;
+    }
+    .card{
+        border: none;
+        border-radius: 10px;
+    }
+
+    .git-stats{
+        color: #9298A1;
+        display: inline-grid;
+    }
+    .img-size{
+        width: 40%;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+    }
+    .technology{
+        height: 100%;
+    }
+
+    .stats{
+        padding-top: 40px; 
+        padding-bottom: 40px
+    }
+
+    .intro{
+        padding: 40px 60px;
+    }
+
+    @media (max-width: 850px){
+        .colx{
+            margin: 10px;
+        }
+
+        .stats{
+            padding-top: 10px; 
+            padding-bottom: 10px
+        }
+
+        .intro{
+            padding: 20px;
+        }
+
+        .img-size{
+            width: 60%;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+        }
+        
+    }
+
+    @media (max-width: 480px) {
+        .img-size{
+            width: 75%;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+        }
+    }
+
+</style>

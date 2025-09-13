@@ -1,0 +1,131 @@
+---
+interface Props {
+  title?: string;
+  home?: string;
+  blogs?: string;
+  active?: string;
+}
+
+const { title = "Mohammad Anas" } = Astro.props;
+const { home = "/" } = Astro.props;
+const { blogs = "/blog" } = Astro.props;
+const { active = "/blog" } = Astro.props;
+---
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color : #fff;">
+  <a class="navbar-brand" href={home} style="color:#4D57DE;"><h2>{title}</h2></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+     <div class="container">
+          <ul class="navbar-nav mr-auto justify-content-end ">
+              <li class=`nav-item ${active === home ? 'active' : ''}`>
+                  <a class="nav-link" href={home}><b>main()</b></a>
+              </li>
+              <li class=`nav-item ${active !== home ? 'active' : ''}`>
+                  <a class="nav-link" href={blogs}><b>blogs()</b></a>
+              </li>
+              <li class=`nav-item`>
+                  <a class="nav-link" href="mailto:mail@mohdanas.me"><b>contact()</b></a>
+              </li>
+          </ul>
+     </div>
+  </div>
+</nav>
+
+<style>
+  .navbar{
+    color: black ;
+    padding-left: 10% ;
+    padding-right: 10% ;
+    padding-top: 1vh;
+    padding-bottom: 0.5vh;
+    height: 6vh;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .navbar-brand{
+    font-family: 'Lobster', cursive;
+    font-weight: 800;
+  }
+
+  .navbar-toggler{
+    padding: 0.1rem 0.35rem;
+    font-size: 1rem;
+  }
+  
+  /* .header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #333;
+  }
+
+  .logo-text {
+    background: linear-gradient(135deg, #4D57DE, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    color: #666;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: #4D57DE;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #4D57DE;
+    transition: width 0.2s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      gap: 1rem;
+    }
+    
+    .logo-text {
+      display: none;
+    }
+  } */
+</style>

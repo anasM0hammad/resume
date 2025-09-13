@@ -1,0 +1,210 @@
+---
+const languageData = {
+  labels: ['JavaScript', 'TypeScript', 'Solidity', 'C++', 'Python', 'Java'],
+  datasets: [{
+    data: [35, 25, 10, 15, 5, 5],
+    backgroundColor: [
+      '#f7df1e', // JavaScript
+      '#61dafb', // TypeScript
+      '#363636', // Soidity
+      '#3178c6', // C++
+      '#03865D', // Python
+      '#EB901B'  // Java
+    ],
+    borderColor: '#ffffff',
+    borderWidth: 2,
+    hoverBorderWidth: 3,
+    hoverOffset: 8
+  }]
+};
+
+const chartConfig = {
+  type: 'pie',
+  data: languageData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          padding: 20,
+          usePointStyle: true,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderWidth: 1,
+        cornerRadius: 8,
+        displayColors: false,
+        callbacks: {
+          label: function(context: any) {
+            const label = context.label || '';
+            const value = context.parsed;
+            const total = context.dataset.data.reduce((a: any, b: any) => a + b, 0);
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `${label}: ${percentage}%`;
+          }
+        }
+      }
+    },
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+      duration: 1000,
+      easing: 'easeOutQuart'
+    },
+    interaction: {
+      intersect: false,
+      mode: 'index'
+    }
+  }
+};
+
+---
+
+<div class="chart-wrapper">
+    <canvas id="languageChart"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<style>
+
+  .chart-wrapper {
+    position: relative;
+    height: 135px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    
+    .chart-wrapper {
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .chart-wrapper {
+      height: 200px;
+    }
+  }
+
+  /* Loading animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('languageChart').getContext('2d');
+    
+    const chartConfig = {
+      type: 'pie',
+      data: {
+        labels: ['JavaScript', 'TypeScript', 'Solidity', 'C++', 'Python', 'Java'],
+        datasets: [{
+          data: [35, 25, 10, 15, 10, 5],
+          backgroundColor: [
+            '#f7df1e', // JavaScript
+            '#61dafb', // TypeScript
+            '#363636', // Soidity
+            '#3178c6', // C++
+            '#03865D', // Python
+            '#EB901B'  // Java
+          ],
+          borderColor: '#ffffff',
+          borderWidth: 3,
+          hoverBorderWidth: 4,
+          hoverOffset: 10
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              padding: 20,
+              usePointStyle: true,
+              pointStyle: 'circle',
+              font: {
+                size: 14,
+                weight: '500'
+              },
+              color: '#333'
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            titleColor: '#fff',
+            bodyColor: '#fff',
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+            borderWidth: 1,
+            cornerRadius: 8,
+            displayColors: false,
+            titleFont: {
+              size: 14,
+              weight: 'bold'
+            },
+            bodyFont: {
+              size: 13
+            },
+            callbacks: {
+              label: function(context: any) {
+                const label = context.label || '';
+                const value = context.parsed;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${label}: ${percentage}%`;
+              }
+            }
+          }
+        },
+        animation: {
+          animateRotate: true,
+          animateScale: true,
+          duration: 1500,
+          easing: 'easeOutBounce'
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        }
+      }
+    };
+    
+    // Create the chart
+    const chart = new Chart(ctx, chartConfig);
+    
+    // Responsive legend position
+    function updateLegendPosition() {
+      if (window.innerWidth <= 768) {
+        chart.options.plugins.legend.position = 'bottom';
+      } else {
+        chart.options.plugins.legend.position = 'right';
+      }
+      chart.update();
+    }
+    
+    window.addEventListener('resize', updateLegendPosition);
+    updateLegendPosition();
+  });
+</script>

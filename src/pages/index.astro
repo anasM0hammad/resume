@@ -1,0 +1,125 @@
+---
+import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import profile from '../assets/profile.jpeg';
+import resume from '../assets/resume.pdf';
+import trophy from '../assets/trophy.svg';
+import Profile from '../components/Profile.astro';
+import Experience from '../components/Experience.astro';
+
+---
+
+<Layout title="Mohammad Anas">
+  <Header active='/'/>
+  
+  <main class="main">
+    <div class="intro container">
+        <div class="row">
+            <div class="col-sm-8 mx-auto d-block">
+                <h1><b>HELLO </b><div class="line"></div></h1>
+                <h1 class="display-4">I AM <span class="text-danger">ANAS<span></h1><br>
+                <h2 class="mb-5">A <span id="typewritter-text"></span></h2>
+                <div class="d-none d-sm-block d-md-block d-lg-block mt-3">
+                    <a href={resume} target="_blank"><button class="btn btn-outline-primary mx-auto btn-lg btn-a">Download Resume</button></a>
+                </div>
+                <div class="d-block d-sm-none d-md-none d-lg-none" style="margin-top: 10vh;">
+                    <a href={resume} target="_blank"><button class="btn btn-outline-primary mx-auto btn-lg btn-block btn-a">Download Resume</button></a>
+                    <div class="social_upper mx-auto d-block mt-5">
+                        <a href="https://www.github.com/anasM0hammad"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/anasm0hammad/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/anaslyzer.music/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 profile d-none d-sm-block d-md-block d-lg-block">
+                <Image src={profile} class={`myImage mx-auto d-block mb-5`} alt="Profile Image of Mohammad Anas"/>
+                <div class="social_upper mx-auto d-block">
+                    <a href="https://www.github.com/anasM0hammad"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/anasm0hammad/"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/anaslyzer.music/"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="job-header"></div>
+    <Profile />
+
+    <Experience />
+
+    <div class="achievements">
+        <div class="job-header">
+            <h1 class="text-center">Achievements</h1>
+        </div>
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-sm-3">
+                    <Image src={trophy} class="img-fluid d-none d-sm-block d-md-block d-lg-block" alt="Trophy icon for achievements"/>
+                </div>
+                <div class="col-sm-9">
+                    <div class="card ach-box mt-4">
+                        <div class="card-body">
+                            <h6><i class="fa fa-star text-warning"></i><b>Tech Significance Award</b> of the quarter in Adobe Q4 2024 </h6>
+                            <h6><i class="fa fa-star text-warning"></i><b>Kudos Award</b> of the quarter in Adobe Q1 2022 </h6>
+                            <h6><i class="fa fa-star text-warning"></i>Qualified for <b>ACM ICPC</b> regionals in 2017</h6>
+                            <h6><i class="fa fa-star text-warning"></i>Qualified <b>Advance level</b> DSA test in Samsung</h6>
+                            <h6><i class="fa fa-star text-warning"></i>In <b>Top 100</b> solidity developers of India by codersrank</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+ .main{
+   height: 97vh;
+  }
+
+  .intro{
+    font-family: 'Righteous';
+    padding-top: 150px;
+    height: 97vh;
+  }
+
+  .line{
+    display: inline-block ;
+    height: 1px ;
+    width: 50%;
+    background-color: black ;
+  }
+
+  .btn-a a:hover{
+    color: white;
+  }
+
+  .social_upper{
+    text-align: center;
+  }
+
+  .social_upper a{
+    color: #4C4C4C;
+    margin: 0 10px;
+    font-size: 2rem;
+  }
+
+  .profile{
+    margin-bottom: 25px;
+  }
+
+  .myImage{
+    height: 200px ;
+    width: 200px ;
+    object-fit: cover;
+    border-radius: 50% ;
+  }
+
+  .ach-box{
+    border: solid 2px #4D57DE;
+  }
+  
+</style>

@@ -1,0 +1,219 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  title: string;
+  description: string;
+  icon: any;
+  href: string;
+  gradient: string;
+}
+
+const { title, description, icon, href, gradient } = Astro.props;
+---
+
+<a href={href} class="blog-card" data-gradient={gradient}>
+  <div class="card-content">
+    <div class="icon-container">
+      <Image class="icon" src={icon} alt=`${title} icon`>
+    </div>
+    <div class="text-content">
+      <h3 class="card-title">{title}</h3>
+      <p class="card-description">{description}</p>
+    </div>
+    <div class="arrow">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</a>
+
+<style>
+  .blog-card {
+    display: block;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+  }
+
+  .blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(77, 87, 222, 0.1);
+    border-color: var(--color);
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .icon-container {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    /* background: linear-gradient(135deg, #4D57DE, #6366f1); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .text-content {
+    flex: none;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-description {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #999;
+    transition: all 0.3s ease;
+  }
+
+  .blog-card:hover .arrow {
+    color: #4D57DE;
+    transform: translateX(4px);
+  }
+
+  /* Gradient variations */
+  .blog-card[data-gradient="algorithms"] {
+    --gradient: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  }
+
+  .blog-card[data-gradient="ai"] {
+    --gradient: linear-gradient(135deg, #4D57DE, #6366f1);
+  }
+
+  .blog-card[data-gradient="blockchain"] {
+    --gradient: linear-gradient(135deg, #f39c12, #e67e22);
+  }
+
+  .blog-card[data-gradient="system"] {
+    --gradient: linear-gradient(135deg, #2ecc71, #27ae60);
+  }
+
+  .blog-card[data-gradient="web"] {
+    --gradient: linear-gradient(135deg, #e74c3c, #c0392b);
+  }
+
+  .blog-card[data-gradient="database"] {
+    --gradient: linear-gradient(135deg, #9b59b6, #8e44ad);
+  }
+
+  .blog-card[data-gradient="game"] {
+    --gradient: linear-gradient(135deg, #1abc9c, #16a085);
+  }
+
+  .blog-card[data-gradient="others"] {
+    --gradient: linear-gradient(135deg, #34495e, #2c3e50);
+  }
+
+  .blog-card[data-gradient="algorithms"] {
+    --color:  #ff6b6b;
+  }
+
+  .blog-card[data-gradient="ai"] {
+    --color:  #4D57DE;
+  }
+
+  .blog-card[data-gradient="blockchain"] {
+    --color:  #f39c12;
+  }
+
+  .blog-card[data-gradient="system"] {
+    --color:  #2ecc71;
+  }
+
+  .blog-card[data-gradient="web"] {
+    --color:  #e74c3c;
+  }
+
+  .blog-card[data-gradient="database"] {
+    --color:  #9b59b6;
+  }
+
+  .blog-card[data-gradient="game"] {
+    --color:  #1abc9c;
+  }
+
+  .blog-card[data-gradient="others"] {
+    --color:  #34495e;
+  }
+
+  @media (max-width: 768px) {
+    .blog-card {
+      padding: 1rem 0.6rem;
+      min-height: auto;
+    }
+    
+    .arrow {
+      display: none;
+    }
+    
+    .icon-container {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .icon {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .card-title {
+      font-size: 1.1rem;
+    }
+    
+    .card-description {
+      font-size: 0.9rem;
+    }
+  }
+</style>

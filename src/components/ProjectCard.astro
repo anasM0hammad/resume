@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  github?: string;
+  href?: string;
+  tags: string[];
+  commits?: number;
+}
+
+const { title, description, github, href, tags, commits } = Astro.props;
+
+---
+
+
+<div class="card">
+    <div class="card-body">
+        <h5>{title}</h5>
+        <p class="text-muted description">{description}</p>
+        <div>
+            { tags.map((tag: string) => <span class="badge badge-pill badge-primary mr-1">{tag}</span> ) }
+        </div>
+        <div>
+            { github && <a href={github} class="icons"><i class="fab fa-github"></i></a>}
+            { href && <a href={href} style="left: 30px" class="icons"><i class="fas fa-link"></i></a>}
+            { commits && <a href={github} style="left: 60px" class="icons"><i class="fas fa-code"></i>{commits}</a>}
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card{
+        border-radius: 8px;
+        background-color: #F8FAFC;
+        min-height: 300px;
+    }
+
+    .description{
+        font-size: 15px;
+    }
+
+    .icons{
+        position: absolute;
+        bottom: 10px;
+        font-size: medium;
+    }
+
+    @media(max-width: 850px) {
+        .card{
+           margin-bottom: 10px;
+        }
+    }
+    
+</style>

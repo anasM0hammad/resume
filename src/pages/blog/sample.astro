@@ -1,0 +1,407 @@
+---
+import Header from '../../components/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+
+const post = {
+  title: "Understanding Neural Networks: A Deep Dive into AI",
+  date: "December 15, 2024",
+  category: "Artificial Intelligence",
+  readTime: "8 min read",
+  author: "TechBlog Team"
+};
+---
+
+<Layout title={`${post.title} - TechBlog`}>
+  <Header />
+  
+  <main class="main">
+    <div class="container-bg">
+      <article class="blog-post">
+        <header class="post-header">
+          <div class="post-meta">
+            <span class="category">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10 9 11 5.16-1 9-5.45 9-11V5l-9-4z"/>
+              </svg>
+              {post.category}
+            </span>
+            <span class="date">{post.date}</span>
+            <span class="read-time">{post.readTime}</span>
+          </div>
+          
+          <h1 class="post-title">{post.title}</h1>
+          
+          <div class="author-info">
+            <div class="author-avatar">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <span class="author-name">{post.author}</span>
+          </div>
+        </header>
+
+        <div class="post-content">
+          <p class="lead">
+            Neural networks are the backbone of modern artificial intelligence, mimicking the way human brains process information. In this comprehensive guide, we'll explore how these powerful systems work and why they're revolutionizing technology.
+          </p>
+
+          <h2>What Are Neural Networks?</h2>
+          <p>
+            Neural networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) that process and transmit information, learning patterns from data to make predictions or decisions.
+          </p>
+
+          <div class="image-container">
+            <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Neural Network Visualization" />
+            <caption>A visual representation of a neural network architecture</caption>
+          </div>
+
+          <h2>Key Components</h2>
+          <p>Every neural network consists of several fundamental components:</p>
+
+          <ul>
+            <li><strong>Input Layer:</strong> Receives the initial data</li>
+            <li><strong>Hidden Layers:</strong> Process the information through weighted connections</li>
+            <li><strong>Output Layer:</strong> Produces the final result</li>
+            <li><strong>Weights and Biases:</strong> Parameters that determine the network's behavior</li>
+          </ul>
+
+          <h2>A Simple Neural Network Implementation</h2>
+          <p>Here's a basic example of a neural network implemented in Python:</p>
+
+          <pre><code class="language-python"><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="keyword">class</span> <span class="function">NeuralNetwork</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, input_size, hidden_size, output_size):
+        <span class="comment"># Initialize weights randomly</span>
+        self.W1 = np.random.randn(input_size, hidden_size) * <span class="number">0.01</span>
+        self.b1 = np.zeros((<span class="number">1</span>, hidden_size))
+        self.W2 = np.random.randn(hidden_size, output_size) * <span class="number">0.01</span>
+        self.b2 = np.zeros((<span class="number">1</span>, output_size))
+    
+    <span class="keyword">def</span> <span class="function">sigmoid</span>(self, x):
+        <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))
+    
+    <span class="keyword">def</span> <span class="function">forward</span>(self, X):
+        <span class="comment"># Forward propagation</span>
+        self.z1 = np.dot(X, self.W1) + self.b1
+        self.a1 = self.sigmoid(self.z1)
+        self.z2 = np.dot(self.a1, self.W2) + self.b2
+        self.a2 = self.sigmoid(self.z2)
+        <span class="keyword">return</span> self.a2
+
+<span class="comment"># Create a simple network</span>
+network = NeuralNetwork(<span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>)
+input_data = np.array([[<span class="number">0.5</span>, <span class="number">0.3</span>, <span class="number">0.8</span>]])
+<!-- output = network.forward(input_data) -->
+<span class="function">print</span>(<span class="string">f"Network output: {}"</span>)</code></pre>
+
+          <h2>Training Process</h2>
+          <p>
+            Neural networks learn through a process called <strong>backpropagation</strong>. This involves:
+          </p>
+
+          <ol>
+            <li>Forward pass: Data flows through the network to produce an output</li>
+            <li>Loss calculation: Compare the output with the expected result</li>
+            <li>Backward pass: Calculate gradients and update weights</li>
+            <li>Repeat: Continue until the network performs satisfactorily</li>
+          </ol>
+
+          <div class="callout">
+            <h3>💡 Pro Tip</h3>
+            <p>
+              Start with simple architectures and gradually increase complexity. Understanding the fundamentals is crucial before diving into advanced topics like deep learning and transformers.
+            </p>
+          </div>
+
+          <h2>Real-World Applications</h2>
+          <p>Neural networks power many technologies we use daily:</p>
+
+          <div class="applications-grid">
+            <div class="application-card">
+              <h4>Image Recognition</h4>
+              <p>From photo tagging to medical diagnosis, neural networks excel at identifying patterns in visual data.</p>
+            </div>
+            <div class="application-card">
+              <h4>Natural Language Processing</h4>
+              <p>Chatbots, translation services, and text analysis rely heavily on neural network architectures.</p>
+            </div>
+            <div class="application-card">
+              <h4>Autonomous Vehicles</h4>
+              <p>Self-driving cars use neural networks to process sensor data and make driving decisions.</p>
+            </div>
+          </div>
+
+          <h2>Getting Started</h2>
+          <p>
+            If you're interested in learning more about neural networks, here are some recommended next steps:
+          </p>
+
+          <pre><code class="language-bash"><span class="comment"># Install essential libraries</span>
+pip install tensorflow keras numpy matplotlib
+
+<span class="comment"># Or for PyTorch</span>
+pip install torch torchvision torchaudio</code></pre>
+
+          <p>
+            Neural networks represent one of the most exciting frontiers in computer science. As we continue to develop more sophisticated architectures and training techniques, their potential applications seem limitless.
+          </p>
+
+          <div class="post-footer">
+            <div class="tags">
+              <span class="tag">AI</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Neural Networks</span>
+              <span class="tag">Python</span>
+            </div>
+            
+            <div class="share-buttons">
+              <a href="#" class="btn btn-outline">Share Article</a>
+              <a href="/" class="btn">← Back to Blog</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .main {
+    padding: 2rem 0 4rem;
+  }
+
+  .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .post-header {
+    margin-bottom: 3rem;
+    text-align: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .post-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .category {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4D57DE;
+    font-weight: 500;
+  }
+
+  .post-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .author-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: #666;
+  }
+
+  .author-avatar {
+    width: 32px;
+    height: 32px;
+    background: #4D57DE;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .lead {
+    font-size: 1.3rem;
+    color: #555;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-left: 4px solid #4D57DE;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .post-content h2 {
+    font-size: 2rem;
+    color: #333;
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #4D57DE;
+  }
+
+  .post-content h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 2rem 0 1rem;
+  }
+
+  .post-content h4 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .post-content ul, .post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+  }
+
+  .post-content li {
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+
+  .image-container {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  .image-container img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-container caption {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  .callout {
+    background: linear-gradient(135deg, #4D57DE, #6366f1);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2.5rem 0;
+  }
+
+  .callout h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .callout p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .applications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .application-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+  }
+
+  .application-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(77, 87, 222, 0.1);
+    border-color: #4D57DE;
+  }
+
+  .application-card h4 {
+    color: #4D57DE;
+    margin-bottom: 0.75rem;
+  }
+
+  .application-card p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    background: #f1f5f9;
+    color: #4D57DE;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .post-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .post-title {
+      font-size: 2rem;
+    }
+
+    .post-content {
+      font-size: 1rem;
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
+
+    .post-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .applications-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .share-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

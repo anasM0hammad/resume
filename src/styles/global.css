@@ -1,0 +1,160 @@
+/* Global Styles */
+* {
+  margin: 0;
+  /* padding: 0; */
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+body {
+  background: #fff;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: #4B5563;
+  line-height: 1.8;
+}
+
+a {
+  color: #4D57DE;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #3a42c7;
+}
+
+/* Code Styling */
+code {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  line-height: 1.5;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Syntax highlighting colors (Dracula-inspired) */
+.keyword { color: #ff79c6; }
+.string { color: #f1fa8c; }
+.comment { color: #6272a4; }
+.function { color: #50fa7b; }
+.number { color: #bd93f9; }
+
+/* Container */
+.container-bg {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Buttons */
+/* .btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #4D57DE;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3a42c7;
+  transform: translateY(-1px);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #4D57DE;
+  border: 2px solid #4D57DE;
+}
+
+.btn-outline:hover {
+  background: #4D57DE;
+  color: white;
+} */
+
+.righteous{
+  font-family: 'Righteous';
+}
+
+.box{
+  background-color: #F8FAFC;
+}
+
+.job-header{
+  background-color: #4D57DE;
+  color: white;
+  padding: 20px;
+}
+
+.cursive-font{
+  font-family: 'Lobster', cursive;
+}
+
+.monospace-font{ 
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container-bg {
+    padding: 0 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}

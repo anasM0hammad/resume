@@ -1,0 +1,164 @@
+---
+import Header from '../../components/Header.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import dsa from './../../assets/blogs/dsa.svg';
+import ai from './../../assets/blogs/ai.svg';
+import blockchain from './../../assets/blogs/blockchain.svg';
+import hld from './../../assets/blogs/hld.svg';
+import web from './../../assets/blogs/web.svg';
+import db from './../../assets/blogs/db.svg';
+import game from './../../assets/blogs/game.svg';
+import other from './../../assets/blogs/technology.svg';
+
+const blogCategories = [
+  {
+    title: "Data Structures & Algorithms",
+    description: "Fundamentals of CS with DSA and problem-solving.",
+    icon: dsa,
+    href: "/blog/dsa",
+    gradient: "algorithms"
+  },
+  {
+    title: "Artificial Intelligence",
+    description: "Explore the fascinating world of AI and ML.",
+    icon: ai,
+    href: "/blog/ai",
+    gradient: "ai"
+  },
+  {
+    title: "Blockchain Technology",
+    description: "Dive into blockchain, smart contracts, and dApps.",
+    icon: blockchain,
+    href: "/blog/blockchain",
+    gradient: "blockchain"
+  },
+  {
+    title: "System Design",
+    description: "Scalable, reliable, and efficient distributed systems.",
+    icon: hld,
+    href: "/blog/system-design",
+    gradient: "system"
+  },
+  {
+    title: "Web Technologies",
+    description: "Web development, frameworks, tools, and best practices for web applications.",
+    icon: web,
+    href: "/blog/web",
+    gradient: "web"
+  },
+  {
+    title: "Databases",
+    description: "Database design, optimization, and management.",
+    icon: db,
+    href: "/blog/database",
+    gradient: "database"
+  },
+  {
+    title: "Game Development",
+    description: "Game engines, 2D/3D programming & game design patterns.",
+    icon: game,
+    href: "/blog/game-dev",
+    gradient: "game"
+  },
+  {
+    title: "Others",
+    description: "Topics in technology, programming languages & tools",
+    icon: other,
+    href: "/blog/misc",
+    gradient: "others"
+  }
+];
+---
+
+<Layout title="TechBlog - Modern Technology Insights">
+  <Header active='/blog' />
+  
+  <main class="main">
+    <div class="container-bg">
+      <section class="hero">
+        <h3 class="hero-title">
+          Here are the <span class="gradient-text">Topics</span> I write about...
+        </h3>
+      </section>
+
+      <section class="blog-categories">
+        <div class="categories-grid">
+          {blogCategories.map((category) => (
+            <BlogCard
+              title={category.title}
+              description={category.description}
+              icon={category.icon}
+              href={category.href}
+              gradient={category.gradient}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .main {
+    padding: 4rem 0;
+    min-height: 90vh;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    /* font-size: 3.5rem;
+    font-weight: 800; */
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #4D57DE, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .main {
+      padding: 2rem 0;
+    }
+    
+    .hero {
+      margin-bottom: 3rem;
+    }
+    
+    .hero-title {
+      font-size: 1.2rem;
+    }
+    
+    .hero-description {
+      font-size: 1.1rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .categories-grid {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>
