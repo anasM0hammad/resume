@@ -162,10 +162,6 @@ const technologies: Technology[] = [
         padding-right: 4px;
     }
 
-    .profile-details p{
-        font-size: medium;
-    }
-
     .card-body h3{
         color: #4D57DE;
     }
@@ -197,6 +193,12 @@ const technologies: Technology[] = [
         padding: 40px 60px;
     }
 
+    @media (min-width: 851px){
+        .profile-details p{
+            font-size: medium;
+        }
+    }
+
     @media (max-width: 850px){
         .colx{
             margin: 10px;
@@ -217,6 +219,10 @@ const technologies: Technology[] = [
             border: none;
             border-radius: 0;
         }
+
+        .profile-details p{
+            font-size: small;
+        }
         
     }
 
@@ -226,6 +232,10 @@ const technologies: Technology[] = [
             padding: 0;
             border: none;
             border-radius: 0;
+        }
+
+        .profile-details p{
+            font-size: small;
         }
     }
 
