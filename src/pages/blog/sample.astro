@@ -2,6 +2,8 @@
 import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const post = {
   title: "Understanding Neural Networks: A Deep Dive into AI",
   date: "December 15, 2024",
@@ -9,11 +11,11 @@ const post = {
   readTime: "8 min read",
   author: "TechBlog Team",
   description: "Some random description",
-  thumbnail: '/src/assets/samsung.png'
+  thumbnail: `${baseUrl}/src/assets/samsung.png`
 };
 ---
 
-<Layout title={`${post.title} - TechBlog`} ogTitle={post.title} ogDescription={post.description} ogImage={post.thumbnail} ogUrl="https://mohdanas.me">
+<Layout title={`${post.title} - TechBlog`} ogTitle={post.title} ogDescription={post.description} ogImage={post.thumbnail} ogUrl={baseUrl}>
   <Header />
   
   <main class="main">
