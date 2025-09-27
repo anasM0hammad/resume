@@ -14,15 +14,15 @@
 		<script src="https://kit.fontawesome.com/34aa8a70b7.js"></script>
 	
 		<!-- LOGO -->
-		<link rel="icon" type="image/gif" href="logo.png">
+		<link rel="icon" type="image/gif" href="/logo.png">
 		<meta name="generator" content={Astro.generator} />
 		<title>{Astro.props.title || "Anas"}</title>
 		<meta name="description" content="The Portfolio website of Mohammad Anas">
 		<!-- Open Graph Tags -->
 		<meta property="og:title" content={Astro.props.ogTitle || ""}>
 		<meta property="og:description" content={Astro.props.ogDescription || "Tech blog by Mohammad Anas"}>
-		<meta property="og:image" content={Astro.props.ogImage || ""}>
-		<meta property="og:url" content={Astro.props.ogUrl || ""}>
+		<meta property="og:image" content={`https://mohdanas.me${Astro.props.ogImage}` || ""}>
+		<meta property="og:url" content="https://mohdanas.me">
 		<meta property="og:type" content="website">
 		<meta property="og:site_name" content="Mohammad Anas blogs">
 		<!-- End Open Graph Tags -->
