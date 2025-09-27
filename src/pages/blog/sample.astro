@@ -7,11 +7,13 @@ const post = {
   date: "December 15, 2024",
   category: "Artificial Intelligence",
   readTime: "8 min read",
-  author: "TechBlog Team"
+  author: "TechBlog Team",
+  description: "Some random description",
+  thumbnail: '/src/assets/samsung.png'
 };
 ---
 
-<Layout title={`${post.title} - TechBlog`}>
+<Layout title={`${post.title} - TechBlog`} ogTitle={post.title} ogDescription={post.description} ogImage={post.thumbnail} ogUrl="https://mohdanas.me">
   <Header />
   
   <main class="main">
