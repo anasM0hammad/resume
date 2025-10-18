@@ -17,7 +17,7 @@ const { title, description, github, href, tags, commits } = Astro.props;
     <div class="card-body">
         <h5>{title}</h5>
         <p class="text-muted description">{description}</p>
-        <div>
+        <div class="tags">
             { tags.map((tag: string) => <span class="badge badge-pill badge-primary mr-1">{tag}</span> ) }
         </div>
         <div>
@@ -33,7 +33,12 @@ const { title, description, github, href, tags, commits } = Astro.props;
     .card{
         border-radius: 8px;
         background-color: #F8FAFC;
-        min-height: 300px;
+        /* min-height: 280px; */
+        margin-bottom: 10px;
+    }
+
+    .tags{
+        margin-bottom: 30px;
     }
 
     .description{

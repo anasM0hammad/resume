@@ -18,6 +18,10 @@ import openai from './../assets/openai.svg';
 import python from './../assets/python.svg';
 import react from './../assets/react.svg';
 import solidity from './../assets/solidity.svg';
+import threejs from './../assets/threejs.svg';
+import ollama from './../assets/ollama.svg';
+import langchain from './../assets/langchain.svg';
+import chroma from './../assets/chroma.svg';
 
 
 interface Project { 
@@ -36,10 +40,17 @@ interface Technology {
 const projects: Project[] = [
     {
         title: "dMed",
-        description: "dMed that enables storing Electronic Health Records on the Ethereum blockchain using the ERC-721 protocol for NFTs. Prescriptions created by doctors are stored as NFTs on IPFS",
+        description: "dMed enables storing Electronic Health Records on the Ethereum blockchain using the ERC-721 protocol for NFTs. Prescriptions created by doctors are stored as NFTs on IPFS",
         tags: ['blockchain', 'solidity', 'ethereum', 'React.js', 'Node.js', 'web3.js', 'NFT', 'ERC-721', 'IPFS'],
         github: "https://github.com/anasM0hammad/dMed_frontend",
         commits: 20,
+    },
+    {
+        title: "FormAI",
+        description: "FormAI is a chrome extension that automates the process of filling job application forms. Simply click on fill formon the website, and the bot handles the rest - from field detection to intelligent response generation.",
+        tags: ['Langchain', 'Chroma', 'Typescript', 'AI', 'Embeddings', 'RAG', 'AgentQL', 'OpenAI', 'Extenstion', 'React'],
+        github: "https://github.com/anasM0hammad/formAI-ext",
+        commits: 9,
     },
     {
         title: "spaceZ",
@@ -47,6 +58,13 @@ const projects: Project[] = [
         tags: ['C++', 'SFML', 'Game Dev', 'XCode', 'Python'],
         github: "https://github.com/anasM0hammad/spaceZ",
         commits: 5,
+    },
+    {
+        title: "Game Box",
+        description: "A collection of Javascript based 2D games for browser using HTML5 canvas",
+        tags: ['Javascript', 'Canvas', 'Game Dev', 'Web'],
+        github: "https://github.com/anasM0hammad/Game-Box",
+        commits: 64,
     }
 ]
 
@@ -67,6 +85,10 @@ const technologies: Technology[] = [
     { image: mongodb, title: 'MongoDB'},
     { image: astro, title: 'Astro'},
     { image: docker, title: 'Docker'},
+    { image: threejs, title: 'Three.js'},
+    { image: ollama, title: 'Ollama'},
+    { image: langchain, title: 'Langchain'},
+    { image: chroma, title: 'Chroma'}
 ]
 ---
 
@@ -90,7 +112,7 @@ const technologies: Technology[] = [
                     <div class="d-flex m-4" style="justify-content: space-between;">
                         <div class="text-center git-stats">
                             <i class="fa fa-bookmark text-primary"></i>
-                            <small class="text-primary">48</small>
+                            <small class="text-primary">50</small>
                             <small>Repositories</small>
                         </div>
                         <div class="text-center git-stats">
@@ -105,7 +127,7 @@ const technologies: Technology[] = [
                         </div>
                         <div class="text-center git-stats">
                             <i class="fa fa-code text-success"></i>
-                            <small class="text-success">112</small>
+                            <small class="text-success">136</small>
                             <small>Commits</small>
                         </div>
                     </div>
@@ -130,7 +152,7 @@ const technologies: Technology[] = [
         </div>
         <div class="col-lg-4 colx">
             <div class="card box">
-                <div class="card-body" style="padding-top: 40px; padding-bottom: 40px">
+                <div class="card-body" style="padding-top: 40px; padding-bottom: 142px">
                     <h3 class="monospace-font">Tech Stack</h3>
                     <div class="row mt-3">
                         {   
