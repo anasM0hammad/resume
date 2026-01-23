@@ -1,0 +1,731 @@
+---
+// privacy-policy.astro
+const pageTitle = "Flying Balloon - Privacy Policy";
+const lastUpdated = "January 23, 2026";
+---
+
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #135bec;
+            --color-background-light: #f6f6f8;
+            --color-background-dark: #101622;
+            --color-text-dark: #111318;
+            --color-text-gray: #616f89;
+            --color-text-slate: #334155;
+            --color-border-light: #f0f2f4;
+            --color-white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background-light);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border-light);
+            transition: all 0.2s;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--color-text-dark);
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+        }
+
+        .nav-desktop {
+            display: none;
+            flex: 1;
+            justify-content: flex-end;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.25rem;
+        }
+
+        .nav-link {
+            color: var(--color-text-dark);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 2.5rem;
+            padding: 0 1.5rem;
+            background-color: var(--color-primary);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(19, 91, 236, 0.2);
+        }
+
+        .btn-download:hover {
+            background-color: #1d4ed8;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            color: var(--color-text-dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header-container {
+                padding: 0.75rem 2.5rem;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+            .main-content {
+                padding: 2.5rem 2.5rem;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: none;
+            width: 16rem;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+            }
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 7rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .sidebar-link {
+            color: #475569;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-left: 2px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--color-primary);
+            border-left-color: rgba(19, 91, 236, 0.3);
+        }
+
+        .sidebar-link.active {
+            color: var(--color-primary);
+            font-weight: 500;
+            border-left-color: var(--color-primary);
+        }
+
+        /* Article Card */
+        .article {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .article-card {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .article-card {
+                padding: 3rem;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .page-title {
+            color: var(--color-text-dark);
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.033em;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .badge {
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .last-updated {
+            color: var(--color-text-gray);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+            scroll-margin-top: 7rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+        }
+
+        .section-title {
+            color: var(--color-text-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .section-text {
+            color: var(--color-text-slate);
+            font-size: 1rem;
+            line-height: 1.625;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            color: var(--color-text-gray);
+            font-size: 1rem;
+            line-height: 1.625;
+        }
+
+        @media (min-width: 768px) {
+            .intro-text {
+                font-size: 1.125rem;
+            }
+        }
+
+        .section-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            color: var(--color-text-slate);
+        }
+
+        .section-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Alert Box */
+        .alert {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .alert-text {
+            font-size: 0.875rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        /* Permission Cards */
+        .permission-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .permission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .permission-card {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+
+        .permission-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .permission-text {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background-color: var(--color-background-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-box {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .contact-item {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-link {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-border-light);
+            padding: 2.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-container {
+                padding: 0 2.5rem;
+            }
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-brand {
+                text-align: left;
+            }
+        }
+
+        .footer-title {
+            color: var(--color-text-dark);
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-copyright {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: #475569;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 1.875rem;">casino</span>
+                </div>
+                <h2 class="logo-text">Flying Balloon</h2>
+            </div>
+            <div class="nav-desktop">
+                <nav class="nav-links">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="mailto:info@mohdanas.me">Support</a>
+                </nav>
+                <button class="btn-download">
+                    <span>Download App</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-sticky">
+                    <h3 class="sidebar-title">Table of Contents</h3>
+                    <nav class="sidebar-nav">
+                        <a class="sidebar-link active" href="#introduction">Introduction</a>
+                        <a class="sidebar-link" href="#info-collect">1. Information We Collect</a>
+                        <a class="sidebar-link" href="#permissions">2. Device Permissions</a>
+                        <a class="sidebar-link" href="#third-party">3. Third-Party Services</a>
+                        <a class="sidebar-link" href="#security">4. Data Security</a>
+                        <a class="sidebar-link" href="#children">5. Children's Privacy</a>
+                        <a class="sidebar-link" href="#contact">6. Contact Us</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Article -->
+            <article class="article">
+                <div class="article-card">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="header-content">
+                            <h1 class="page-title">Privacy Policy</h1>
+                            <div class="header-meta">
+                                <span class="badge">Legal</span>
+                                <p class="last-updated">Last Updated: {lastUpdated}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Introduction -->
+                    <div class="section" id="introduction">
+                        <p class="intro-text">
+                            Thank you for choosing <strong>Flying Balloon</strong>. This Privacy Policy describes our policies and procedures on the collection, use, and disclosure of your information when you use our mobile game and tells you about your privacy rights and how the law protects you. We are committed to protecting your personal information and your right to privacy.
+                        </p>
+                    </div>
+
+                    <!-- Section 1 -->
+                    <div class="section" id="info-collect">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">info</span>
+                            </span>
+                            <h2 class="section-title">1. Information We Collect</h2>
+                        </div>
+                        <p class="section-text">
+                            Flying Balloon is a simple arcade game and does not collect any personally identifiable information such as your name, email address, phone number, or location.
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Device Information:</strong> We do not collect any information about your mobile device, including model, operating system version, and unique device identifiers.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="section" id="permissions">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">security</span>
+                            </span>
+                            <h2 class="section-title">3. Device Permissions</h2>
+                        </div>
+                        <p class="section-text">
+                            The app does not required any permissions to be enabled.
+                        </p>
+                        <!-- <div class="permission-grid">
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">photo_library</span>
+                                    <span>Storage / Gallery</span>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">photo_camera</span>
+                                    <span>Camera</span>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="section" id="third-party">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">hub</span>
+                            </span>
+                            <h2 class="section-title">4. Third-Party Services</h2>
+                        </div>
+                        <p class="section-text">
+                            We do not use or deploy any third party service. The app is ad free.
+                        </p>
+                        <!-- <ul class="section-list">
+                            <li><strong>Google AdMob:</strong> We use AdMob to display advertisements to support the development of the app. AdMob may collect data to provide personalized ads.</li>
+                            <li><strong>Unity Analytics:</strong> Used to understand game performance and crash reporting.</li>
+                        </ul> -->
+                    </div>
+
+                    <!-- Section 5 -->
+                    <div class="section" id="security">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">lock</span>
+                            </span>
+                            <h2 class="section-title">5. Data Security</h2>
+                        </div>
+                        <p class="section-text">
+                            The security of your data is important to us. The app does not in any way access or use any personal data. The app uses browser local storage to score game metrics only and does not access or use direct mobile sotrage in any way
+                        </p>
+                    </div>
+
+                    <!-- Section 6 -->
+                    <div class="section" id="children">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">child_care</span>
+                            </span>
+                            <h2 class="section-title">6. Children's Privacy</h2>
+                        </div>
+                        <!-- <p class="section-text">
+                            Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us.
+                        </p> -->
+                        <p>We do not collect any personal identifiable information of anyone. The app is safe for children of all age allowed by Google Play store policies</p>
+                    </div>
+
+                    <!-- Section 7 -->
+                    <div class="section" id="contact">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">mail</span>
+                            </span>
+                            <h2 class="section-title">7. Contact Us</h2>
+                        </div>
+                        <p class="section-text">
+                            If you have any questions about this Privacy Policy, You can contact us:
+                        </p>
+                        <div class="contact-box">
+                            <div class="contact-item">
+                                <p class="contact-label">Email Support</p>
+                                <a class="contact-link" href="mailto:info@mohdanas.me">info@mohdanas.me</a>
+                            </div>
+                            <div class="contact-item">
+                                <p class="contact-label">Website</p>
+                                <a class="contact-link" href="www.mohdanas.me">www.mohdanas.me</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <p class="footer-title">Flying Balloon</p>
+                <p class="footer-copyright">© 2026 All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <!-- <a class="footer-link" href="#">Terms of Service</a>
+                <a class="footer-link" href="#">Privacy Policy</a>
+                <a class="footer-link" href="#">Cookie Policy</a> -->
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
