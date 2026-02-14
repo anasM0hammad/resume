@@ -85,7 +85,7 @@ const products: Product[] = [
 
     <div class="products-grid">
       {products.map((product) => (
-        <a href={product.sourceUrl || "#"} target="_blank" rel="noopener" class="product-card">
+        <div class="product-card" data-href={product.sourceUrl || "#"}>
           <div class="product-body">
             <div class="product-info">
               <div class="product-name-row">
@@ -117,28 +117,25 @@ const products: Product[] = [
                   <span class="tech-pill">{t}</span>
                 ))}
               </div>
-              <div class="product-actions">
-                {product.sourceUrl && (
-                  <a href={product.sourceUrl} target="_blank" class="product-link">
-                    <i class="fab fa-github"></i> Source
-                  </a>
-                )}
-                {product.liveUrl && (
-                  <a href={product.liveUrl} target="_blank" class="product-link">
-                    <i class="fas fa-external-link-alt"></i> Live
-                  </a>
-                )}
-              </div>
             </div>
             <div class="product-icon-area">
               <i class={product.icon}></i>
             </div>
           </div>
-        </a>
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.product-card[data-href]').forEach((card) => {
+    card.addEventListener('click', () => {
+      const href = card.getAttribute('data-href');
+      if (href && href !== '#') window.open(href, '_blank');
+    });
+  });
+</script>
 
 <style>
   .products-section {
@@ -158,10 +155,7 @@ const products: Product[] = [
     border: 1px solid var(--border);
     border-radius: 10px;
     transition: border-color 0.2s ease, transform 0.2s ease;
-    text-decoration: none;
     cursor: pointer;
-    display: block;
-    color: inherit;
   }
 
   .product-card:hover {

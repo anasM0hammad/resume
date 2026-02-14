@@ -122,10 +122,11 @@ const tweets: Tweet[] = [
       ))}
     </div>
 
-    <a href="https://x.com/anaslyzer" target="_blank" rel="noopener" class="x-follow">
-      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/></svg>
-      Follow me on X
-    </a>
+    <div class="x-follow-wrap">
+      <a href="https://x.com/anaslyzer" target="_blank" rel="noopener" class="x-follow">
+        <span class="x-follow__prompt">$</span> follow <span class="x-follow__handle">@anaslyzer</span> <span class="x-follow__arrow">--on-x</span><span class="terminal-cursor"></span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -165,26 +166,41 @@ const tweets: Tweet[] = [
   }
 
   /* ── Follow link ── */
+  .x-follow-wrap {
+    text-align: center;
+    margin-top: 1.25rem;
+  }
+
   .x-follow {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #e7e9ea;
-    background: #16181c;
-    border: 1px solid #2f3336;
-    padding: 0.45rem 1rem;
-    border-radius: 20px;
+    gap: 0.3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--terminal-text);
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-border);
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
     text-decoration: none;
-    transition: background-color 0.15s ease;
+    transition: border-color 0.2s ease;
   }
 
   .x-follow:hover {
-    background: #1d1f23;
-    color: #1d9bf0;
+    border-color: var(--accent);
+  }
+
+  .x-follow__prompt {
+    color: var(--terminal-green);
+  }
+
+  .x-follow__handle {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .x-follow__arrow {
+    color: var(--text-muted);
   }
 
   /* ── Header ── */
