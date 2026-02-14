@@ -28,7 +28,7 @@
           <div class="pg-output" id="pg-output">
             <span class="pg-prompt">&gt;</span> <span class="pg-hint">Click Run or press Ctrl+Enter</span>
           </div>
-          <canvas id="pg-canvas" class="pg-canvas" width="280" height="280" style="display:none;"></canvas>
+          <canvas id="pg-canvas" class="pg-canvas" width="400" height="280" style="display:none;"></canvas>
         </div>
       </div>
     </div>
@@ -225,9 +225,10 @@
     output.innerHTML = '';
     const code = textarea?.value || '';
 
-    // Check for special commands
-    if (code.includes('snake()')) { startSnake(); return; }
-    if (code.includes('matrix()')) { startMatrix(); return; }
+    // Check for special commands — only match actual calls, not comments
+    const uncommented = code.split('\n').filter(l => !l.trimStart().startsWith('//')).join('\n');
+    if (uncommented.includes('snake()')) { startSnake(); return; }
+    if (uncommented.includes('matrix()')) { startMatrix(); return; }
 
     try {
       const result = new Function(`
@@ -314,7 +315,7 @@
 
   .pg-body {
     display: grid;
-    grid-template-columns: 1fr 280px;
+    grid-template-columns: 280px 1fr;
     min-height: 280px;
   }
 
@@ -387,7 +388,7 @@
   .pg-canvas {
     background: #0d1117;
     display: block;
-    width: 280px;
+    width: 100%;
     height: 280px;
   }
 
