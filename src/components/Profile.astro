@@ -70,6 +70,35 @@ const projects: Project[] = [
     }
 ]
 
+// Fetch GitHub stats at BUILD TIME (server-side, no rate limit issues)
+let ghData = { repos: 56, followers: 18, stars: 57, commits: 374 };
+try {
+  const userRes = await fetch('https://api.github.com/users/anasM0hammad');
+  if (userRes.ok) {
+    const user = await userRes.json();
+    if (user.public_repos !== undefined) {
+      ghData.repos = user.public_repos;
+      ghData.followers = user.followers || 18;
+    }
+
+    // Fetch all repos to sum stars
+    let totalStars = 0;
+    let page = 1;
+    while (true) {
+      const reposRes = await fetch(`https://api.github.com/users/anasM0hammad/repos?per_page=100&page=${page}`);
+      if (!reposRes.ok) break;
+      const repos = await reposRes.json();
+      if (!repos.length) break;
+      for (const r of repos) totalStars += (r.stargazers_count || 0);
+      if (repos.length < 100) break;
+      page++;
+    }
+    ghData.stars = totalStars || 57;
+  }
+} catch (e) {
+  // Build-time fetch failed, use fallback values
+}
+
 const technologies: Technology[] = [
     { image: javascriptWhite, title: 'JavaScript'},
     { image: typescriptWhite, title: 'TypeScript'},
@@ -96,9 +125,9 @@ const technologies: Technology[] = [
 ---
 
 <div class="container-bg profile-details">
-    <div class="row my-2 row-stretch">
-        <div class="col-lg-8 colx">
-            <div class="card box card-full">
+    <div class="row my-2 d-flex align-items-stretch">
+        <div class="col-lg-8 colx d-flex">
+            <div class="card box w-100">
                 <div class="card-body intro">
                     <div class="intro-header">
                         <div class="intro-profile-wrap" id="profile-tilt">
@@ -115,29 +144,29 @@ const technologies: Technology[] = [
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 colx">
-            <div class="card box card-full">
+        <div class="col-lg-4 colx d-flex">
+            <div class="card box w-100">
                 <div class="card-body stats">
                     <h3 class="monospace-font section-title">Github Space</h3>
                     <div class="d-flex m-4 github-stats-row">
                         <div class="text-center git-stats">
                             <i class="fa fa-bookmark stat-icon"></i>
-                            <small class="stat-value" id="gh-repos">--</small>
+                            <small class="stat-value">{ghData.repos}</small>
                             <small class="stat-label">Repositories</small>
                         </div>
                         <div class="text-center git-stats">
                             <i class="fa fa-user-plus stat-icon"></i>
-                            <small class="stat-value" id="gh-followers">--</small>
+                            <small class="stat-value">{ghData.followers}</small>
                             <small class="stat-label">Followers</small>
                         </div>
                         <div class="text-center git-stats">
                             <i class="fa fa-star stat-icon"></i>
-                            <small class="stat-value" id="gh-stars">--</small>
+                            <small class="stat-value">{ghData.stars}</small>
                             <small class="stat-label">Stars</small>
                         </div>
                         <div class="text-center git-stats">
                             <i class="fa fa-code stat-icon"></i>
-                            <small class="stat-value" id="gh-commits">--</small>
+                            <small class="stat-value">{ghData.commits}</small>
                             <small class="stat-label">Commits</small>
                         </div>
                     </div>
@@ -185,94 +214,8 @@ const technologies: Technology[] = [
 </div>
 
 <script>
-  // GitHub API integration — fetch live stats
-  document.addEventListener('DOMContentLoaded', function() {
-    fetchGitHubStats();
-    initProfileTilt();
-  });
-
-  async function fetchGitHubStats() {
-    const username = 'anasM0hammad';
-
-    // Set a timeout fallback — if API doesn't respond in 5s, show fallbacks
-    const fallbackTimer = setTimeout(() => setFallbackValues(), 5000);
-
-    try {
-      // Fetch user profile
-      const userRes = await fetch(`https://api.github.com/users/${username}`);
-      if (!userRes.ok) {
-        console.warn('GitHub API: user fetch failed, status:', userRes.status);
-        clearTimeout(fallbackTimer);
-        setFallbackValues();
-        return;
-      }
-      const user = await userRes.json();
-      console.log('GitHub API: user data received', { repos: user.public_repos, followers: user.followers });
-
-      const reposEl = document.getElementById('gh-repos');
-      const followersEl = document.getElementById('gh-followers');
-      if (reposEl) reposEl.textContent = String(user.public_repos || 0);
-      if (followersEl) followersEl.textContent = String(user.followers || 0);
-
-      // Fetch repos (paginated) to get star count
-      let totalStars = 0;
-      let page = 1;
-      while (true) {
-        const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&page=${page}`);
-        if (!reposRes.ok) break;
-        const repos = await reposRes.json();
-        if (!repos.length) break;
-        for (const repo of repos) {
-          totalStars += (repo.stargazers_count || 0);
-        }
-        if (repos.length < 100) break;
-        page++;
-      }
-      const starsEl = document.getElementById('gh-stars');
-      if (starsEl) starsEl.textContent = String(totalStars);
-
-      // Fetch events for commit count
-      const eventsRes = await fetch(`https://api.github.com/users/${username}/events?per_page=100`);
-      if (eventsRes.ok) {
-        const events = await eventsRes.json();
-        let commitCount = 0;
-        for (const e of events) {
-          if (e.type === 'PushEvent' && e.payload && e.payload.commits) {
-            commitCount += e.payload.commits.length;
-          }
-        }
-        const commitsEl = document.getElementById('gh-commits');
-        if (commitsEl) commitsEl.textContent = commitCount > 0 ? commitCount + '+' : '374';
-      } else {
-        const commitsEl = document.getElementById('gh-commits');
-        if (commitsEl) commitsEl.textContent = '374';
-      }
-
-      clearTimeout(fallbackTimer);
-    } catch (err) {
-      console.warn('GitHub API error:', err);
-      clearTimeout(fallbackTimer);
-      setFallbackValues();
-    }
-  }
-
-  function setFallbackValues() {
-    const fallbacks: Record<string, string> = {
-      'gh-repos': '56',
-      'gh-followers': '18',
-      'gh-stars': '57',
-      'gh-commits': '374'
-    };
-    for (const [id, val] of Object.entries(fallbacks)) {
-      const el = document.getElementById(id);
-      if (el && (el.textContent === '--' || el.textContent === '')) {
-        el.textContent = val;
-      }
-    }
-  }
-
   // Profile image 3D tilt (same effect as terminal)
-  function initProfileTilt() {
+  document.addEventListener('DOMContentLoaded', function() {
     const profileWrap = document.getElementById('profile-tilt');
     if (!profileWrap) return;
 
@@ -290,7 +233,7 @@ const technologies: Technology[] = [
       profileWrap.style.transition = 'transform 0.4s ease';
       profileWrap.style.transform = 'perspective(400px) rotateX(0) rotateY(0)';
     });
-  }
+  });
 </script>
 
 <style>
@@ -320,26 +263,6 @@ const technologies: Technology[] = [
 
     .handle {
         color: var(--accent) !important;
-    }
-
-    /* Match row heights */
-    .row-stretch {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .row-stretch > .colx {
-        display: flex;
-    }
-
-    .card-full {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .card-full .card-body {
-        flex: 1;
     }
 
     /* ============================================
@@ -498,10 +421,6 @@ const technologies: Technology[] = [
     @media (max-width: 850px){
         .colx{
             margin: 10px;
-        }
-
-        .row-stretch {
-            flex-direction: column;
         }
 
         .stats{

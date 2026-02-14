@@ -1,0 +1,227 @@
+---
+interface Tweet {
+  text: string;
+  date: string;
+  likes: number;
+  retweets: number;
+  url: string;
+}
+
+const tweets: Tweet[] = [
+  {
+    text: "Built a Chrome extension that fills job forms using AI. Langchain + RAG + OpenAI doing the heavy lifting. Open sourced it 🔗",
+    date: "Jan 15, 2025",
+    likes: 24,
+    retweets: 5,
+    url: "https://x.com/anaslyzer",
+  },
+  {
+    text: "Hot take: The best code you write is the code you delete. Shipped a feature today by removing 400 lines.",
+    date: "Dec 28, 2024",
+    likes: 89,
+    retweets: 12,
+    url: "https://x.com/anaslyzer",
+  },
+  {
+    text: "Solidity tip: Always check for reentrancy before external calls. Learned this the hard way building dMed 💀",
+    date: "Nov 10, 2024",
+    likes: 42,
+    retweets: 8,
+    url: "https://x.com/anaslyzer",
+  },
+  {
+    text: "4 years at Adobe and the biggest lesson? Ship fast, iterate faster. Perfect is the enemy of shipped.",
+    date: "Oct 5, 2024",
+    likes: 156,
+    retweets: 23,
+    url: "https://x.com/anaslyzer",
+  },
+  {
+    text: "Just crossed 50+ NFT health records on dMed testnet. Decentralized healthcare is closer than you think 🏥⛓️",
+    date: "Sep 18, 2024",
+    likes: 38,
+    retweets: 7,
+    url: "https://x.com/anaslyzer",
+  },
+];
+---
+
+<section class="x-section">
+  <div class="container-bg">
+    <h3 class="section-header">
+      <span class="prompt">&gt;</span> curl api.x.com/anaslyzer<span class="terminal-cursor"></span>
+    </h3>
+
+    <div class="x-feed">
+      {tweets.map((tweet) => (
+        <a href={tweet.url} target="_blank" class="x-card" rel="noopener">
+          <div class="x-card-top">
+            <div class="x-avatar">
+              <span class="x-avatar-letter">A</span>
+            </div>
+            <div class="x-user">
+              <span class="x-name">Mohammad Anas</span>
+              <span class="x-handle">@anaslyzer</span>
+            </div>
+            <svg class="x-logo" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+            </svg>
+          </div>
+          <p class="x-text">{tweet.text}</p>
+          <div class="x-card-bottom">
+            <span class="x-date">{tweet.date}</span>
+            <div class="x-metrics">
+              <span class="x-metric"><i class="far fa-heart"></i> {tweet.likes}</span>
+              <span class="x-metric"><i class="fas fa-retweet"></i> {tweet.retweets}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .x-section {
+    padding: 4rem 0;
+    background: var(--bg-primary);
+    transition: background-color 0.3s ease;
+  }
+
+  .x-feed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .x-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.15rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .x-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .x-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .x-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .x-avatar-letter {
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .x-user {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .x-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .x-handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+  }
+
+  .x-logo {
+    color: var(--text-muted);
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .x-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0 0 0.6rem 0;
+    flex: 1;
+  }
+
+  .x-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .x-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--text-muted);
+  }
+
+  .x-metrics {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .x-metric {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .x-metric i {
+    font-size: 0.55rem;
+  }
+
+  .x-card:hover .x-metric .fa-heart {
+    color: #e0245e;
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .x-feed {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .x-section {
+      padding: 3rem 0;
+    }
+
+    .x-feed {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

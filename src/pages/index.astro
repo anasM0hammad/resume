@@ -11,6 +11,7 @@ import Experience from '../components/Experience.astro';
 import Showcase from '../components/Showcase.astro';
 import Education from '../components/Education.astro';
 import GitLog from '../components/GitLog.astro';
+import XPosts from '../components/XPosts.astro';
 import EasterEgg from '../components/EasterEgg.astro';
 
 ---
@@ -84,6 +85,9 @@ import EasterEgg from '../components/EasterEgg.astro';
 
     <!-- ═══════════════ PROFILE ═══════════════ -->
     <div class="reveal"><Profile /></div>
+
+    <!-- ═══════════════ X / TWITTER ═══════════════ -->
+    <div class="reveal"><XPosts /></div>
 
     <!-- ═══════════════ EXPERIENCE ═══════════════ -->
     <div class="reveal"><Experience /></div>
@@ -219,19 +223,19 @@ import EasterEgg from '../components/EasterEgg.astro';
   // Console ASCII art Easter egg
   console.log(
     '%c' +
-    '╔══════════════════════════════════════════╗\n' +
-    '║                                          ║\n' +
-    '║      █████╗ ███╗   ██╗ █████╗ ███████╗   ║\n' +
-    '║     ██╔══██╗████╗  ██║██╔══██╗██╔════╝   ║\n' +
-    '║     ███████║██╔██╗ ██║███████║███████╗    ║\n' +
-    '║     ██╔══██║██║╚██╗██║██╔══██║╚════██║    ║\n' +
-    '║     ██║  ██║██║ ╚████║██║  ██║███████║    ║\n' +
-    '║     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    ║\n' +
-    '║                                          ║\n' +
-    '║   Hey hacker! Try the Konami code ;)     ║\n' +
-    '║   ↑ ↑ ↓ ↓ ← → ← → B A                  ║\n' +
-    '║                                          ║\n' +
-    '╚══════════════════════════════════════════╝',
+    '╔═══════════════════════════════════════════╗\n' +
+    '║                                           ║\n' +
+    '║    █████╗ ███╗   ██╗ █████╗ ███████╗      ║\n' +
+    '║   ██╔══██╗████╗  ██║██╔══██╗██╔════╝      ║\n' +
+    '║   ███████║██╔██╗ ██║███████║███████╗       ║\n' +
+    '║   ██╔══██║██║╚██╗██║██╔══██║╚════██║      ║\n' +
+    '║   ██║  ██║██║ ╚████║██║  ██║███████║      ║\n' +
+    '║   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝      ║\n' +
+    '║                                           ║\n' +
+    '║   Hey hacker! Try the Konami code ;)      ║\n' +
+    '║   ↑ ↑ ↓ ↓ ← → ← → B A                   ║\n' +
+    '║                                           ║\n' +
+    '╚═══════════════════════════════════════════╝',
     'color: #C04848; font-family: monospace; font-size: 11px;'
   );
   console.log(
@@ -263,6 +267,8 @@ import EasterEgg from '../components/EasterEgg.astro';
     gap: 3rem;
     align-items: center;
     width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
   .hero-left {

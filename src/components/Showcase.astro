@@ -2,10 +2,10 @@
 interface Product {
   name: string;
   tagline: string;
-  description: string;
   category: string;
   icon: string;
   status: string;
+  stats: { label: string; value: string }[];
   tech: string[];
   sourceUrl?: string;
   liveUrl?: string;
@@ -15,40 +15,55 @@ const products: Product[] = [
   {
     name: "FormAI",
     tagline: "AI-powered chrome extension that automates job application forms using RAG pipeline.",
-    description: "",
     category: "Chrome Extension",
     icon: "fas fa-brain",
     status: "Active",
+    stats: [
+      { label: "Stars", value: "9" },
+      { label: "Users", value: "120+" },
+      { label: "Version", value: "v1.2" },
+      { label: "MRR", value: "$0" },
+    ],
     tech: ["Langchain", "OpenAI", "TypeScript", "React", "RAG"],
     sourceUrl: "https://github.com/anasM0hammad/formAI-ext",
   },
   {
     name: "dMed",
     tagline: "Electronic Health Records stored on Ethereum blockchain as NFTs using ERC-721.",
-    description: "",
     category: "DApp",
     icon: "fas fa-heartbeat",
     status: "Shipped",
+    stats: [
+      { label: "Stars", value: "20" },
+      { label: "Records", value: "50+" },
+      { label: "MRR", value: "$0" },
+    ],
     tech: ["Solidity", "React", "Web3.js", "IPFS"],
     sourceUrl: "https://github.com/anasM0hammad/dMed_frontend",
   },
   {
     name: "spaceZ",
     tagline: "C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies.",
-    description: "",
     category: "Desktop Game",
     icon: "fas fa-rocket",
     status: "Shipped",
+    stats: [
+      { label: "Stars", value: "5" },
+      { label: "Downloads", value: "50+" },
+    ],
     tech: ["C++", "SFML", "Game Dev"],
     sourceUrl: "https://github.com/anasM0hammad/spaceZ",
   },
   {
     name: "Game Box",
     tagline: "Collection of browser-based 2D games using HTML5 Canvas, pure vanilla JS.",
-    description: "",
     category: "Web App",
     icon: "fas fa-dice",
     status: "Active",
+    stats: [
+      { label: "Stars", value: "64" },
+      { label: "Games", value: "5" },
+    ],
     tech: ["JavaScript", "Canvas", "HTML5"],
     sourceUrl: "https://github.com/anasM0hammad/Game-Box",
   },
@@ -72,6 +87,14 @@ const products: Product[] = [
               </div>
               <span class="product-category">{product.category}</span>
               <p class="product-tagline">{product.tagline}</p>
+              <div class="product-stats">
+                {product.stats.map((stat) => (
+                  <span class="stat-item">
+                    <span class="stat-val">{stat.value}</span>
+                    <span class="stat-lbl">{stat.label}</span>
+                  </span>
+                ))}
+              </div>
               <div class="product-tech">
                 {product.tech.map((t) => (
                   <span class="tech-pill">{t}</span>
@@ -192,6 +215,32 @@ const products: Product[] = [
     color: var(--text-secondary);
     margin: 0.4rem 0 0.6rem 0;
     line-height: 1.5;
+  }
+
+  .product-stats {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+  }
+
+  .stat-val {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-lbl {
+    font-weight: 400;
+    color: var(--text-muted);
+    text-transform: lowercase;
   }
 
   .product-tech {
