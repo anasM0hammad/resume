@@ -185,6 +185,10 @@ const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
       padding: 3rem 0;
     }
 
+    .heatmap-card {
+      padding: 1rem;
+    }
+
     .heatmap-cell {
       width: 8px;
       height: 8px;
@@ -196,6 +200,38 @@ const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 
     .heatmap-col {
       gap: 2px;
+    }
+
+    .heatmap-month {
+      font-size: 0.48rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .heatmap-cell {
+      width: 5px;
+      height: 5px;
+    }
+
+    .heatmap-grid {
+      gap: 1px;
+    }
+
+    .heatmap-col {
+      gap: 1px;
+    }
+
+    .heatmap-card {
+      padding: 0.75rem;
+    }
+
+    .heatmap-legend .heatmap-cell {
+      width: 8px;
+      height: 8px;
+    }
+
+    .heatmap-month {
+      font-size: 0.42rem;
     }
   }
 </style>

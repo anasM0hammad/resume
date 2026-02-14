@@ -138,8 +138,12 @@ const languageData = {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (window.innerWidth <= 768) {
         chart.options.plugins.legend.position = 'bottom';
+        chart.options.plugins.legend.labels.font.size = 11;
+        chart.options.plugins.legend.labels.padding = 12;
       } else {
         chart.options.plugins.legend.position = 'right';
+        chart.options.plugins.legend.labels.font.size = 14;
+        chart.options.plugins.legend.labels.padding = 20;
       }
       chart.options.plugins.legend.labels.color = isDark ? '#b0b0b0' : '#333';
       chart.data.datasets[0].borderColor = isDark ? '#1a1a1a' : '#ffffff';

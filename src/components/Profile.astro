@@ -455,6 +455,16 @@ const technologies: Technology[] = [
             width: 80px;
             height: 80px;
         }
+
+        .github-stats-row {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem !important;
+        }
+
+        .git-stats {
+            min-width: 60px;
+        }
     }
 
     @media (max-width: 480px) {
@@ -475,11 +485,44 @@ const technologies: Technology[] = [
 
         .profile-details p{
             font-size: small;
+            line-height: 1.6;
         }
 
         .intro-profile-img {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .intro{
+            padding: 15px;
+        }
+
+        .intro-header {
+            gap: 0.75rem;
+        }
+
+        .colx{
+            margin: 5px;
+        }
+
+        .github-stats-row {
+            margin: 0.5rem !important;
+        }
+
+        .stat-icon {
+            font-size: 0.85rem;
+        }
+
+        .stat-value {
+            font-size: 0.8rem;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+        }
+
+        .tech-label {
+            font-size: 0.55rem;
         }
     }
 

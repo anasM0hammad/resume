@@ -32,13 +32,13 @@ const { title, description, icon, href, gradient } = Astro.props;
 <style>
   .blog-card {
     display: block;
-    background: white;
+    background: var(--bg-card);
     border-radius: 12px;
     padding: 2rem;
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
     position: relative;
     overflow: hidden;
     min-height: 200px;
@@ -99,12 +99,12 @@ const { title, description, icon, href, gradient } = Astro.props;
   .card-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
 
   .card-description {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
     margin: 0;
@@ -114,12 +114,12 @@ const { title, description, icon, href, gradient } = Astro.props;
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: #999;
+    color: var(--text-muted);
     transition: all 0.3s ease;
   }
 
   .blog-card:hover .arrow {
-    color: #4D57DE;
+    color: var(--accent);
     transform: translateX(4px);
   }
 
