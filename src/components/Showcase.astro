@@ -1,0 +1,264 @@
+---
+interface FeaturedProject {
+  title: string;
+  description: string;
+  type: string;
+  tech: string[];
+  github?: string;
+  live?: string;
+}
+
+const projects: FeaturedProject[] = [
+  {
+    title: "FormAI",
+    description: "Chrome extension that automates job application forms using AI. Click fill, and the bot handles field detection to intelligent response generation via RAG.",
+    type: "Chrome Extension",
+    tech: ["Langchain", "OpenAI", "TypeScript", "React", "RAG"],
+    github: "https://github.com/anasM0hammad/formAI-ext",
+  },
+  {
+    title: "dMed",
+    description: "Electronic Health Records on Ethereum blockchain using ERC-721. Doctor prescriptions stored as NFTs on IPFS for immutable medical data.",
+    type: "Website",
+    tech: ["Solidity", "React", "Web3.js", "IPFS", "NFT"],
+    github: "https://github.com/anasM0hammad/dMed_frontend",
+  },
+  {
+    title: "spaceZ",
+    description: "Fast-paced C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies, survive as long as you can.",
+    type: "Game",
+    tech: ["C++", "SFML", "Game Dev"],
+    github: "https://github.com/anasM0hammad/spaceZ",
+  },
+  {
+    title: "Game Box",
+    description: "Collection of browser-based 2D games built with vanilla JavaScript and HTML5 Canvas. No frameworks, pure code.",
+    type: "Tool",
+    tech: ["JavaScript", "Canvas", "HTML5"],
+    github: "https://github.com/anasM0hammad/Game-Box",
+  },
+];
+
+const typeIcons: Record<string, string> = {
+  "Chrome Extension": "fas fa-puzzle-piece",
+  "Mobile App": "fas fa-mobile-alt",
+  "Website": "fas fa-globe",
+  "SaaS": "fas fa-cloud",
+  "Tool": "fas fa-wrench",
+  "Game": "fas fa-gamepad",
+};
+---
+
+<section class="showcase-section">
+  <div class="container-bg">
+    <h3 class="section-header">
+      <span class="prompt">&gt;</span> ls ~/projects/featured<span class="terminal-cursor"></span>
+    </h3>
+
+    <div class="showcase-grid">
+      {projects.map((project, i) => (
+        <div class={`showcase-card ${i === 0 ? 'featured' : ''}`}>
+          <div class="card-inner">
+            <div class="card-type">
+              <i class={typeIcons[project.type] || "fas fa-code"}></i>
+              <span>{project.type}</span>
+            </div>
+
+            <h3 class="card-title">{project.title}</h3>
+            <p class="card-desc">{project.description}</p>
+
+            <div class="card-tech">
+              {project.tech.map((t) => (
+                <span class="tech-pill">{t}</span>
+              ))}
+            </div>
+
+            <div class="card-links">
+              {project.github && (
+                <a href={project.github} target="_blank" class="card-link">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              )}
+              {project.live && (
+                <a href={project.live} target="_blank" class="card-link">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+              )}
+            </div>
+          </div>
+
+          <div class="card-glow"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase-section {
+    padding: 4rem 0;
+    background: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .showcase-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: default;
+  }
+
+  .showcase-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--accent);
+  }
+
+  .showcase-card.featured {
+    grid-column: span 2;
+  }
+
+  .card-inner {
+    position: relative;
+    z-index: 1;
+    padding: 1.75rem;
+  }
+
+  .featured .card-inner {
+    padding: 2rem 2.25rem;
+  }
+
+  .card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background: radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 70%);
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .showcase-card:hover .card-glow {
+    opacity: 1;
+  }
+
+  .card-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .card-type i {
+    font-size: 0.65rem;
+  }
+
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+  }
+
+  .featured .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tech-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--tag-text);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .card-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .card-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color 0.2s ease;
+  }
+
+  .card-link:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .showcase-section {
+      padding: 3rem 0;
+    }
+
+    .showcase-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .showcase-card.featured {
+      grid-column: span 1;
+    }
+
+    .card-inner {
+      padding: 1.25rem;
+    }
+
+    .featured .card-inner {
+      padding: 1.25rem;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+    }
+
+    .featured .card-title {
+      font-size: 1.15rem;
+    }
+  }
+</style>

@@ -4,12 +4,12 @@ const languageData = {
   datasets: [{
     data: [35, 25, 10, 15, 5, 5],
     backgroundColor: [
-      '#f7df1e', // JavaScript
-      '#61dafb', // TypeScript
-      '#363636', // Soidity
-      '#3178c6', // C++
-      '#03865D', // Python
-      '#EB901B'  // Java
+      '#f7df1e',
+      '#61dafb',
+      '#363636',
+      '#3178c6',
+      '#03865D',
+      '#EB901B'
     ],
     borderColor: '#ffffff',
     borderWidth: 2,
@@ -17,56 +17,6 @@ const languageData = {
     hoverOffset: 8
   }]
 };
-
-const chartConfig = {
-  type: 'pie',
-  data: languageData,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          padding: 20,
-          usePointStyle: true,
-          font: {
-            size: 14
-          }
-        }
-      },
-      tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        titleColor: '#fff',
-        bodyColor: '#fff',
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        borderWidth: 1,
-        cornerRadius: 8,
-        displayColors: false,
-        callbacks: {
-          label: function(context: any) {
-            const label = context.label || '';
-            const value = context.parsed;
-            const total = context.dataset.data.reduce((a: any, b: any) => a + b, 0);
-            const percentage = ((value / total) * 100).toFixed(1);
-            return `${label}: ${percentage}%`;
-          }
-        }
-      }
-    },
-    animation: {
-      animateRotate: true,
-      animateScale: true,
-      duration: 1000,
-      easing: 'easeOutQuart'
-    },
-    interaction: {
-      intersect: false,
-      mode: 'index'
-    }
-  }
-};
-
 ---
 
 <div class="chart-wrapper">
@@ -84,9 +34,7 @@ const chartConfig = {
     overflow: hidden;
   }
 
-  /* Responsive Design */
   @media (max-width: 768px) {
-    
     .chart-wrapper {
       height: 200px;
     }
@@ -97,24 +45,21 @@ const chartConfig = {
       height: 200px;
     }
   }
-
-  /* Loading animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('languageChart').getContext('2d');
-    
+    const ctx = (document.getElementById('languageChart') as HTMLCanvasElement)?.getContext('2d');
+    if (!ctx) return;
+
+    function getLegendColor() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? '#b0b0b0' : '#333';
+    }
+
+    function getBorderColor() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? '#1a1a1a' : '#ffffff';
+    }
+
     const chartConfig = {
       type: 'pie',
       data: {
@@ -122,14 +67,14 @@ const chartConfig = {
         datasets: [{
           data: [35, 25, 10, 15, 10, 5],
           backgroundColor: [
-            '#f7df1e', // JavaScript
-            '#61dafb', // TypeScript
-            '#363636', // Soidity
-            '#3178c6', // C++
-            '#03865D', // Python
-            '#EB901B'  // Java
+            '#f7df1e',
+            '#61dafb',
+            '#363636',
+            '#3178c6',
+            '#03865D',
+            '#EB901B'
           ],
-          borderColor: '#ffffff',
+          borderColor: getBorderColor(),
           borderWidth: 3,
           hoverBorderWidth: 4,
           hoverOffset: 10
@@ -140,7 +85,7 @@ const chartConfig = {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            position: 'right',
+            position: 'right' as const,
             labels: {
               padding: 20,
               usePointStyle: true,
@@ -149,7 +94,7 @@ const chartConfig = {
                 size: 14,
                 weight: '500'
               },
-              color: '#333'
+              color: getLegendColor()
             }
           },
           tooltip: {
@@ -171,7 +116,7 @@ const chartConfig = {
               label: function(context: any) {
                 const label = context.label || '';
                 const value = context.parsed;
-                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
                 const percentage = ((value / total) * 100).toFixed(1);
                 return `${label}: ${percentage}%`;
               }
@@ -183,28 +128,29 @@ const chartConfig = {
           animateScale: true,
           duration: 1500,
           easing: 'easeOutBounce'
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index'
         }
       }
     };
-    
-    // Create the chart
+
     const chart = new Chart(ctx, chartConfig);
-    
-    // Responsive legend position
-    function updateLegendPosition() {
+
+    function updateChart() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (window.innerWidth <= 768) {
         chart.options.plugins.legend.position = 'bottom';
       } else {
         chart.options.plugins.legend.position = 'right';
       }
+      chart.options.plugins.legend.labels.color = isDark ? '#b0b0b0' : '#333';
+      chart.data.datasets[0].borderColor = isDark ? '#1a1a1a' : '#ffffff';
       chart.update();
     }
-    
-    window.addEventListener('resize', updateLegendPosition);
-    updateLegendPosition();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(updateChart);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    window.addEventListener('resize', updateChart);
+    updateChart();
   });
 </script>

@@ -13,10 +13,10 @@ const { title, description, github, href, tags, commits } = Astro.props;
 ---
 
 
-<div class="card">
+<div class="card project-card">
     <div class="card-body">
         <h5>{title}</h5>
-        <p class="text-muted description">{description}</p>
+        <p class="description">{description}</p>
         <div class="tags">
             { tags.map((tag: string) => <span class="badge badge-pill badge-primary mr-1">{tag}</span> ) }
         </div>
@@ -30,11 +30,21 @@ const { title, description, github, href, tags, commits } = Astro.props;
 
 
 <style>
-    .card{
+    .project-card {
         border-radius: 8px;
-        background-color: #F8FAFC;
-        /* min-height: 280px; */
+        background-color: var(--bg-secondary);
         margin-bottom: 10px;
+        border: 1px solid var(--border-light);
+        transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+        border-color: var(--border);
+        box-shadow: var(--card-shadow);
+    }
+
+    .project-card h5 {
+        color: var(--text-primary);
     }
 
     .tags{
@@ -43,18 +53,25 @@ const { title, description, github, href, tags, commits } = Astro.props;
 
     .description{
         font-size: 15px;
+        color: var(--text-muted);
     }
 
     .icons{
         position: absolute;
         bottom: 10px;
         font-size: medium;
+        color: var(--text-muted);
+        transition: color 0.2s ease;
+    }
+
+    .icons:hover {
+        color: var(--accent);
     }
 
     @media(max-width: 850px) {
-        .card{
+        .project-card {
            margin-bottom: 10px;
         }
     }
-    
+
 </style>

@@ -1,0 +1,198 @@
+---
+interface LogEntry {
+  hash: string;
+  message: string;
+  ref?: string;
+  date: string;
+}
+
+const entries: LogEntry[] = [
+  {
+    hash: "a8d24e5",
+    message: "shipped FormAI — AI-powered job form filler",
+    ref: "HEAD -> main",
+    date: "2025"
+  },
+  {
+    hash: "053a683",
+    message: "published blog series on system design",
+    date: "2025"
+  },
+  {
+    hash: "6980362",
+    message: "promoted to Computer Scientist @ Adobe",
+    ref: "origin/career",
+    date: "2025"
+  },
+  {
+    hash: "1ba8cb6",
+    message: "built dMed — health records on blockchain",
+    date: "2024"
+  },
+  {
+    hash: "6b871cf",
+    message: "hit 50+ repositories on GitHub",
+    date: "2024"
+  },
+  {
+    hash: "f3a21d0",
+    message: "won Tech Significance Award @ Adobe Q4",
+    ref: "tag: v2.0",
+    date: "2024"
+  },
+  {
+    hash: "c7e9f12",
+    message: "CoreSync optimization — 45% latency reduction",
+    date: "2023"
+  },
+  {
+    hash: "d4b8a3e",
+    message: "joined Adobe as Software Engineer",
+    ref: "origin/career",
+    date: "2021"
+  },
+];
+---
+
+<section class="gitlog-section">
+  <div class="container-bg">
+    <h3 class="section-header">
+      <span class="prompt">&gt;</span> git log --oneline<span class="terminal-cursor"></span>
+    </h3>
+
+    <div class="gitlog-terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="terminal-title">~/career</span>
+      </div>
+      <div class="terminal-body">
+        {entries.map((entry) => (
+          <div class="log-entry">
+            <span class="log-graph">*</span>
+            <span class="log-hash">{entry.hash}</span>
+            {entry.ref && <span class="log-ref">({entry.ref})</span>}
+            <span class="log-message">{entry.message}</span>
+            <span class="log-date">{entry.date}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gitlog-section {
+    padding: 4rem 0;
+    background: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+  }
+
+  .gitlog-terminal {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--terminal-border);
+    background: var(--terminal-bg);
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    background: #161b22;
+    border-bottom: 1px solid var(--terminal-border);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #ff5f56; }
+  .dot-yellow { background: #ffbd2e; }
+  .dot-green { background: #27c93f; }
+
+  .terminal-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #8b949e;
+  }
+
+  .terminal-body {
+    padding: 1rem 1.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.9;
+  }
+
+  .log-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .log-graph {
+    color: var(--terminal-green);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .log-hash {
+    color: #f0883e;
+    flex-shrink: 0;
+  }
+
+  .log-ref {
+    color: var(--terminal-green);
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+
+  .log-message {
+    color: var(--terminal-text);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .log-date {
+    color: #484f58;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  @media (max-width: 768px) {
+    .gitlog-section {
+      padding: 3rem 0;
+    }
+
+    .terminal-body {
+      font-size: 0.7rem;
+      padding: 0.75rem;
+      line-height: 2;
+    }
+
+    .log-entry {
+      gap: 0.35rem;
+    }
+
+    .log-date {
+      display: none;
+    }
+
+    .log-ref {
+      display: none;
+    }
+  }
+</style>
