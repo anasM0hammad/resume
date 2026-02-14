@@ -85,7 +85,7 @@ const products: Product[] = [
 
     <div class="products-grid">
       {products.map((product) => (
-        <div class="product-card">
+        <a href={product.sourceUrl || "#"} target="_blank" rel="noopener" class="product-card">
           <div class="product-body">
             <div class="product-info">
               <div class="product-name-row">
@@ -134,7 +134,7 @@ const products: Product[] = [
               <i class={product.icon}></i>
             </div>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   </div>
@@ -158,6 +158,10 @@ const products: Product[] = [
     border: 1px solid var(--border);
     border-radius: 10px;
     transition: border-color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    color: inherit;
   }
 
   .product-card:hover {

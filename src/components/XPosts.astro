@@ -121,6 +121,11 @@ const tweets: Tweet[] = [
         </a>
       ))}
     </div>
+
+    <a href="https://x.com/anaslyzer" target="_blank" rel="noopener" class="x-follow">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/></svg>
+      Follow me on X
+    </a>
   </div>
 </section>
 
@@ -150,11 +155,36 @@ const tweets: Tweet[] = [
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.15s ease;
   }
 
   .x-tweet:hover {
     background: #1d1f23;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ── Follow link ── */
+  .x-follow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #e7e9ea;
+    background: #16181c;
+    border: 1px solid #2f3336;
+    padding: 0.45rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  .x-follow:hover {
+    background: #1d1f23;
+    color: #1d9bf0;
   }
 
   /* ── Header ── */
