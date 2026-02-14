@@ -1,93 +1,151 @@
 ---
-interface FeaturedProject {
-  title: string;
+interface Product {
+  name: string;
+  tagline: string;
   description: string;
-  type: string;
+  category: string;
+  icon: string;
+  status: string;
+  stats: { label: string; value: string }[];
   tech: string[];
-  github?: string;
-  live?: string;
+  liveUrl?: string;
+  sourceUrl?: string;
+  featured?: boolean;
 }
 
-const projects: FeaturedProject[] = [
+const products: Product[] = [
   {
-    title: "FormAI",
-    description: "Chrome extension that automates job application forms using AI. Click fill, and the bot handles field detection to intelligent response generation via RAG.",
-    type: "Chrome Extension",
+    name: "FormAI",
+    tagline: "AI-powered job form filler",
+    description: "Chrome extension that automates job application forms. Click fill, and the bot handles field detection to intelligent response generation via RAG pipeline.",
+    category: "Chrome Extension",
+    icon: "fas fa-brain",
+    status: "Active",
+    stats: [
+      { label: "Stars", value: "9" },
+      { label: "Users", value: "120+" },
+      { label: "Version", value: "v1.2" },
+      { label: "MRR", value: "$0" },
+    ],
     tech: ["Langchain", "OpenAI", "TypeScript", "React", "RAG"],
-    github: "https://github.com/anasM0hammad/formAI-ext",
+    sourceUrl: "https://github.com/anasM0hammad/formAI-ext",
+    featured: true,
   },
   {
-    title: "dMed",
-    description: "Electronic Health Records on Ethereum blockchain using ERC-721. Doctor prescriptions stored as NFTs on IPFS for immutable medical data.",
-    type: "Website",
-    tech: ["Solidity", "React", "Web3.js", "IPFS", "NFT"],
-    github: "https://github.com/anasM0hammad/dMed_frontend",
+    name: "dMed",
+    tagline: "Health records on Ethereum",
+    description: "EHR on blockchain using ERC-721. Doctor prescriptions stored as NFTs on IPFS for immutable medical data.",
+    category: "DApp",
+    icon: "fas fa-heartbeat",
+    status: "Shipped",
+    stats: [
+      { label: "Stars", value: "20" },
+      { label: "Records", value: "50+" },
+      { label: "MRR", value: "$0" },
+    ],
+    tech: ["Solidity", "React", "Web3.js", "IPFS"],
+    sourceUrl: "https://github.com/anasM0hammad/dMed_frontend",
   },
   {
-    title: "spaceZ",
-    description: "Fast-paced C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies, survive as long as you can.",
-    type: "Game",
+    name: "spaceZ",
+    tagline: "Fast-paced arcade shooter",
+    description: "C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies, survive.",
+    category: "Desktop Game",
+    icon: "fas fa-rocket",
+    status: "Shipped",
+    stats: [
+      { label: "Stars", value: "5" },
+      { label: "Downloads", value: "50+" },
+    ],
     tech: ["C++", "SFML", "Game Dev"],
-    github: "https://github.com/anasM0hammad/spaceZ",
+    sourceUrl: "https://github.com/anasM0hammad/spaceZ",
   },
   {
-    title: "Game Box",
-    description: "Collection of browser-based 2D games built with vanilla JavaScript and HTML5 Canvas. No frameworks, pure code.",
-    type: "Tool",
+    name: "Game Box",
+    tagline: "Browser-based 2D games",
+    description: "Collection of JS games using HTML5 Canvas. No frameworks, pure code.",
+    category: "Web App",
+    icon: "fas fa-dice",
+    status: "Active",
+    stats: [
+      { label: "Stars", value: "64" },
+      { label: "Games", value: "5" },
+    ],
     tech: ["JavaScript", "Canvas", "HTML5"],
-    github: "https://github.com/anasM0hammad/Game-Box",
+    sourceUrl: "https://github.com/anasM0hammad/Game-Box",
   },
 ];
 
-const typeIcons: Record<string, string> = {
-  "Chrome Extension": "fas fa-puzzle-piece",
-  "Mobile App": "fas fa-mobile-alt",
-  "Website": "fas fa-globe",
-  "SaaS": "fas fa-cloud",
-  "Tool": "fas fa-wrench",
-  "Game": "fas fa-gamepad",
+const statusColors: Record<string, string> = {
+  "Active": "#27c93f",
+  "Shipped": "#61dafb",
+  "Beta": "#ffbd2e",
 };
 ---
 
-<section class="showcase-section">
+<section class="products-section">
   <div class="container-bg">
     <h3 class="section-header">
-      <span class="prompt">&gt;</span> ls ~/projects/featured<span class="terminal-cursor"></span>
+      <span class="prompt">&gt;</span> ls ~/products<span class="terminal-cursor"></span>
     </h3>
 
-    <div class="showcase-grid">
-      {projects.map((project, i) => (
-        <div class={`showcase-card ${i === 0 ? 'featured' : ''}`}>
-          <div class="card-inner">
-            <div class="card-type">
-              <i class={typeIcons[project.type] || "fas fa-code"}></i>
-              <span>{project.type}</span>
+    <div class="products-grid">
+      {products.map((product) => (
+        <div class={`product-card ${product.featured ? 'featured' : ''}`}>
+          <div class="product-inner">
+            <!-- Header row -->
+            <div class="product-top">
+              <div class="product-icon">
+                <i class={product.icon}></i>
+              </div>
+              <div class="product-meta">
+                <span class="product-category">{product.category}</span>
+                <span class="product-status" style={`--status-color: ${statusColors[product.status] || '#7a7a7a'}`}>
+                  <span class="status-dot"></span>
+                  {product.status}
+                </span>
+              </div>
             </div>
 
-            <h3 class="card-title">{project.title}</h3>
-            <p class="card-desc">{project.description}</p>
+            <!-- Name & description -->
+            <h3 class="product-name">{product.name}</h3>
+            <p class="product-tagline">{product.tagline}</p>
+            {product.featured && <p class="product-desc">{product.description}</p>}
 
-            <div class="card-tech">
-              {project.tech.map((t) => (
+            <!-- Stats -->
+            <div class="product-stats">
+              {product.stats.map((stat) => (
+                <div class="stat-block">
+                  <span class="stat-val">{stat.value}</span>
+                  <span class="stat-lbl">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Tech -->
+            <div class="product-tech">
+              {product.tech.map((t) => (
                 <span class="tech-pill">{t}</span>
               ))}
             </div>
 
-            <div class="card-links">
-              {project.github && (
-                <a href={project.github} target="_blank" class="card-link">
-                  <i class="fab fa-github"></i> Source
+            <!-- Actions -->
+            <div class="product-actions">
+              {product.liveUrl && (
+                <a href={product.liveUrl} target="_blank" class="product-cta primary">
+                  <i class="fas fa-external-link-alt"></i> Try it
                 </a>
               )}
-              {project.live && (
-                <a href={project.live} target="_blank" class="card-link">
-                  <i class="fas fa-external-link-alt"></i> Live
+              {product.sourceUrl && (
+                <a href={product.sourceUrl} target="_blank" class={`product-cta ${product.liveUrl ? 'secondary' : 'primary'}`}>
+                  <i class="fab fa-github"></i> Source
                 </a>
               )}
             </div>
           </div>
 
-          <div class="card-glow"></div>
+          <!-- Hover glow -->
+          <div class="product-glow"></div>
         </div>
       ))}
     </div>
@@ -95,21 +153,21 @@ const typeIcons: Record<string, string> = {
 </section>
 
 <style>
-  .showcase-section {
-    padding: 4rem 0;
+  .products-section {
+    padding: 5rem 0;
     background: var(--bg-secondary);
     transition: background-color 0.3s ease;
   }
 
-  .showcase-grid {
+  .products-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
 
-  .showcase-card {
+  .product-card {
     position: relative;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -117,148 +175,319 @@ const typeIcons: Record<string, string> = {
     cursor: default;
   }
 
-  .showcase-card:hover {
-    transform: translateY(-4px);
+  .product-card:hover {
+    transform: translateY(-6px);
     box-shadow: var(--card-shadow-hover);
     border-color: var(--accent);
   }
 
-  .showcase-card.featured {
-    grid-column: span 2;
+  .product-card.featured {
+    grid-column: span 3;
+    background: linear-gradient(135deg, var(--bg-card), var(--accent-light));
+    border: 2px solid var(--accent);
   }
 
-  .card-inner {
+  .product-card.featured .product-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 0 2rem;
+  }
+
+  .product-card.featured .product-top {
+    grid-column: 1 / -1;
+  }
+
+  .product-card.featured .product-name {
+    grid-column: 1;
+  }
+
+  .product-card.featured .product-tagline {
+    grid-column: 1;
+  }
+
+  .product-card.featured .product-desc {
+    grid-column: 1;
+  }
+
+  .product-card.featured .product-stats {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    align-self: center;
+    justify-self: end;
+  }
+
+  .product-card.featured .product-tech {
+    grid-column: 1 / -1;
+  }
+
+  .product-card.featured .product-actions {
+    grid-column: 1 / -1;
+  }
+
+  .product-inner {
     position: relative;
     z-index: 1;
-    padding: 1.75rem;
+    padding: 1.5rem;
   }
 
-  .featured .card-inner {
-    padding: 2rem 2.25rem;
+  .product-card.featured .product-inner {
+    padding: 2rem;
   }
 
-  .card-glow {
+  .product-glow {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     opacity: 0;
-    background: radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 70%);
+    background: radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 60%);
     transition: opacity 0.35s ease;
     pointer-events: none;
   }
 
-  .showcase-card:hover .card-glow {
+  .product-card:hover .product-glow {
     opacity: 1;
   }
 
-  .card-type {
-    display: inline-flex;
+  /* Top row: icon + meta */
+  .product-top {
+    display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    background: var(--tag-bg);
-    border: 1px solid var(--tag-border);
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
+    justify-content: space-between;
     margin-bottom: 1rem;
   }
 
-  .card-type i {
-    font-size: 0.65rem;
+  .product-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    border: 1px solid var(--tag-border);
+    border-radius: 10px;
+    color: var(--accent);
+    font-size: 1.1rem;
   }
 
-  .card-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.35rem;
+  .product-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .product-category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .product-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--status-color);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status-color);
+  }
+
+  /* Product info */
+  .product-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.6rem;
+    margin: 0 0 0.25rem 0;
   }
 
-  .featured .card-title {
-    font-size: 1.5rem;
+  .product-card.featured .product-name {
+    font-size: 1.75rem;
   }
 
-  .card-desc {
+  .product-tagline {
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.88rem;
     color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
   }
 
-  .card-tech {
+  .product-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.6;
+  }
+
+  /* Stats */
+  .product-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    min-width: 60px;
+    transition: background-color 0.3s ease;
+  }
+
+  .stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-lbl {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tech pills */
+  .product-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-bottom: 1.25rem;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
   }
 
   .tech-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 500;
     color: var(--tag-text);
     background: var(--tag-bg);
     border: 1px solid var(--tag-border);
-    padding: 0.15rem 0.5rem;
+    padding: 0.12rem 0.45rem;
     border-radius: 3px;
   }
 
-  .card-links {
+  /* Actions */
+  .product-actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
-  .card-link {
+  .product-cta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    display: flex;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    transition: color 0.2s ease;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
   }
 
-  .card-link:hover {
+  .product-cta.primary {
+    background: var(--accent);
+    color: var(--text-inverse);
+  }
+
+  .product-cta.primary:hover {
+    background: var(--accent-hover);
+    color: var(--text-inverse);
+    transform: translateY(-1px);
+  }
+
+  .product-cta.secondary {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .product-cta.secondary:hover {
     color: var(--accent);
+    border-color: var(--accent);
   }
 
-  @media (max-width: 768px) {
-    .showcase-section {
-      padding: 3rem 0;
+  @media (max-width: 968px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
 
-    .showcase-grid {
+    .product-card.featured {
+      grid-column: span 2;
+    }
+
+    .product-card.featured .product-inner {
       grid-template-columns: 1fr;
     }
 
-    .showcase-card.featured {
+    .product-card.featured .product-stats {
+      grid-column: 1;
+      grid-row: auto;
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .products-section {
+      padding: 3rem 0;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-card.featured {
       grid-column: span 1;
     }
 
-    .card-inner {
+    .product-card.featured .product-inner {
+      padding: 1.5rem;
+    }
+
+    .product-card.featured .product-name {
+      font-size: 1.3rem;
+    }
+
+    .product-inner {
       padding: 1.25rem;
     }
 
-    .featured .card-inner {
-      padding: 1.25rem;
-    }
-
-    .card-title {
+    .product-name {
       font-size: 1.15rem;
     }
 
-    .featured .card-title {
-      font-size: 1.15rem;
+    .product-stats {
+      gap: 0.5rem;
+    }
+
+    .stat-block {
+      padding: 0.35rem 0.5rem;
+      min-width: 50px;
     }
   }
 </style>

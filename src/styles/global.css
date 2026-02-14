@@ -2,7 +2,6 @@
    THEME SYSTEM - CSS Custom Properties
    ============================================ */
 :root {
-  /* Light theme */
   --bg-primary: #ffffff;
   --bg-secondary: #f7f5f3;
   --bg-card: #faf8f6;
@@ -89,7 +88,7 @@
 }
 
 html {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: var(--text-primary);
   scroll-behavior: smooth;
@@ -105,6 +104,7 @@ body {
    TYPOGRAPHY
    ============================================ */
 h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -114,6 +114,7 @@ h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
 
 p {
+  font-family: 'DM Sans', sans-serif;
   margin-bottom: 1rem;
   color: var(--text-secondary);
   line-height: 1.8;
@@ -158,7 +159,6 @@ pre code {
   color: inherit;
 }
 
-/* Syntax highlighting */
 .keyword { color: #ff79c6; }
 .string { color: #f1fa8c; }
 .comment { color: #6272a4; }
@@ -231,6 +231,13 @@ pre code {
 .section-header .prompt {
   color: var(--accent);
   margin-right: 0.5rem;
+}
+
+/* ============================================
+   DARK MODE: X/Twitter icon invert
+   ============================================ */
+[data-theme="dark"] .social-icon-img {
+  filter: invert(1);
 }
 
 /* ============================================

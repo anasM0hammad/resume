@@ -45,17 +45,15 @@ import EasterEgg from '../components/EasterEgg.astro';
             <span class="npx-copied" id="npx-copied">copied!</span>
           </div>
 
-          <div class="hero-social">
-            <a target="_blank" href="https://x.com/anaslyzer" aria-label="Twitter"><Image src={twitter} class="social-icon" alt="Twitter"/></a>
-            <a target="_blank" href="https://www.github.com/anasM0hammad" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a target="_blank" href="https://www.linkedin.com/in/anasm0hammad/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a target="_blank" href="https://www.instagram.com/anaslyzer.music/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <!-- Profile image below intro text -->
+          <div class="hero-profile-wrap">
+            <Image src={profile} class="hero-profile-img" alt="Mohammad Anas"/>
           </div>
         </div>
 
         <div class="hero-right">
-          <!-- Terminal widget -->
-          <div class="hero-terminal">
+          <!-- Terminal widget with 3D tilt -->
+          <div class="hero-terminal" id="hero-terminal">
             <div class="term-bar">
               <div class="term-dots">
                 <span class="dot dot-r"></span>
@@ -75,15 +73,18 @@ import EasterEgg from '../components/EasterEgg.astro';
             </div>
           </div>
 
-          <!-- Profile image -->
-          <div class="hero-profile-wrap">
-            <Image src={profile} class="hero-profile-img" alt="Mohammad Anas"/>
+          <!-- Social icons below terminal -->
+          <div class="hero-social">
+            <a target="_blank" href="https://x.com/anaslyzer" aria-label="Twitter"><Image src={twitter} class="social-icon-img" alt="Twitter"/></a>
+            <a target="_blank" href="https://www.github.com/anasM0hammad" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a target="_blank" href="https://www.linkedin.com/in/anasm0hammad/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a target="_blank" href="https://www.instagram.com/anaslyzer.music/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════ SHOWCASE ═══════════════ -->
+    <!-- ═══════════════ PRODUCTS ═══════════════ -->
     <Showcase />
 
     <!-- ═══════════════ PROFILE ═══════════════ -->
@@ -160,10 +161,7 @@ import EasterEgg from '../components/EasterEgg.astro';
     }
   }
 
-  // Run on load
   updateTagline();
-
-  // Watch for theme changes
   const taglineObserver = new MutationObserver(updateTagline);
   taglineObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
@@ -177,11 +175,30 @@ import EasterEgg from '../components/EasterEgg.astro';
       }
     });
   });
+
+  // 3D tilt effect on terminal
+  const heroTerminal = document.getElementById('hero-terminal');
+  if (heroTerminal) {
+    heroTerminal.addEventListener('mousemove', (e) => {
+      const rect = heroTerminal.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const rotateY = (x - 0.5) * 8;
+      const rotateX = (0.5 - y) * 8;
+      heroTerminal.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      heroTerminal.style.transition = 'none';
+    });
+
+    heroTerminal.addEventListener('mouseleave', () => {
+      heroTerminal.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      heroTerminal.style.transform = 'perspective(800px) rotateX(0) rotateY(0)';
+    });
+  }
 </script>
 
 <style>
   .main-content {
-    padding-top: 60px; /* navbar height */
+    padding-top: 60px;
   }
 
   /* ============================================
@@ -218,12 +235,13 @@ import EasterEgg from '../components/EasterEgg.astro';
   }
 
   .hero-name {
-    font-family: 'Righteous', cursive;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
     line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .hero-accent {
@@ -231,9 +249,9 @@ import EasterEgg from '../components/EasterEgg.astro';
   }
 
   .hero-role {
-    font-family: 'Righteous', cursive;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--text-primary);
     margin: 0.5rem 0 1rem 0;
   }
@@ -251,7 +269,6 @@ import EasterEgg from '../components/EasterEgg.astro';
     margin-right: 0.35rem;
   }
 
-  /* Resume button (terminal style) */
   .hero-actions {
     margin-bottom: 1rem;
   }
@@ -283,7 +300,6 @@ import EasterEgg from '../components/EasterEgg.astro';
     opacity: 0.7;
   }
 
-  /* npx badge */
   .npx-badge {
     display: inline-flex;
     align-items: center;
@@ -299,7 +315,7 @@ import EasterEgg from '../components/EasterEgg.astro';
     transition: all 0.2s ease;
     position: relative;
     width: fit-content;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .npx-badge:hover {
@@ -323,37 +339,27 @@ import EasterEgg from '../components/EasterEgg.astro';
     opacity: 1;
   }
 
-  /* Social icons */
-  .hero-social {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  /* Profile image in hero-left */
+  .hero-profile-wrap {
+    margin-top: 0.5rem;
   }
 
-  .hero-social a {
-    color: var(--text-muted);
-    font-size: 1.5rem;
-    transition: color 0.2s ease;
+  .hero-profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+    transition: all 0.3s ease;
   }
 
-  .hero-social a:hover {
-    color: var(--accent);
-  }
-
-  .social-icon {
-    height: 24px;
-    width: 24px;
-    vertical-align: middle;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-  }
-
-  .hero-social a:hover .social-icon {
-    opacity: 1;
+  .hero-profile-img:hover {
+    box-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow);
   }
 
   /* ============================================
-     HERO RIGHT - Terminal + Profile
+     HERO RIGHT - Terminal + Social
      ============================================ */
   .hero-right {
     display: flex;
@@ -364,12 +370,14 @@ import EasterEgg from '../components/EasterEgg.astro';
 
   .hero-terminal {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--terminal-border);
     background: var(--terminal-bg);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    will-change: transform;
+    transform-style: preserve-3d;
   }
 
   .term-bar {
@@ -418,23 +426,34 @@ import EasterEgg from '../components/EasterEgg.astro';
     padding-left: 0.5rem;
   }
 
-  /* Profile image */
-  .hero-profile-wrap {
-    position: relative;
+  /* Social icons below terminal */
+  .hero-social {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
   }
 
-  .hero-profile-img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--accent);
-    box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
-    transition: all 0.3s ease;
+  .hero-social a {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    transition: all 0.2s ease;
   }
 
-  .hero-profile-img:hover {
-    box-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow);
+  .hero-social a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .social-icon-img {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .hero-social a:hover .social-icon-img {
+    opacity: 1;
   }
 
   /* ============================================
@@ -521,7 +540,6 @@ import EasterEgg from '../components/EasterEgg.astro';
 
     .hero-right {
       order: -1;
-      flex-direction: column-reverse;
     }
 
     .hero-terminal {
@@ -529,8 +547,8 @@ import EasterEgg from '../components/EasterEgg.astro';
     }
 
     .hero-profile-img {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
     }
 
     .ach-card {
