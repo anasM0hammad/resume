@@ -12,120 +12,243 @@ const { blogs = "/blog" } = Astro.props;
 const { active = "/blog" } = Astro.props;
 ---
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color : #fff;">
-  <a class="navbar-brand" href={home} style="color:#4D57DE;"><h2>{title}</h2></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-  
-  <div class="collapse navbar-collapse " id="navbarSupportedContent">
-     <div class="container">
-          <ul class="navbar-nav mr-auto justify-content-end ">
-              <li class=`nav-item ${active === home ? 'active' : ''}`>
-                  <a class="nav-link" href={home}><b>main()</b></a>
-              </li>
-              <li class=`nav-item ${active !== home ? 'active' : ''}`>
-                  <a class="nav-link" href={blogs}><b>blogs()</b></a>
-              </li>
-              <li class=`nav-item`>
-                  <a class="nav-link" href="mailto:mail@mohdanas.me"><b>contact()</b></a>
-              </li>
-          </ul>
-     </div>
+<nav class="navbar" id="main-nav">
+  <a class="navbar-brand" href={home}>
+    <span class="brand-text">{title}</span>
+  </a>
+
+  <div class="nav-right">
+    <div class="nav-links" id="nav-links">
+      <a class={`nav-link ${active === home ? 'active' : ''}`} href={home}>main()</a>
+      <a class={`nav-link ${active !== home ? 'active' : ''}`} href={blogs}>blogs()</a>
+      <a class="nav-link" href="mailto:mail@mohdanas.me">contact()</a>
+    </div>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobile-menu">
+  <a class={`mobile-link ${active === home ? 'active' : ''}`} href={home}>main()</a>
+  <a class={`mobile-link ${active !== home ? 'active' : ''}`} href={blogs}>blogs()</a>
+  <a class="mobile-link" href="mailto:mail@mohdanas.me">contact()</a>
+</div>
+
+<script>
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger?.addEventListener('click', () => {
+    hamburger.classList.toggle('is-active');
+    mobileMenu?.classList.toggle('is-open');
+  });
+</script>
+
 <style>
-  .navbar{
-    color: black ;
-    padding-left: 10% ;
-    padding-right: 10% ;
-    padding-top: 1vh;
-    padding-bottom: 0.5vh;
-    height: 6vh;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  .navbar-brand{
-    font-family: 'Lobster', cursive;
-    font-weight: 800;
-  }
-
-  .navbar-toggler{
-    padding: 0.1rem 0.35rem;
-    font-size: 1rem;
-  }
-  
-  /* .header {
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 1rem 0;
-    position: sticky;
+  .navbar {
+    position: fixed;
     top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-  }
-
-  .header-content {
+    left: 0;
+    right: 0;
+    z-index: 1000;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
+    padding: 0 6%;
+    height: 60px;
+    background: var(--bg-header);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
-  .logo {
+  .navbar-brand {
+    text-decoration: none;
+  }
+
+  .brand-text {
+    font-family: 'Lobster', cursive;
+    font-size: 1.5rem;
+    color: var(--accent);
+    transition: color 0.2s ease;
+  }
+
+  .navbar-brand:hover .brand-text {
+    color: var(--accent-hover);
+  }
+
+  .nav-right {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: #333;
+    gap: 1rem;
   }
 
-  .logo-text {
-    background: linear-gradient(135deg, #4D57DE, #6366f1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .nav {
+  .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 0.25rem;
   }
 
   .nav-link {
-    color: #666;
-    font-weight: 500;
-    transition: color 0.2s ease;
-    position: relative;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-decoration: none;
   }
 
   .nav-link:hover {
-    color: #4D57DE;
+    color: var(--accent);
+    background: var(--accent-light);
   }
 
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
+  .nav-link.active {
+    color: var(--accent);
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 0.5rem;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  /* Show sun in dark mode, moon in light mode */
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
+
+  [data-theme="dark"] .icon-sun { display: block; }
+  [data-theme="dark"] .icon-moon { display: none; }
+
+  :global([data-theme="dark"]) .icon-sun { display: block; }
+  :global([data-theme="dark"]) .icon-moon { display: none; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .hamburger span {
+    display: block;
     height: 2px;
-    background: #4D57DE;
-    transition: width 0.2s ease;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
   }
 
-  .nav-link:hover::after {
-    width: 100%;
+  .hamburger.is-active span:nth-child(1) {
+    transform: rotate(45deg) translate(3px, 5px);
+  }
+  .hamburger.is-active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.is-active span:nth-child(3) {
+    transform: rotate(-45deg) translate(3px, -5px);
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 6%;
+    z-index: 999;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .mobile-menu.is-open {
+    display: flex;
+  }
+
+  .mobile-link {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-link:hover,
+  .mobile-link.active {
+    color: var(--accent);
+    background: var(--accent-light);
   }
 
   @media (max-width: 768px) {
-    .nav {
-      gap: 1rem;
-    }
-    
-    .logo-text {
+    .nav-links {
       display: none;
     }
-  } */
+
+    .hamburger {
+      display: flex;
+    }
+  }
 </style>

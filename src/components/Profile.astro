@@ -2,7 +2,7 @@
 import PieChart from "./PieChart.astro";
 import ProjectCard from "./ProjectCard.astro";
 import { Image } from "astro:assets";
-import javascriptWhite from './../assets/javascript-white.svg'; 
+import javascriptWhite from './../assets/javascript-white.svg';
 import typescriptWhite from './../assets/typescript-white.svg';
 import astro from './../assets/astro.svg';
 import angular from './../assets/angular.svg';
@@ -25,7 +25,7 @@ import chroma from './../assets/chroma.svg';
 import reactNative from './../assets/react-native.svg';
 
 
-interface Project { 
+interface Project {
   title: string;
   description: string;
   github?: string;
@@ -36,7 +36,7 @@ interface Project {
 interface Technology {
     image: any,
     title: string
-} 
+}
 
 const projects: Project[] = [
     {
@@ -48,8 +48,8 @@ const projects: Project[] = [
     },
     {
         title: "FormAI",
-        description: "FormAI is a chrome extension that automates the process of filling job application forms. Simply click on fill formon the website, and the bot handles the rest - from field detection to intelligent response generation.",
-        tags: ['Langchain', 'Chroma', 'Typescript', 'AI', 'Embeddings', 'RAG', 'AgentQL', 'OpenAI', 'Extenstion', 'React'],
+        description: "FormAI is a chrome extension that automates the process of filling job application forms. Simply click on fill form on the website, and the bot handles the rest - from field detection to intelligent response generation.",
+        tags: ['Langchain', 'Chroma', 'Typescript', 'AI', 'Embeddings', 'RAG', 'AgentQL', 'OpenAI', 'Extension', 'React'],
         github: "https://github.com/anasM0hammad/formAI-ext",
         commits: 9,
     },
@@ -99,8 +99,8 @@ const technologies: Technology[] = [
         <div class="col-lg-8 colx">
             <div class="card box">
                 <div class="card-body intro">
-                    <h3 class="monospace-font">Introduction</h3>
-                    <p class="righteous"><small><b>@anaslyzer</b></small></p>
+                    <h3 class="monospace-font section-title">Introduction</h3>
+                    <p class="handle"><small><b>@anaslyzer</b></small></p>
                     <p>Hey there I am Anas, an AI full-stack engineer from Delhi. I've spent the last few years building things that scale at Adobe and Samsung, and tinkering with side projects in healthtech, blockchain and AI . I love clean architecture, expressive code, and solving problems that matter.</p>
                     <p>Beyond coding, I'm a self-learned guitarist who loves experimenting with melodies, a beginner table tennis player, and a fitness enthusiast—committed to working out at least four times a week. I believe building great software is a lot like learning music or sport: it takes discipline, curiosity, and rhythm.</p>
                     <br/>
@@ -110,27 +110,27 @@ const technologies: Technology[] = [
         <div class="col-lg-4 colx">
             <div class="card box">
                 <div class="card-body stats">
-                    <h3 class="monospace-font">Github Space</h3>
-                    <div class="d-flex m-4" style="justify-content: space-between;">
+                    <h3 class="monospace-font section-title">Github Space</h3>
+                    <div class="d-flex m-4 github-stats-row">
                         <div class="text-center git-stats">
-                            <i class="fa fa-bookmark text-primary"></i>
-                            <small class="text-primary">56</small>
-                            <small>Repositories</small>
+                            <i class="fa fa-bookmark stat-icon"></i>
+                            <small class="stat-value" id="gh-repos">56</small>
+                            <small class="stat-label">Repositories</small>
                         </div>
                         <div class="text-center git-stats">
-                            <i class="fa fa-user-plus text-danger"></i>
-                            <small class="text-danger">18</small>
-                            <small>Followers</small>
+                            <i class="fa fa-user-plus stat-icon"></i>
+                            <small class="stat-value" id="gh-followers">18</small>
+                            <small class="stat-label">Followers</small>
                         </div>
                         <div class="text-center git-stats">
-                            <i class="fa fa-star text-warning"></i>
-                            <small class="text-warning">57</small>
-                            <small>Stars</small>
+                            <i class="fa fa-star stat-icon"></i>
+                            <small class="stat-value" id="gh-stars">57</small>
+                            <small class="stat-label">Stars</small>
                         </div>
                         <div class="text-center git-stats">
-                            <i class="fa fa-code text-success"></i>
-                            <small class="text-success">374</small>
-                            <small>Commits</small>
+                            <i class="fa fa-code stat-icon"></i>
+                            <small class="stat-value" id="gh-commits">374</small>
+                            <small class="stat-label">Commits</small>
                         </div>
                     </div>
                     <p class="monospace-font"><b>Languages Used:</b></p>
@@ -142,8 +142,8 @@ const technologies: Technology[] = [
     <div class="row">
         <div class="col-lg-8 colx">
             <div class="card box technology">
-                <div class="card-body"  style="padding-top: 40px; padding-bottom: 40px">
-                    <h3 class="monospace-font">Personal Garage</h3>
+                <div class="card-body" style="padding-top: 40px; padding-bottom: 40px">
+                    <h3 class="monospace-font section-title">Personal Garage</h3>
                     <div class="row">
                         {
                             projects.map((project) => <div class="col-lg-6 colx"><ProjectCard title={project.title} description={project.description} tags={project.tags} github={project?.github} href={project.href} commits={project.commits}/></div> )
@@ -155,13 +155,13 @@ const technologies: Technology[] = [
         <div class="col-lg-4 colx">
             <div class="card box">
                 <div class="card-body" style="padding-top: 40px; padding-bottom: 66px">
-                    <h3 class="monospace-font">Tech Stack</h3>
+                    <h3 class="monospace-font section-title">Tech Stack</h3>
                     <div class="row mt-3">
-                        {   
+                        {
                             technologies.map((technology: Technology) => {
                                 return (
                                 <div class="col-3">
-                                    <Image src={technology.image} class="img-size img-thumbnail mx-auto d-block"  alt="Javascript logo"/>
+                                    <Image src={technology.image} class="img-size img-thumbnail mx-auto d-block"  alt={`${technology.title} logo`}/>
                                     <p class="text-center"><small>{technology.title}</small></p>
                                 </div>
                                 )
@@ -173,6 +173,34 @@ const technologies: Technology[] = [
         </div>
     </div>
 </div>
+
+<script>
+  // GitHub API integration — fetch live stats
+  async function fetchGitHubStats() {
+    try {
+      const userRes = await fetch('https://api.github.com/users/anasM0hammad');
+      if (!userRes.ok) return;
+      const user = await userRes.json();
+
+      const reposEl = document.getElementById('gh-repos');
+      const followersEl = document.getElementById('gh-followers');
+      if (reposEl) reposEl.textContent = user.public_repos?.toString() || '56';
+      if (followersEl) followersEl.textContent = user.followers?.toString() || '18';
+
+      const reposRes = await fetch('https://api.github.com/users/anasM0hammad/repos?per_page=100&sort=updated');
+      if (!reposRes.ok) return;
+      const repos = await reposRes.json();
+
+      const totalStars = repos.reduce((sum: number, repo: any) => sum + (repo.stargazers_count || 0), 0);
+      const starsEl = document.getElementById('gh-stars');
+      if (starsEl) starsEl.textContent = totalStars.toString();
+    } catch {
+      // Silently fail — hardcoded fallback values are already in the DOM
+    }
+  }
+
+  fetchGitHubStats();
+</script>
 
 <style>
 
@@ -186,18 +214,46 @@ const technologies: Technology[] = [
         padding-right: 4px;
     }
 
-    .card-body h3{
-        color: #4D57DE;
+    .section-title {
+        color: var(--accent) !important;
     }
+
+    .card-body h3{
+        color: var(--accent);
+    }
+
     .card{
         border: none;
         border-radius: 10px;
     }
 
+    .handle {
+        color: var(--accent) !important;
+    }
+
     .git-stats{
-        color: #9298A1;
+        color: var(--text-muted);
         display: inline-grid;
     }
+
+    .stat-icon {
+        color: var(--accent);
+    }
+
+    .stat-value {
+        color: var(--accent);
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-label {
+        color: var(--text-muted);
+    }
+
+    .github-stats-row {
+        justify-content: space-between;
+    }
+
     .img-size{
         width: 40%;
         padding: 0;
@@ -210,7 +266,7 @@ const technologies: Technology[] = [
     }
 
     .stats{
-        padding-top: 40px; 
+        padding-top: 40px;
         padding-bottom: 40px
     }
 
@@ -230,7 +286,7 @@ const technologies: Technology[] = [
         }
 
         .stats{
-            padding-top: 10px; 
+            padding-top: 10px;
             padding-bottom: 10px
         }
 
@@ -249,7 +305,7 @@ const technologies: Technology[] = [
         .profile-details p{
             font-size: small;
         }
-        
+
     }
 
     @media (max-width: 480px) {

@@ -5,14 +5,13 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<!-- <link href="https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;600;700;800&family=Lobster|Lora|Righteous|Merriweather|Aguafina+Script|Shadows+Into+Light|Merriweather+Sans|Pacifico|JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"> -->
-		<link href="https://fonts.googleapis.com/css?family=Lobster|Lora|Righteous|Merriweather|Aguafina+Script|Shadows+Into+Light|Merriweather+Sans|Pacifico|Shadows+Into+Light|JetBrains+Mono&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Lobster&family=Righteous&family=Lora&family=Merriweather&display=swap" rel="stylesheet">
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 		<!-- FONT AWESOME -->
 		<script src="https://kit.fontawesome.com/34aa8a70b7.js"></script>
-	
+
 		<!-- LOGO -->
 		<link rel="icon" type="image/gif" href="/logo.png">
 		<meta name="generator" content={Astro.generator} />
@@ -26,6 +25,15 @@
 		<meta property="og:type" content="website">
 		<meta property="og:site_name" content="Mohammad Anas blogs">
 		<!-- End Open Graph Tags -->
+
+		<!-- Theme initialization (prevents flash) -->
+		<script is:inline>
+			(function() {
+				const saved = localStorage.getItem('theme');
+				const theme = saved || 'dark';
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
 	</head>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-N44GY1H0PG"></script>
@@ -48,27 +56,29 @@
 		import Typewriter from 'typewriter-effect/dist/core';
         var app = document.getElementById('typewritter-text');
 
-        var typewriter = new Typewriter(app, {
-        loop: true,
-        delay: 75,
-        });
-	
-        typewriter
-        .pauseFor(400)
-        .typeString('<strong class="text-danger">Software Engineer</strong>')
-        .pauseFor(400)
-        .deleteChars(17)
-        .typeString('<strong class="text-warning">Fullstack Developer</strong>')
-        .pauseFor(400)
-        .deleteChars(19)
-        .typeString('<strong class="text-primary">Blockchain Developer</strong>')
-        .pauseFor(400)
-        .deleteChars(20)
-        .typeString('<strong class="text-success">Beginner Guitarist</strong>')
-        .pauseFor(400)
-        .deleteChars(18)
-        .pauseFor(1000)
-        .start();
+		if (app) {
+			var typewriter = new Typewriter(app, {
+			loop: true,
+			delay: 75,
+			});
+
+			typewriter
+			.pauseFor(400)
+			.typeString('<strong style="color: var(--accent)">Software Engineer</strong>')
+			.pauseFor(400)
+			.deleteChars(17)
+			.typeString('<strong style="color: var(--accent)">Fullstack Developer</strong>')
+			.pauseFor(400)
+			.deleteChars(19)
+			.typeString('<strong style="color: var(--accent)">Blockchain Developer</strong>')
+			.pauseFor(400)
+			.deleteChars(20)
+			.typeString('<strong style="color: var(--accent)">Beginner Guitarist</strong>')
+			.pauseFor(400)
+			.deleteChars(18)
+			.pauseFor(1000)
+			.start();
+		}
     </script>
 
 	</body>
@@ -76,7 +86,7 @@
 
 <style is:global>
 	@import '../styles/global.css';
-	
+
 	html,
 	body {
 		margin: 0;

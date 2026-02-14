@@ -1,0 +1,330 @@
+---
+
+---
+
+<div class="easter-egg-overlay" id="easter-egg">
+  <div class="ee-terminal">
+    <div class="ee-bar">
+      <div class="ee-dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <span class="ee-title">anas@portfolio:~</span>
+      <button class="ee-close" id="ee-close" aria-label="Close terminal">&times;</button>
+    </div>
+    <div class="ee-body" id="ee-body">
+      <div class="ee-welcome">
+        <pre class="ascii-art">┌──────────────────────────────────┐
+│  You found the secret terminal  │
+│  Type 'help' to get started     │
+└──────────────────────────────────┘</pre>
+      </div>
+      <div id="ee-output"></div>
+      <div class="ee-input-line">
+        <span class="ee-prompt">anas@portfolio:~$</span>
+        <input type="text" class="ee-input" id="ee-input" autocomplete="off" spellcheck="false" autofocus />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Konami code: ↑↑↓↓←→←→BA
+  const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+  let konamiIndex = 0;
+
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('easter-egg')?.classList.contains('is-visible')) return;
+
+    if (e.keyCode === konamiCode[konamiIndex]) {
+      konamiIndex++;
+      if (konamiIndex === konamiCode.length) {
+        konamiIndex = 0;
+        openTerminal();
+      }
+    } else {
+      konamiIndex = 0;
+    }
+  });
+
+  function openTerminal() {
+    const overlay = document.getElementById('easter-egg');
+    if (overlay) {
+      overlay.classList.add('is-visible');
+      document.getElementById('ee-input')?.focus();
+    }
+  }
+
+  document.getElementById('ee-close')?.addEventListener('click', closeTerminal);
+
+  document.getElementById('easter-egg')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeTerminal();
+  });
+
+  function closeTerminal() {
+    document.getElementById('easter-egg')?.classList.remove('is-visible');
+  }
+
+  const commands: Record<string, string> = {
+    help: `Available commands:
+  about     — Learn about Anas
+  skills    — View technical skills
+  contact   — Get contact info
+  projects  — List projects
+  sudo hire — 😉
+  clear     — Clear terminal
+  exit      — Close terminal`,
+
+    about: `Software Engineer at Adobe, Delhi
+4+ years building scalable systems
+Side projects: AI, blockchain, 3D games
+Also: guitarist, table tennis, gym rat`,
+
+    skills: `Languages:  JavaScript, TypeScript, C++, Java, Python, Solidity
+Frontend:   React, Angular, Next.js, React Native
+Backend:    Node.js, Express, FastAPI
+Tools:      Docker, MongoDB, ElasticSearch, Blockchain
+AI/ML:      OpenAI, Langchain, Ollama, ChromaDB`,
+
+    contact: `Email:    mail@mohdanas.me
+GitHub:   github.com/anasM0hammad
+LinkedIn: linkedin.com/in/anasm0hammad
+Twitter:  x.com/anaslyzer`,
+
+    projects: `1. FormAI     — AI chrome extension for job forms
+2. dMed       — Health records on Ethereum (ERC-721)
+3. spaceZ     — C++ arcade game with SFML
+4. Game Box   — Browser-based 2D game collection`,
+
+    'sudo hire': `🎉 Permission granted! Opening mail client...`,
+
+    whoami: `anas — Software Engineer @ Adobe
+building things that scale, tinkering after dark`,
+
+    pwd: `/home/anas/portfolio`,
+
+    ls: `about.txt  skills.md  projects/  resume.pdf  .secrets/`,
+
+    'cat .secrets/': `Nice try 😏`,
+
+    neofetch: `       ███████          anas@portfolio
+      ███   ███         ─────────────────
+     ███     ███        OS: Web Portfolio v2.0
+    ████████████        Host: mohdanas.me
+   ████       ████      Kernel: Astro 5.2.5
+  ████         ████     Uptime: 4+ years
+                        Shell: JetBrains Mono
+                        Theme: Dark [brick-red]`,
+  };
+
+  document.getElementById('ee-input')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+
+    const input = e.target as HTMLInputElement;
+    const cmd = input.value.trim().toLowerCase();
+    input.value = '';
+
+    const output = document.getElementById('ee-output');
+    if (!output) return;
+
+    // Add command echo
+    const cmdLine = document.createElement('div');
+    cmdLine.className = 'ee-cmd-echo';
+    cmdLine.innerHTML = `<span class="ee-prompt">anas@portfolio:~$</span> ${escapeHtml(cmd)}`;
+    output.appendChild(cmdLine);
+
+    if (cmd === 'clear') {
+      output.innerHTML = '';
+    } else if (cmd === 'exit') {
+      closeTerminal();
+    } else if (cmd === 'sudo hire') {
+      const result = document.createElement('div');
+      result.className = 'ee-result';
+      result.textContent = commands['sudo hire'];
+      output.appendChild(result);
+      setTimeout(() => {
+        window.location.href = 'mailto:mail@mohdanas.me';
+      }, 1000);
+    } else if (commands[cmd]) {
+      const result = document.createElement('div');
+      result.className = 'ee-result';
+      result.textContent = commands[cmd];
+      output.appendChild(result);
+    } else if (cmd) {
+      const result = document.createElement('div');
+      result.className = 'ee-result ee-error';
+      result.textContent = `command not found: ${cmd}. Type 'help' for available commands.`;
+      output.appendChild(result);
+    }
+
+    // Scroll to bottom
+    const body = document.getElementById('ee-body');
+    if (body) body.scrollTop = body.scrollHeight;
+  });
+
+  function escapeHtml(str: string) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+
+<style>
+  .easter-egg-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .easter-egg-overlay.is-visible {
+    display: flex;
+  }
+
+  .ee-terminal {
+    width: 100%;
+    max-width: 640px;
+    max-height: 80vh;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #30363d;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ee-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+  }
+
+  .ee-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red { background: #ff5f56; }
+  .dot-yellow { background: #ffbd2e; }
+  .dot-green { background: #27c93f; }
+
+  .ee-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #8b949e;
+    flex: 1;
+  }
+
+  .ee-close {
+    background: none;
+    border: none;
+    color: #8b949e;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+  }
+
+  .ee-close:hover {
+    color: #fff;
+  }
+
+  .ee-body {
+    background: #0d1117;
+    padding: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: #c9d1d9;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 300px;
+    max-height: 60vh;
+  }
+
+  .ascii-art {
+    background: none;
+    color: #7ee787;
+    font-size: 0.72rem;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    border-radius: 0;
+    line-height: 1.3;
+  }
+
+  .ee-welcome {
+    margin-bottom: 0.5rem;
+  }
+
+  .ee-cmd-echo {
+    margin-top: 0.5rem;
+    color: #c9d1d9;
+  }
+
+  .ee-result {
+    color: #c9d1d9;
+    white-space: pre-wrap;
+    margin-bottom: 0.25rem;
+    padding-left: 0.5rem;
+  }
+
+  .ee-error {
+    color: #f85149;
+  }
+
+  .ee-input-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .ee-prompt {
+    color: #7ee787;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ee-input {
+    background: none;
+    border: none;
+    outline: none;
+    color: #c9d1d9;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    flex: 1;
+    caret-color: #7ee787;
+  }
+
+  @media (max-width: 768px) {
+    .easter-egg-overlay {
+      padding: 1rem;
+    }
+
+    .ee-terminal {
+      max-height: 90vh;
+    }
+
+    .ee-body {
+      font-size: 0.7rem;
+      min-height: 250px;
+    }
+
+    .ee-input {
+      font-size: 0.7rem;
+    }
+
+    .ascii-art {
+      font-size: 0.6rem;
+    }
+  }
+</style>

@@ -9,126 +9,548 @@ import trophy from '../assets/trophy.svg';
 import twitter from '../assets/X.svg';
 import Profile from '../components/Profile.astro';
 import Experience from '../components/Experience.astro';
+import Showcase from '../components/Showcase.astro';
+import Education from '../components/Education.astro';
+import GitLog from '../components/GitLog.astro';
+import EasterEgg from '../components/EasterEgg.astro';
 
 ---
 
 <Layout title="Mohammad Anas">
   <Header active='/'/>
-  
-  <main class="main">
-    <div class="intro container">
-        <div class="row">
-            <div class="col-sm-8 mx-auto d-block">
-                <h1><b>HELLO </b><div class="line"></div></h1>
-                <h1 class="display-4">I AM <span class="text-danger">ANAS<span></h1><br>
-                <h2 class="mb-5">A <span id="typewritter-text"></span></h2>
-                <div class="d-none d-sm-block d-md-block d-lg-block mt-3">
-                    <a href={resume} target="_blank"><button class="btn btn-outline-primary mx-auto btn-lg btn-a">Download Resume</button></a>
-                </div>
-                <div class="d-block d-sm-none d-md-none d-lg-none" style="margin-top: 10vh;">
-                    <a href={resume} target="_blank"><button class="btn btn-outline-primary mx-auto btn-lg btn-block btn-a">Download Resume</button></a>
-                    <div class="social_upper mx-auto d-block mt-5">
-                        <a target="_blank" href="https://x.com/anaslyzer"><Image src={twitter} class={`social-icon`} alt={`twitter logo`}></a>
-                        <a target="_blank" href="https://www.github.com/anasM0hammad"><i class="fab fa-github"></i></a>
-                        <a target="_blank" href="https://www.linkedin.com/in/anasm0hammad/"><i class="fab fa-linkedin-in"></i></a>
-                        <a target="_blank" href="https://www.instagram.com/anaslyzer.music/"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 profile d-none d-sm-block d-md-block d-lg-block">
-                <Image src={profile} class={`myImage mx-auto d-block mb-5`} alt="Profile Image of Mohammad Anas"/>
-                <div class="social_upper mx-auto d-block">
-                    <a target="_blank" href="https://x.com/anaslyzer"><Image src={twitter} class={`social-icon`} alt={`twitter logo`}></a>
-                    <a target="_blank" href="https://www.github.com/anasM0hammad"><i class="fab fa-github"></i></a>
-                    <a target="_blank" href="https://www.linkedin.com/in/anasm0hammad/"><i class="fab fa-linkedin-in"></i></a>
-                    <a target="_blank" href="https://www.instagram.com/anaslyzer.music/"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+
+  <main class="main-content">
+    <!-- ═══════════════ HERO SECTION ═══════════════ -->
+    <section class="hero">
+      <div class="hero-grid container-bg">
+        <div class="hero-left">
+          <p class="hero-comment">// hello world</p>
+          <h1 class="hero-name">I AM <span class="hero-accent">ANAS</span></h1>
+          <h2 class="hero-role">A <span id="typewritter-text"></span></h2>
+
+          <p class="hero-tagline" id="hero-tagline">
+            <span class="tagline-prompt">&gt;</span>
+            <span id="tagline-light">engineering products that ship to millions</span>
+            <span id="tagline-dark" style="display:none;">experimenting with AI, 3D worlds & blockchain after dark</span>
+          </p>
+
+          <div class="hero-actions">
+            <a href={resume} target="_blank" class="resume-btn">
+              <span class="btn-prompt">$</span> cat resume.pdf
+            </a>
+          </div>
+
+          <div class="npx-badge" id="npx-badge" title="Click to copy">
+            <span class="npx-prompt">$</span> npx mohdanas
+            <span class="npx-copied" id="npx-copied">copied!</span>
+          </div>
+
+          <div class="hero-social">
+            <a target="_blank" href="https://x.com/anaslyzer" aria-label="Twitter"><Image src={twitter} class="social-icon" alt="Twitter"/></a>
+            <a target="_blank" href="https://www.github.com/anasM0hammad" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a target="_blank" href="https://www.linkedin.com/in/anasm0hammad/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a target="_blank" href="https://www.instagram.com/anaslyzer.music/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
-    </div>
-    <div class="job-header"></div>
+
+        <div class="hero-right">
+          <!-- Terminal widget -->
+          <div class="hero-terminal">
+            <div class="term-bar">
+              <div class="term-dots">
+                <span class="dot dot-r"></span>
+                <span class="dot dot-y"></span>
+                <span class="dot dot-g"></span>
+              </div>
+              <span class="term-title">anas@dev:~</span>
+            </div>
+            <div class="term-body">
+              <div class="term-line"><span class="t-prompt">anas@dev:~$</span> whoami</div>
+              <div class="term-line t-output">Software Engineer @ Adobe</div>
+              <div class="term-line"><span class="t-prompt">anas@dev:~$</span> uptime</div>
+              <div class="term-line t-output">4+ years shipping code</div>
+              <div class="term-line"><span class="t-prompt">anas@dev:~$</span> ls skills/</div>
+              <div class="term-line t-output">js ts react c++ node python solidity</div>
+              <div class="term-line"><span class="t-prompt">anas@dev:~$</span> <span class="terminal-cursor"></span></div>
+            </div>
+          </div>
+
+          <!-- Profile image -->
+          <div class="hero-profile-wrap">
+            <Image src={profile} class="hero-profile-img" alt="Mohammad Anas"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ SHOWCASE ═══════════════ -->
+    <Showcase />
+
+    <!-- ═══════════════ PROFILE ═══════════════ -->
     <Profile />
 
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
     <Experience />
 
-    <div class="achievements">
-        <div class="job-header">
-            <h1 class="text-center">Achievements</h1>
-        </div>
-        <div class="container">
-            <div class="row my-5">
-                <div class="col-sm-3">
-                    <Image src={trophy} class="img-fluid d-none d-sm-block d-md-block d-lg-block" alt="Trophy icon for achievements"/>
-                </div>
-                <div class="col-sm-9">
-                    <div class="card ach-box mt-4">
-                        <div class="card-body">
-                            <h6><i class="fa fa-star text-warning"></i><b>Tech Significance Award</b> of the quarter in Adobe Q4 2024 </h6>
-                            <h6><i class="fa fa-star text-warning"></i><b>Kudos Award</b> of the quarter in Adobe Q1 2022 </h6>
-                            <h6><i class="fa fa-star text-warning"></i>Qualified for <b>ACM ICPC</b> regionals in 2017</h6>
-                            <h6><i class="fa fa-star text-warning"></i>Qualified <b>Advance level</b> DSA test in Samsung</h6>
-                            <h6><i class="fa fa-star text-warning"></i>In <b>Top 100</b> solidity developers of India by codersrank</h6>
-                        </div>
-                    </div>
-                </div>
+    <!-- ═══════════════ GIT LOG ═══════════════ -->
+    <GitLog />
+
+    <!-- ═══════════════ ACHIEVEMENTS ═══════════════ -->
+    <section class="achievements-section">
+      <div class="container-bg">
+        <h3 class="section-header">
+          <span class="prompt">&gt;</span> cat achievements.md<span class="terminal-cursor"></span>
+        </h3>
+
+        <div class="ach-grid">
+          <div class="ach-card">
+            <div class="ach-icon"><Image src={trophy} class="trophy-img" alt="Trophy"/></div>
+            <div class="ach-list">
+              <div class="ach-item">
+                <span class="ach-bullet">*</span>
+                <span><b>Tech Significance Award</b> of the quarter in Adobe Q4 2024</span>
+              </div>
+              <div class="ach-item">
+                <span class="ach-bullet">*</span>
+                <span><b>Kudos Award</b> of the quarter in Adobe Q1 2022</span>
+              </div>
+              <div class="ach-item">
+                <span class="ach-bullet">*</span>
+                <span>Qualified for <b>ACM ICPC</b> regionals in 2017</span>
+              </div>
+              <div class="ach-item">
+                <span class="ach-bullet">*</span>
+                <span>Qualified <b>Advance level</b> DSA test in Samsung</span>
+              </div>
+              <div class="ach-item">
+                <span class="ach-bullet">*</span>
+                <span>In <b>Top 100</b> Solidity developers of India by CodersRank</span>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ EDUCATION ═══════════════ -->
+    <Education />
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
     <Footer />
   </main>
+
+  <!-- ═══════════════ EASTER EGG ═══════════════ -->
+  <EasterEgg />
 </Layout>
 
+<script>
+  // Theme-aware tagline
+  function updateTagline() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const lightEl = document.getElementById('tagline-light');
+    const darkEl = document.getElementById('tagline-dark');
+    if (lightEl && darkEl) {
+      if (theme === 'dark') {
+        lightEl.style.display = 'none';
+        darkEl.style.display = 'inline';
+      } else {
+        lightEl.style.display = 'inline';
+        darkEl.style.display = 'none';
+      }
+    }
+  }
+
+  // Run on load
+  updateTagline();
+
+  // Watch for theme changes
+  const taglineObserver = new MutationObserver(updateTagline);
+  taglineObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // npx badge copy
+  document.getElementById('npx-badge')?.addEventListener('click', () => {
+    navigator.clipboard.writeText('npx mohdanas').then(() => {
+      const copied = document.getElementById('npx-copied');
+      if (copied) {
+        copied.classList.add('show');
+        setTimeout(() => copied.classList.remove('show'), 1500);
+      }
+    });
+  });
+</script>
+
 <style>
- .main{
-   height: 97vh;
+  .main-content {
+    padding-top: 60px; /* navbar height */
   }
 
-  .social-icon{
-    height: 25px;
-    width: 25px;
-    vertical-align: baseline;
+  /* ============================================
+     HERO SECTION
+     ============================================ */
+  .hero {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+    background: var(--bg-primary);
+    transition: background-color 0.3s ease;
   }
 
-  .intro{
-    font-family: 'Righteous';
-    padding-top: 150px;
-    height: 97vh;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
   }
 
-  .line{
-    display: inline-block ;
-    height: 1px ;
-    width: 50%;
-    background-color: black ;
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .btn-a a:hover{
-    color: white;
+  .hero-comment {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
   }
 
-  .social_upper{
-    text-align: center;
+  .hero-name {
+    font-family: 'Righteous', cursive;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.1;
   }
 
-  .social_upper a{
-    color: #4C4C4C;
-    margin: 0 10px;
-    font-size: 2rem;
+  .hero-accent {
+    color: var(--accent);
   }
 
-  .profile{
-    margin-bottom: 25px;
+  .hero-role {
+    font-family: 'Righteous', cursive;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0.5rem 0 1rem 0;
   }
 
-  .myImage{
-    height: 200px ;
-    width: 200px ;
+  .hero-tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5;
+  }
+
+  .tagline-prompt {
+    color: var(--accent);
+    margin-right: 0.35rem;
+  }
+
+  /* Resume button (terminal style) */
+  .hero-actions {
+    margin-bottom: 1rem;
+  }
+
+  .resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-inverse);
+    background: var(--accent);
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resume-btn:hover {
+    background: var(--accent-hover);
+    color: var(--text-inverse);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--accent-glow);
+  }
+
+  .btn-prompt {
+    opacity: 0.7;
+  }
+
+  /* npx badge */
+  .npx-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--terminal-text);
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    width: fit-content;
+    margin-bottom: 1.25rem;
+  }
+
+  .npx-badge:hover {
+    border-color: var(--accent);
+  }
+
+  .npx-prompt {
+    color: var(--terminal-green);
+  }
+
+  .npx-copied {
+    position: absolute;
+    right: -60px;
+    font-size: 0.68rem;
+    color: var(--terminal-green);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .npx-copied.show {
+    opacity: 1;
+  }
+
+  /* Social icons */
+  .hero-social {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-social a {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .hero-social a:hover {
+    color: var(--accent);
+  }
+
+  .social-icon {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .hero-social a:hover .social-icon {
+    opacity: 1;
+  }
+
+  /* ============================================
+     HERO RIGHT - Terminal + Profile
+     ============================================ */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .hero-terminal {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--terminal-border);
+    background: var(--terminal-bg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: #161b22;
+    border-bottom: 1px solid var(--terminal-border);
+  }
+
+  .term-dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+
+  .term-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #8b949e;
+  }
+
+  .term-body {
+    padding: 0.75rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.8;
+  }
+
+  .term-line {
+    color: var(--terminal-text);
+  }
+
+  .t-prompt {
+    color: var(--terminal-green);
+    margin-right: 0.4rem;
+  }
+
+  .t-output {
+    color: #8b949e;
+    padding-left: 0.5rem;
+  }
+
+  /* Profile image */
+  .hero-profile-wrap {
+    position: relative;
+  }
+
+  .hero-profile-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
     object-fit: cover;
-    border-radius: 50% ;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+    transition: all 0.3s ease;
   }
 
-  .ach-box{
-    border: solid 2px #4D57DE;
+  .hero-profile-img:hover {
+    box-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow);
   }
-  
+
+  /* ============================================
+     ACHIEVEMENTS SECTION
+     ============================================ */
+  .achievements-section {
+    padding: 4rem 0;
+    background: var(--bg-primary);
+    transition: background-color 0.3s ease;
+  }
+
+  .ach-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ach-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .ach-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--card-shadow);
+  }
+
+  .ach-icon {
+    flex-shrink: 0;
+  }
+
+  .trophy-img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .ach-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .ach-item {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .ach-bullet {
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 1.5rem 0;
+      min-height: auto;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hero-name {
+      font-size: 2.5rem;
+    }
+
+    .hero-role {
+      font-size: 1.2rem;
+    }
+
+    .hero-right {
+      order: -1;
+      flex-direction: column-reverse;
+    }
+
+    .hero-terminal {
+      max-width: 100%;
+    }
+
+    .hero-profile-img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .ach-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1.25rem;
+    }
+
+    .trophy-img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .ach-item {
+      font-size: 0.82rem;
+    }
+
+    .achievements-section {
+      padding: 3rem 0;
+    }
+  }
 </style>
