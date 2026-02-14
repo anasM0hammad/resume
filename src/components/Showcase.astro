@@ -6,94 +6,53 @@ interface Product {
   category: string;
   icon: string;
   status: string;
-  color: string;
-  colorLight: string;
-  colorGlow: string;
-  stats: { label: string; value: string }[];
   tech: string[];
-  liveUrl?: string;
   sourceUrl?: string;
+  liveUrl?: string;
 }
 
 const products: Product[] = [
   {
     name: "FormAI",
-    tagline: "AI-powered job form filler",
-    description: "Chrome extension that automates job application forms using RAG pipeline with field detection and intelligent response generation.",
+    tagline: "AI-powered chrome extension that automates job application forms using RAG pipeline.",
+    description: "",
     category: "Chrome Extension",
     icon: "fas fa-brain",
     status: "Active",
-    color: "#8B5CF6",
-    colorLight: "rgba(139, 92, 246, 0.12)",
-    colorGlow: "rgba(139, 92, 246, 0.3)",
-    stats: [
-      { label: "Stars", value: "9" },
-      { label: "Users", value: "120+" },
-      { label: "Version", value: "v1.2" },
-      { label: "MRR", value: "$0" },
-    ],
     tech: ["Langchain", "OpenAI", "TypeScript", "React", "RAG"],
     sourceUrl: "https://github.com/anasM0hammad/formAI-ext",
   },
   {
     name: "dMed",
-    tagline: "Health records on Ethereum",
-    description: "EHR stored on blockchain using ERC-721. Doctor prescriptions as NFTs on IPFS for immutable medical data.",
+    tagline: "Electronic Health Records stored on Ethereum blockchain as NFTs using ERC-721.",
+    description: "",
     category: "DApp",
     icon: "fas fa-heartbeat",
     status: "Shipped",
-    color: "#10B981",
-    colorLight: "rgba(16, 185, 129, 0.12)",
-    colorGlow: "rgba(16, 185, 129, 0.3)",
-    stats: [
-      { label: "Stars", value: "20" },
-      { label: "Records", value: "50+" },
-      { label: "MRR", value: "$0" },
-    ],
     tech: ["Solidity", "React", "Web3.js", "IPFS"],
     sourceUrl: "https://github.com/anasM0hammad/dMed_frontend",
   },
   {
     name: "spaceZ",
-    tagline: "Fast-paced arcade shooter",
-    description: "C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies, survive the cosmos.",
+    tagline: "C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies.",
+    description: "",
     category: "Desktop Game",
     icon: "fas fa-rocket",
     status: "Shipped",
-    color: "#F59E0B",
-    colorLight: "rgba(245, 158, 11, 0.12)",
-    colorGlow: "rgba(245, 158, 11, 0.3)",
-    stats: [
-      { label: "Stars", value: "5" },
-      { label: "Downloads", value: "50+" },
-    ],
     tech: ["C++", "SFML", "Game Dev"],
     sourceUrl: "https://github.com/anasM0hammad/spaceZ",
   },
   {
     name: "Game Box",
-    tagline: "Browser-based 2D games",
-    description: "Collection of JS games using HTML5 Canvas. No frameworks, pure vanilla code.",
+    tagline: "Collection of browser-based 2D games using HTML5 Canvas, pure vanilla JS.",
+    description: "",
     category: "Web App",
     icon: "fas fa-dice",
     status: "Active",
-    color: "#3B82F6",
-    colorLight: "rgba(59, 130, 246, 0.12)",
-    colorGlow: "rgba(59, 130, 246, 0.3)",
-    stats: [
-      { label: "Stars", value: "64" },
-      { label: "Games", value: "5" },
-    ],
     tech: ["JavaScript", "Canvas", "HTML5"],
     sourceUrl: "https://github.com/anasM0hammad/Game-Box",
   },
 ];
-
-const statusIcons: Record<string, string> = {
-  "Active": "fas fa-circle",
-  "Shipped": "fas fa-check-circle",
-  "Beta": "fas fa-flask",
-};
 ---
 
 <section class="products-section">
@@ -104,67 +63,37 @@ const statusIcons: Record<string, string> = {
 
     <div class="products-grid">
       {products.map((product) => (
-        <div
-          class="product-card"
-          style={`--card-color: ${product.color}; --card-color-light: ${product.colorLight}; --card-color-glow: ${product.colorGlow};`}
-        >
-          <!-- Colored top strip -->
-          <div class="card-strip"></div>
-
-          <div class="product-inner">
-            <!-- Header: icon + category + status -->
-            <div class="product-top">
-              <div class="product-icon">
-                <i class={product.icon}></i>
+        <div class="product-card">
+          <div class="product-body">
+            <div class="product-info">
+              <div class="product-name-row">
+                <h3 class="product-name">{product.name}</h3>
+                <span class="product-status" data-status={product.status}>{product.status}</span>
               </div>
-              <div class="product-meta">
-                <span class="product-category">{product.category}</span>
-                <span class="product-status">
-                  <i class={statusIcons[product.status] || 'fas fa-circle'} style={`color: ${product.color}`}></i>
-                  {product.status}
-                </span>
+              <span class="product-category">{product.category}</span>
+              <p class="product-tagline">{product.tagline}</p>
+              <div class="product-tech">
+                {product.tech.map((t) => (
+                  <span class="tech-pill">{t}</span>
+                ))}
+              </div>
+              <div class="product-actions">
+                {product.sourceUrl && (
+                  <a href={product.sourceUrl} target="_blank" class="product-link">
+                    <i class="fab fa-github"></i> Source
+                  </a>
+                )}
+                {product.liveUrl && (
+                  <a href={product.liveUrl} target="_blank" class="product-link">
+                    <i class="fas fa-external-link-alt"></i> Live
+                  </a>
+                )}
               </div>
             </div>
-
-            <!-- Name & description -->
-            <h3 class="product-name">{product.name}</h3>
-            <p class="product-tagline">{product.tagline}</p>
-            <p class="product-desc">{product.description}</p>
-
-            <!-- Stats -->
-            <div class="product-stats">
-              {product.stats.map((stat) => (
-                <div class="stat-block">
-                  <span class="stat-val">{stat.value}</span>
-                  <span class="stat-lbl">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <!-- Tech -->
-            <div class="product-tech">
-              {product.tech.map((t) => (
-                <span class="tech-pill">{t}</span>
-              ))}
-            </div>
-
-            <!-- Actions -->
-            <div class="product-actions">
-              {product.liveUrl && (
-                <a href={product.liveUrl} target="_blank" class="product-cta primary">
-                  <i class="fas fa-external-link-alt"></i> Try it
-                </a>
-              )}
-              {product.sourceUrl && (
-                <a href={product.sourceUrl} target="_blank" class={`product-cta ${product.liveUrl ? 'secondary' : 'primary'}`}>
-                  <i class="fab fa-github"></i> Source
-                </a>
-              )}
+            <div class="product-icon-area">
+              <i class={product.icon}></i>
             </div>
           </div>
-
-          <!-- Hover glow -->
-          <div class="product-glow"></div>
         </div>
       ))}
     </div>
@@ -173,7 +102,7 @@ const statusIcons: Record<string, string> = {
 
 <style>
   .products-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
     background: var(--bg-secondary);
     transition: background-color 0.3s ease;
   }
@@ -181,250 +110,148 @@ const statusIcons: Record<string, string> = {
   .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .product-card {
-    position: relative;
-    border-radius: 14px;
-    overflow: hidden;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: default;
-    display: flex;
-    flex-direction: column;
+    border-radius: 10px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
   .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 40px var(--card-color-glow);
-    border-color: var(--card-color);
+    border-color: var(--accent);
+    transform: translateY(-2px);
   }
 
-  /* Colored strip at top of each card */
-  .card-strip {
-    height: 4px;
-    background: linear-gradient(90deg, var(--card-color), transparent);
-    transition: height 0.3s ease;
-  }
-
-  .product-card:hover .card-strip {
-    height: 5px;
-    background: var(--card-color);
-  }
-
-  .product-inner {
-    position: relative;
-    z-index: 1;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .product-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    background: radial-gradient(circle at 50% 0%, var(--card-color-glow), transparent 70%);
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-  }
-
-  .product-card:hover .product-glow {
-    opacity: 1;
-  }
-
-  /* Top row: icon + meta */
-  .product-top {
+  .product-body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    padding: 1.25rem 1.5rem;
+    gap: 1.5rem;
   }
 
-  .product-icon {
-    width: 48px;
-    height: 48px;
+  .product-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-name-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: var(--card-color-light);
-    border: 1px solid var(--card-color);
-    border-radius: 12px;
-    color: var(--card-color);
-    font-size: 1.15rem;
-    transition: all 0.3s ease;
+    gap: 0.6rem;
+    margin-bottom: 0.15rem;
   }
 
-  .product-card:hover .product-icon {
-    transform: scale(1.1) rotate(-3deg);
-    box-shadow: 0 4px 16px var(--card-color-glow);
-  }
-
-  .product-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .product-category {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    background: var(--tag-bg);
-    border: 1px solid var(--tag-border);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+  .product-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
   }
 
   .product-status {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .product-status[data-status="Active"] {
+    color: #27c93f;
+    border: 1px solid rgba(39, 201, 63, 0.3);
+  }
+
+  .product-status[data-status="Shipped"] {
+    color: #61dafb;
+    border: 1px solid rgba(97, 218, 251, 0.3);
+  }
+
+  .product-status[data-status="Beta"] {
+    color: #ffbd2e;
+    border: 1px solid rgba(255, 189, 46, 0.3);
+  }
+
+  .product-category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
     color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .product-status i {
-    font-size: 0.5rem;
-  }
-
-  /* Product info */
-  .product-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--card-color);
-    margin: 0 0 0.2rem 0;
-    transition: color 0.3s ease;
+    letter-spacing: 0.03em;
   }
 
   .product-tagline {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0 0 0.4rem 0;
-    font-weight: 500;
-  }
-
-  .product-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
-    margin: 0 0 1rem 0;
-    line-height: 1.6;
-    flex: 1;
+    margin: 0.4rem 0 0.6rem 0;
+    line-height: 1.5;
   }
 
-  /* Stats */
-  .product-stats {
-    display: flex;
-    gap: 0.6rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .stat-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.45rem 0.65rem;
-    background: var(--card-color-light);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    min-width: 55px;
-    transition: all 0.3s ease;
-  }
-
-  .product-card:hover .stat-block {
-    border-color: var(--card-color);
-  }
-
-  .stat-val {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--card-color);
-  }
-
-  .stat-lbl {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.58rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* Tech pills */
   .product-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
-    margin-bottom: 1rem;
+    gap: 0.25rem;
+    margin-bottom: 0.6rem;
   }
 
   .tech-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     font-weight: 500;
     color: var(--tag-text);
     background: var(--tag-bg);
     border: 1px solid var(--tag-border);
-    padding: 0.12rem 0.45rem;
+    padding: 0.1rem 0.4rem;
     border-radius: 3px;
   }
 
-  /* Actions */
   .product-actions {
     display: flex;
     gap: 0.75rem;
-    margin-top: auto;
   }
 
-  .product-cta {
+  .product-link {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.4rem 0.85rem;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: all 0.2s ease;
+    gap: 0.3rem;
+    transition: color 0.2s ease;
   }
 
-  .product-cta.primary {
-    background: var(--card-color);
-    color: #ffffff;
+  .product-link:hover {
+    color: var(--accent);
   }
 
-  .product-cta.primary:hover {
-    filter: brightness(1.15);
-    color: #ffffff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px var(--card-color-glow);
-  }
-
-  .product-cta.secondary {
-    background: transparent;
+  /* Big icon on the right */
+  .product-icon-area {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-muted);
-    border: 1px solid var(--border);
+    opacity: 0.15;
+    transition: opacity 0.2s ease;
   }
 
-  .product-cta.secondary:hover {
-    color: var(--card-color);
-    border-color: var(--card-color);
+  .product-icon-area i {
+    font-size: 3rem;
+  }
+
+  .product-card:hover .product-icon-area {
+    opacity: 0.25;
   }
 
   /* Responsive */
@@ -435,24 +262,25 @@ const statusIcons: Record<string, string> = {
 
     .products-grid {
       grid-template-columns: 1fr;
-      gap: 1.25rem;
+      gap: 0.75rem;
     }
 
-    .product-inner {
-      padding: 1.25rem;
+    .product-body {
+      padding: 1rem 1.25rem;
+      gap: 1rem;
     }
 
     .product-name {
-      font-size: 1.25rem;
+      font-size: 1.05rem;
     }
 
-    .product-stats {
-      gap: 0.4rem;
+    .product-icon-area {
+      width: 48px;
+      height: 48px;
     }
 
-    .stat-block {
-      padding: 0.35rem 0.5rem;
-      min-width: 48px;
+    .product-icon-area i {
+      font-size: 2.25rem;
     }
   }
 </style>
