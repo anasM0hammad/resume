@@ -6,21 +6,26 @@ interface Product {
   category: string;
   icon: string;
   status: string;
+  color: string;
+  colorLight: string;
+  colorGlow: string;
   stats: { label: string; value: string }[];
   tech: string[];
   liveUrl?: string;
   sourceUrl?: string;
-  featured?: boolean;
 }
 
 const products: Product[] = [
   {
     name: "FormAI",
     tagline: "AI-powered job form filler",
-    description: "Chrome extension that automates job application forms. Click fill, and the bot handles field detection to intelligent response generation via RAG pipeline.",
+    description: "Chrome extension that automates job application forms using RAG pipeline with field detection and intelligent response generation.",
     category: "Chrome Extension",
     icon: "fas fa-brain",
     status: "Active",
+    color: "#8B5CF6",
+    colorLight: "rgba(139, 92, 246, 0.12)",
+    colorGlow: "rgba(139, 92, 246, 0.3)",
     stats: [
       { label: "Stars", value: "9" },
       { label: "Users", value: "120+" },
@@ -29,15 +34,17 @@ const products: Product[] = [
     ],
     tech: ["Langchain", "OpenAI", "TypeScript", "React", "RAG"],
     sourceUrl: "https://github.com/anasM0hammad/formAI-ext",
-    featured: true,
   },
   {
     name: "dMed",
     tagline: "Health records on Ethereum",
-    description: "EHR on blockchain using ERC-721. Doctor prescriptions stored as NFTs on IPFS for immutable medical data.",
+    description: "EHR stored on blockchain using ERC-721. Doctor prescriptions as NFTs on IPFS for immutable medical data.",
     category: "DApp",
     icon: "fas fa-heartbeat",
     status: "Shipped",
+    color: "#10B981",
+    colorLight: "rgba(16, 185, 129, 0.12)",
+    colorGlow: "rgba(16, 185, 129, 0.3)",
     stats: [
       { label: "Stars", value: "20" },
       { label: "Records", value: "50+" },
@@ -49,10 +56,13 @@ const products: Product[] = [
   {
     name: "spaceZ",
     tagline: "Fast-paced arcade shooter",
-    description: "C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies, survive.",
+    description: "C++ desktop arcade game built with SFML. Dodge asteroids, shoot enemies, survive the cosmos.",
     category: "Desktop Game",
     icon: "fas fa-rocket",
     status: "Shipped",
+    color: "#F59E0B",
+    colorLight: "rgba(245, 158, 11, 0.12)",
+    colorGlow: "rgba(245, 158, 11, 0.3)",
     stats: [
       { label: "Stars", value: "5" },
       { label: "Downloads", value: "50+" },
@@ -63,10 +73,13 @@ const products: Product[] = [
   {
     name: "Game Box",
     tagline: "Browser-based 2D games",
-    description: "Collection of JS games using HTML5 Canvas. No frameworks, pure code.",
+    description: "Collection of JS games using HTML5 Canvas. No frameworks, pure vanilla code.",
     category: "Web App",
     icon: "fas fa-dice",
     status: "Active",
+    color: "#3B82F6",
+    colorLight: "rgba(59, 130, 246, 0.12)",
+    colorGlow: "rgba(59, 130, 246, 0.3)",
     stats: [
       { label: "Stars", value: "64" },
       { label: "Games", value: "5" },
@@ -76,10 +89,10 @@ const products: Product[] = [
   },
 ];
 
-const statusColors: Record<string, string> = {
-  "Active": "#27c93f",
-  "Shipped": "#61dafb",
-  "Beta": "#ffbd2e",
+const statusIcons: Record<string, string> = {
+  "Active": "fas fa-circle",
+  "Shipped": "fas fa-check-circle",
+  "Beta": "fas fa-flask",
 };
 ---
 
@@ -91,17 +104,23 @@ const statusColors: Record<string, string> = {
 
     <div class="products-grid">
       {products.map((product) => (
-        <div class={`product-card ${product.featured ? 'featured' : ''}`}>
+        <div
+          class="product-card"
+          style={`--card-color: ${product.color}; --card-color-light: ${product.colorLight}; --card-color-glow: ${product.colorGlow};`}
+        >
+          <!-- Colored top strip -->
+          <div class="card-strip"></div>
+
           <div class="product-inner">
-            <!-- Header row -->
+            <!-- Header: icon + category + status -->
             <div class="product-top">
               <div class="product-icon">
                 <i class={product.icon}></i>
               </div>
               <div class="product-meta">
                 <span class="product-category">{product.category}</span>
-                <span class="product-status" style={`--status-color: ${statusColors[product.status] || '#7a7a7a'}`}>
-                  <span class="status-dot"></span>
+                <span class="product-status">
+                  <i class={statusIcons[product.status] || 'fas fa-circle'} style={`color: ${product.color}`}></i>
                   {product.status}
                 </span>
               </div>
@@ -110,7 +129,7 @@ const statusColors: Record<string, string> = {
             <!-- Name & description -->
             <h3 class="product-name">{product.name}</h3>
             <p class="product-tagline">{product.tagline}</p>
-            {product.featured && <p class="product-desc">{product.description}</p>}
+            <p class="product-desc">{product.description}</p>
 
             <!-- Stats -->
             <div class="product-stats">
@@ -161,8 +180,8 @@ const statusColors: Record<string, string> = {
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
   .product-card {
@@ -173,66 +192,35 @@ const statusColors: Record<string, string> = {
     border: 1px solid var(--border);
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: default;
+    display: flex;
+    flex-direction: column;
   }
 
   .product-card:hover {
     transform: translateY(-6px);
-    box-shadow: var(--card-shadow-hover);
-    border-color: var(--accent);
+    box-shadow: 0 12px 40px var(--card-color-glow);
+    border-color: var(--card-color);
   }
 
-  .product-card.featured {
-    grid-column: span 3;
-    background: linear-gradient(135deg, var(--bg-card), var(--accent-light));
-    border: 2px solid var(--accent);
+  /* Colored strip at top of each card */
+  .card-strip {
+    height: 4px;
+    background: linear-gradient(90deg, var(--card-color), transparent);
+    transition: height 0.3s ease;
   }
 
-  .product-card.featured .product-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
-    gap: 0 2rem;
-  }
-
-  .product-card.featured .product-top {
-    grid-column: 1 / -1;
-  }
-
-  .product-card.featured .product-name {
-    grid-column: 1;
-  }
-
-  .product-card.featured .product-tagline {
-    grid-column: 1;
-  }
-
-  .product-card.featured .product-desc {
-    grid-column: 1;
-  }
-
-  .product-card.featured .product-stats {
-    grid-column: 2;
-    grid-row: 2 / 4;
-    align-self: center;
-    justify-self: end;
-  }
-
-  .product-card.featured .product-tech {
-    grid-column: 1 / -1;
-  }
-
-  .product-card.featured .product-actions {
-    grid-column: 1 / -1;
+  .product-card:hover .card-strip {
+    height: 5px;
+    background: var(--card-color);
   }
 
   .product-inner {
     position: relative;
     z-index: 1;
     padding: 1.5rem;
-  }
-
-  .product-card.featured .product-inner {
-    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   .product-glow {
@@ -242,7 +230,7 @@ const statusColors: Record<string, string> = {
     right: 0;
     bottom: 0;
     opacity: 0;
-    background: radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 60%);
+    background: radial-gradient(circle at 50% 0%, var(--card-color-glow), transparent 70%);
     transition: opacity 0.35s ease;
     pointer-events: none;
   }
@@ -260,16 +248,22 @@ const statusColors: Record<string, string> = {
   }
 
   .product-icon {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--accent-light);
-    border: 1px solid var(--tag-border);
-    border-radius: 10px;
-    color: var(--accent);
-    font-size: 1.1rem;
+    background: var(--card-color-light);
+    border: 1px solid var(--card-color);
+    border-radius: 12px;
+    color: var(--card-color);
+    font-size: 1.15rem;
+    transition: all 0.3s ease;
+  }
+
+  .product-card:hover .product-icon {
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 4px 16px var(--card-color-glow);
   }
 
   .product-meta {
@@ -293,54 +287,49 @@ const statusColors: Record<string, string> = {
 
   .product-status {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    color: var(--status-color);
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     gap: 0.3rem;
   }
 
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--status-color);
+  .product-status i {
+    font-size: 0.5rem;
   }
 
   /* Product info */
   .product-name {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 0.25rem 0;
-  }
-
-  .product-card.featured .product-name {
-    font-size: 1.75rem;
+    color: var(--card-color);
+    margin: 0 0 0.2rem 0;
+    transition: color 0.3s ease;
   }
 
   .product-tagline {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    margin: 0 0 0.5rem 0;
-    line-height: 1.4;
+    margin: 0 0 0.4rem 0;
+    font-weight: 500;
   }
 
   .product-desc {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 1rem 0;
     line-height: 1.6;
+    flex: 1;
   }
 
   /* Stats */
   .product-stats {
     display: flex;
-    gap: 1rem;
+    gap: 0.6rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
   }
@@ -349,24 +338,28 @@ const statusColors: Record<string, string> = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.5rem 0.75rem;
-    background: var(--bg-secondary);
+    padding: 0.45rem 0.65rem;
+    background: var(--card-color-light);
     border: 1px solid var(--border-light);
     border-radius: 8px;
-    min-width: 60px;
-    transition: background-color 0.3s ease;
+    min-width: 55px;
+    transition: all 0.3s ease;
+  }
+
+  .product-card:hover .stat-block {
+    border-color: var(--card-color);
   }
 
   .stat-val {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--card-color);
   }
 
   .stat-lbl {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -382,7 +375,7 @@ const statusColors: Record<string, string> = {
 
   .tech-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 500;
     color: var(--tag-text);
     background: var(--tag-bg);
@@ -395,6 +388,7 @@ const statusColors: Record<string, string> = {
   .product-actions {
     display: flex;
     gap: 0.75rem;
+    margin-top: auto;
   }
 
   .product-cta {
@@ -411,14 +405,15 @@ const statusColors: Record<string, string> = {
   }
 
   .product-cta.primary {
-    background: var(--accent);
-    color: var(--text-inverse);
+    background: var(--card-color);
+    color: #ffffff;
   }
 
   .product-cta.primary:hover {
-    background: var(--accent-hover);
-    color: var(--text-inverse);
+    filter: brightness(1.15);
+    color: #ffffff;
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--card-color-glow);
   }
 
   .product-cta.secondary {
@@ -428,49 +423,19 @@ const statusColors: Record<string, string> = {
   }
 
   .product-cta.secondary:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--card-color);
+    border-color: var(--card-color);
   }
 
-  @media (max-width: 968px) {
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .product-card.featured {
-      grid-column: span 2;
-    }
-
-    .product-card.featured .product-inner {
-      grid-template-columns: 1fr;
-    }
-
-    .product-card.featured .product-stats {
-      grid-column: 1;
-      grid-row: auto;
-      justify-self: start;
-    }
-  }
-
-  @media (max-width: 640px) {
+  /* Responsive */
+  @media (max-width: 768px) {
     .products-section {
       padding: 3rem 0;
     }
 
     .products-grid {
       grid-template-columns: 1fr;
-    }
-
-    .product-card.featured {
-      grid-column: span 1;
-    }
-
-    .product-card.featured .product-inner {
-      padding: 1.5rem;
-    }
-
-    .product-card.featured .product-name {
-      font-size: 1.3rem;
+      gap: 1.25rem;
     }
 
     .product-inner {
@@ -478,16 +443,16 @@ const statusColors: Record<string, string> = {
     }
 
     .product-name {
-      font-size: 1.15rem;
+      font-size: 1.25rem;
     }
 
     .product-stats {
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
     .stat-block {
       padding: 0.35rem 0.5rem;
-      min-width: 50px;
+      min-width: 48px;
     }
   }
 </style>
