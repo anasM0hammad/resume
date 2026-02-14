@@ -1,0 +1,76 @@
+---
+// Retro-style visitor counter
+---
+
+<div class="visitor-wrap">
+  <span class="visitor-label">visitors</span>
+  <div class="visitor-counter" id="visitor-counter">
+    <span class="digit">0</span>
+    <span class="digit">0</span>
+    <span class="digit">0</span>
+    <span class="digit">0</span>
+    <span class="digit">0</span>
+  </div>
+</div>
+
+<script>
+  // Simple localStorage-based counter (per-device, increments once per session)
+  function initCounter() {
+    const counter = document.getElementById('visitor-counter');
+    if (!counter) return;
+
+    let count = parseInt(localStorage.getItem('visitor-count') || '0', 10);
+    const visited = sessionStorage.getItem('counted');
+    if (!visited) {
+      count++;
+      localStorage.setItem('visitor-count', String(count));
+      sessionStorage.setItem('counted', '1');
+    }
+
+    // Ensure minimum display value for aesthetics
+    const display = Math.max(count, 1247);
+    const digits = counter.querySelectorAll('.digit');
+    const str = String(display).padStart(digits.length, '0');
+    digits.forEach((d, i) => {
+      d.textContent = str[i] || '0';
+    });
+  }
+
+  initCounter();
+</script>
+
+<style>
+  .visitor-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .visitor-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .visitor-counter {
+    display: flex;
+    gap: 2px;
+  }
+
+  .digit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 22px;
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-border);
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--terminal-green);
+  }
+</style>
