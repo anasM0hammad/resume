@@ -96,18 +96,17 @@ const technologies: Technology[] = [
 ---
 
 <div class="container-bg profile-details">
-    <div class="row my-2">
+    <div class="row my-2 row-stretch">
         <div class="col-lg-8 colx">
-            <div class="card box">
+            <div class="card box card-full">
                 <div class="card-body intro">
                     <div class="intro-header">
+                        <div class="intro-profile-wrap" id="profile-tilt">
+                            <Image src={profile} class="intro-profile-img" alt="Mohammad Anas"/>
+                        </div>
                         <div class="intro-text">
                             <h3 class="monospace-font section-title">Introduction</h3>
                             <p class="handle"><small><b>@anaslyzer</b></small></p>
-                        </div>
-                        <div class="intro-profile-wrap">
-                            <Image src={profile} class="intro-profile-img" alt="Mohammad Anas"/>
-                            <div class="profile-glow"></div>
                         </div>
                     </div>
                     <p>Hey there I am Anas, an AI full-stack engineer from Delhi. I've spent the last few years building things that scale at Adobe and Samsung, and tinkering with side projects in healthtech, blockchain and AI . I love clean architecture, expressive code, and solving problems that matter.</p>
@@ -117,7 +116,7 @@ const technologies: Technology[] = [
             </div>
         </div>
         <div class="col-lg-4 colx">
-            <div class="card box">
+            <div class="card box card-full">
                 <div class="card-body stats">
                     <h3 class="monospace-font section-title">Github Space</h3>
                     <div class="d-flex m-4 github-stats-row">
@@ -187,56 +186,72 @@ const technologies: Technology[] = [
 
 <script>
   // GitHub API integration — fetch live stats
+  document.addEventListener('DOMContentLoaded', function() {
+    fetchGitHubStats();
+    initProfileTilt();
+  });
+
   async function fetchGitHubStats() {
     const username = 'anasM0hammad';
+
+    // Set a timeout fallback — if API doesn't respond in 5s, show fallbacks
+    const fallbackTimer = setTimeout(() => setFallbackValues(), 5000);
+
     try {
       // Fetch user profile
       const userRes = await fetch(`https://api.github.com/users/${username}`);
       if (!userRes.ok) {
-        console.warn('GitHub API user fetch failed:', userRes.status);
+        console.warn('GitHub API: user fetch failed, status:', userRes.status);
+        clearTimeout(fallbackTimer);
         setFallbackValues();
         return;
       }
       const user = await userRes.json();
+      console.log('GitHub API: user data received', { repos: user.public_repos, followers: user.followers });
 
       const reposEl = document.getElementById('gh-repos');
       const followersEl = document.getElementById('gh-followers');
-      if (reposEl) reposEl.textContent = (user.public_repos ?? 0).toString();
-      if (followersEl) followersEl.textContent = (user.followers ?? 0).toString();
+      if (reposEl) reposEl.textContent = String(user.public_repos || 0);
+      if (followersEl) followersEl.textContent = String(user.followers || 0);
 
-      // Fetch all repos (paginated) to calculate total stars
-      let allRepos: any[] = [];
+      // Fetch repos (paginated) to get star count
+      let totalStars = 0;
       let page = 1;
-      let hasMore = true;
-      while (hasMore) {
-        const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&page=${page}&sort=updated`);
+      while (true) {
+        const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&page=${page}`);
         if (!reposRes.ok) break;
         const repos = await reposRes.json();
-        if (repos.length === 0) {
-          hasMore = false;
-        } else {
-          allRepos = allRepos.concat(repos);
-          page++;
-          if (repos.length < 100) hasMore = false;
+        if (!repos.length) break;
+        for (const repo of repos) {
+          totalStars += (repo.stargazers_count || 0);
         }
+        if (repos.length < 100) break;
+        page++;
       }
-
-      const totalStars = allRepos.reduce((sum: number, repo: any) => sum + (repo.stargazers_count || 0), 0);
       const starsEl = document.getElementById('gh-stars');
-      if (starsEl) starsEl.textContent = totalStars.toString();
+      if (starsEl) starsEl.textContent = String(totalStars);
 
-      // Fetch recent events to estimate commit activity
+      // Fetch events for commit count
       const eventsRes = await fetch(`https://api.github.com/users/${username}/events?per_page=100`);
       if (eventsRes.ok) {
         const events = await eventsRes.json();
-        const pushEvents = events.filter((e: any) => e.type === 'PushEvent');
-        const recentCommits = pushEvents.reduce((sum: number, e: any) => sum + (e.payload?.commits?.length || 0), 0);
+        let commitCount = 0;
+        for (const e of events) {
+          if (e.type === 'PushEvent' && e.payload && e.payload.commits) {
+            commitCount += e.payload.commits.length;
+          }
+        }
         const commitsEl = document.getElementById('gh-commits');
-        // Show recent commits count with a "+" to indicate it's recent activity
-        if (commitsEl) commitsEl.textContent = recentCommits > 0 ? `${recentCommits}+` : '374';
+        if (commitsEl) commitsEl.textContent = commitCount > 0 ? commitCount + '+' : '374';
+      } else {
+        const commitsEl = document.getElementById('gh-commits');
+        if (commitsEl) commitsEl.textContent = '374';
       }
+
+      clearTimeout(fallbackTimer);
     } catch (err) {
       console.warn('GitHub API error:', err);
+      clearTimeout(fallbackTimer);
       setFallbackValues();
     }
   }
@@ -248,13 +263,34 @@ const technologies: Technology[] = [
       'gh-stars': '57',
       'gh-commits': '374'
     };
-    Object.entries(fallbacks).forEach(([id, val]) => {
+    for (const [id, val] of Object.entries(fallbacks)) {
       const el = document.getElementById(id);
-      if (el && el.textContent === '--') el.textContent = val;
-    });
+      if (el && (el.textContent === '--' || el.textContent === '')) {
+        el.textContent = val;
+      }
+    }
   }
 
-  fetchGitHubStats();
+  // Profile image 3D tilt (same effect as terminal)
+  function initProfileTilt() {
+    const profileWrap = document.getElementById('profile-tilt');
+    if (!profileWrap) return;
+
+    profileWrap.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = profileWrap.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const rotateY = (x - 0.5) * 15;
+      const rotateX = (0.5 - y) * 15;
+      profileWrap.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      profileWrap.style.transition = 'none';
+    });
+
+    profileWrap.addEventListener('mouseleave', () => {
+      profileWrap.style.transition = 'transform 0.4s ease';
+      profileWrap.style.transform = 'perspective(400px) rotateX(0) rotateY(0)';
+    });
+  }
 </script>
 
 <style>
@@ -286,15 +322,34 @@ const technologies: Technology[] = [
         color: var(--accent) !important;
     }
 
+    /* Match row heights */
+    .row-stretch {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .row-stretch > .colx {
+        display: flex;
+    }
+
+    .card-full {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-full .card-body {
+        flex: 1;
+    }
+
     /* ============================================
-       INTRO HEADER - Profile image inline
+       INTRO HEADER - Profile image on LEFT with 3D tilt
        ============================================ */
     .intro-header {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 1.5rem;
-        margin-bottom: 0.75rem;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .intro-text {
@@ -302,38 +357,19 @@ const technologies: Technology[] = [
     }
 
     .intro-profile-wrap {
-        position: relative;
         flex-shrink: 0;
+        will-change: transform;
+        transform-style: preserve-3d;
     }
 
     .intro-profile-img {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         object-fit: cover;
         border: 3px solid var(--accent);
-        box-shadow: 0 0 20px var(--accent-glow), 0 4px 16px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .intro-profile-img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 30px var(--accent-glow), 0 0 50px var(--accent-glow);
-    }
-
-    .profile-glow {
-        position: absolute;
-        inset: -4px;
-        border-radius: 50%;
-        background: conic-gradient(var(--accent), transparent, var(--accent));
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        z-index: -1;
-        filter: blur(8px);
-    }
-
-    .intro-profile-wrap:hover .profile-glow {
-        opacity: 0.4;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        display: block;
     }
 
     .git-stats{
@@ -373,7 +409,7 @@ const technologies: Technology[] = [
     }
 
     /* ============================================
-       TECH STACK — Bigger icons with 3D hover
+       TECH STACK — Big icons, dark mode visible
        ============================================ */
     .tech-stack-card {
         padding: 30px 20px;
@@ -413,14 +449,26 @@ const technologies: Technology[] = [
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 10px;
         perspective: 200px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Dark mode: give icons a subtle light bg so they're visible */
+    [data-theme="dark"] .tech-icon-wrap {
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .tech-icon {
         width: 48px;
         height: 48px;
         object-fit: contain;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    /* Dark mode: boost icon brightness */
+    [data-theme="dark"] .tech-icon {
+        filter: brightness(1.3) contrast(1.05);
     }
 
     .tech-item:hover .tech-icon {
@@ -436,6 +484,11 @@ const technologies: Technology[] = [
         white-space: nowrap;
     }
 
+    /* Dark mode: make labels more readable */
+    [data-theme="dark"] .tech-label {
+        color: var(--text-secondary);
+    }
+
     @media (min-width: 851px){
         .profile-details p{
             font-size: medium;
@@ -445,6 +498,10 @@ const technologies: Technology[] = [
     @media (max-width: 850px){
         .colx{
             margin: 10px;
+        }
+
+        .row-stretch {
+            flex-direction: column;
         }
 
         .stats{
@@ -476,8 +533,8 @@ const technologies: Technology[] = [
         }
 
         .intro-profile-img {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
         }
     }
 
@@ -501,15 +558,9 @@ const technologies: Technology[] = [
             font-size: small;
         }
 
-        .intro-header {
-            flex-direction: column-reverse;
-            align-items: center;
-            text-align: center;
-        }
-
         .intro-profile-img {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
         }
     }
 
