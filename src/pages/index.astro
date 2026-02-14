@@ -3,7 +3,6 @@ import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
-import profile from '../assets/profile.png';
 import resume from '../assets/resume.pdf';
 import trophy from '../assets/trophy.svg';
 import twitter from '../assets/X.svg';
@@ -18,6 +17,7 @@ import EasterEgg from '../components/EasterEgg.astro';
 
 <Layout title="Mohammad Anas">
   <Header active='/'/>
+  <div class="scroll-progress" id="scroll-progress"></div>
 
   <main class="main-content">
     <!-- ═══════════════ HERO SECTION ═══════════════ -->
@@ -43,11 +43,6 @@ import EasterEgg from '../components/EasterEgg.astro';
           <div class="npx-badge" id="npx-badge" title="Click to copy">
             <span class="npx-prompt">$</span> npx mohdanas
             <span class="npx-copied" id="npx-copied">copied!</span>
-          </div>
-
-          <!-- Profile image below intro text -->
-          <div class="hero-profile-wrap">
-            <Image src={profile} class="hero-profile-img" alt="Mohammad Anas"/>
           </div>
         </div>
 
@@ -85,16 +80,16 @@ import EasterEgg from '../components/EasterEgg.astro';
     </section>
 
     <!-- ═══════════════ PRODUCTS ═══════════════ -->
-    <Showcase />
+    <div class="reveal"><Showcase /></div>
 
     <!-- ═══════════════ PROFILE ═══════════════ -->
-    <Profile />
+    <div class="reveal"><Profile /></div>
 
     <!-- ═══════════════ EXPERIENCE ═══════════════ -->
-    <Experience />
+    <div class="reveal"><Experience /></div>
 
     <!-- ═══════════════ GIT LOG ═══════════════ -->
-    <GitLog />
+    <div class="reveal"><GitLog /></div>
 
     <!-- ═══════════════ ACHIEVEMENTS ═══════════════ -->
     <section class="achievements-section">
@@ -134,7 +129,7 @@ import EasterEgg from '../components/EasterEgg.astro';
     </section>
 
     <!-- ═══════════════ EDUCATION ═══════════════ -->
-    <Education />
+    <div class="reveal"><Education /></div>
 
     <!-- ═══════════════ FOOTER ═══════════════ -->
     <Footer />
@@ -194,6 +189,55 @@ import EasterEgg from '../components/EasterEgg.astro';
       heroTerminal.style.transform = 'perspective(800px) rotateX(0) rotateY(0)';
     });
   }
+
+  // Scroll progress bar
+  const scrollProgress = document.getElementById('scroll-progress');
+  if (scrollProgress) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgress.style.width = `${progress}%`;
+    });
+  }
+
+  // Scroll reveal: IntersectionObserver
+  const revealElements = document.querySelectorAll('.reveal');
+  if (revealElements.length > 0) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  }
+
+  // Console ASCII art Easter egg
+  console.log(
+    '%c' +
+    '╔══════════════════════════════════════════╗\n' +
+    '║                                          ║\n' +
+    '║      █████╗ ███╗   ██╗ █████╗ ███████╗   ║\n' +
+    '║     ██╔══██╗████╗  ██║██╔══██╗██╔════╝   ║\n' +
+    '║     ███████║██╔██╗ ██║███████║███████╗    ║\n' +
+    '║     ██╔══██║██║╚██╗██║██╔══██║╚════██║    ║\n' +
+    '║     ██║  ██║██║ ╚████║██║  ██║███████║    ║\n' +
+    '║     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    ║\n' +
+    '║                                          ║\n' +
+    '║   Hey hacker! Try the Konami code ;)     ║\n' +
+    '║   ↑ ↑ ↓ ↓ ← → ← → B A                  ║\n' +
+    '║                                          ║\n' +
+    '╚══════════════════════════════════════════╝',
+    'color: #C04848; font-family: monospace; font-size: 11px;'
+  );
+  console.log(
+    '%c> Curious dev? Check out the source: github.com/anasM0hammad',
+    'color: #7ee787; font-family: monospace; font-size: 12px;'
+  );
 </script>
 
 <style>
@@ -337,25 +381,6 @@ import EasterEgg from '../components/EasterEgg.astro';
 
   .npx-copied.show {
     opacity: 1;
-  }
-
-  /* Profile image in hero-left */
-  .hero-profile-wrap {
-    margin-top: 0.5rem;
-  }
-
-  .hero-profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--accent);
-    box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
-    transition: all 0.3s ease;
-  }
-
-  .hero-profile-img:hover {
-    box-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow);
   }
 
   /* ============================================
@@ -544,11 +569,6 @@ import EasterEgg from '../components/EasterEgg.astro';
 
     .hero-terminal {
       max-width: 100%;
-    }
-
-    .hero-profile-img {
-      width: 100px;
-      height: 100px;
     }
 
     .ach-card {
