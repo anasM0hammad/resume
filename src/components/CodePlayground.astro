@@ -1,0 +1,425 @@
+---
+// Interactive code playground with embedded snake game
+---
+
+<section class="playground-section">
+  <div class="container-bg">
+    <h3 class="section-header">
+      <span class="prompt">&gt;</span> node playground.js<span class="terminal-cursor"></span>
+    </h3>
+
+    <div class="playground-card">
+      <div class="pg-bar">
+        <div class="pg-dots">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+        </div>
+        <span class="pg-title">playground.js</span>
+        <button class="pg-run" id="pg-run"><i class="fas fa-play"></i> Run</button>
+      </div>
+      <div class="pg-body">
+        <div class="pg-editor" id="pg-editor">
+          <div class="pg-lines" id="pg-lines"></div>
+          <textarea class="pg-textarea" id="pg-textarea" spellcheck="false"></textarea>
+        </div>
+        <div class="pg-output-wrap">
+          <div class="pg-output-bar">output</div>
+          <div class="pg-output" id="pg-output">
+            <span class="pg-prompt">&gt;</span> <span class="pg-hint">Click Run or press Ctrl+Enter</span>
+          </div>
+          <canvas id="pg-canvas" class="pg-canvas" width="280" height="280" style="display:none;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const textarea = document.getElementById('pg-textarea') as HTMLTextAreaElement;
+  const output = document.getElementById('pg-output')!;
+  const canvas = document.getElementById('pg-canvas') as HTMLCanvasElement;
+  const runBtn = document.getElementById('pg-run')!;
+  const linesEl = document.getElementById('pg-lines')!;
+  let snakeInterval: any = null;
+
+  // Set default textarea content
+  if (textarea) {
+    textarea.value = [
+      '// Welcome to the playground!',
+      '// Try editing and hit Run, or type:',
+      '//   snake()  \u2014 to play Snake',
+      '//   matrix() \u2014 for Matrix rain',
+      '//   hello()  \u2014 to say hi',
+      '',
+      'function hello() {',
+      '  return "Hey! I\'m Anas \uD83D\uDC4B";',
+      '}',
+      '',
+      'hello();'
+    ].join('\n');
+  }
+
+  function updateLineNumbers() {
+    if (!textarea || !linesEl) return;
+    const count = textarea.value.split('\n').length;
+    linesEl.innerHTML = Array.from({ length: count }, (_, i) =>
+      `<span class="pg-line-num">${i + 1}</span>`
+    ).join('');
+  }
+
+  textarea?.addEventListener('input', updateLineNumbers);
+  textarea?.addEventListener('scroll', () => {
+    if (linesEl) linesEl.scrollTop = textarea.scrollTop;
+  });
+  updateLineNumbers();
+
+  function clearGame() {
+    if (snakeInterval) { clearInterval(snakeInterval); snakeInterval = null; }
+    canvas.style.display = 'none';
+  }
+
+  function log(msg: string) {
+    output.innerHTML += `<div class="pg-log">${msg}</div>`;
+    output.scrollTop = output.scrollHeight;
+  }
+
+  // Snake game
+  function startSnake() {
+    clearGame();
+    canvas.style.display = 'block';
+    const ctx = canvas.getContext('2d')!;
+    const size = 14;
+    const cols = Math.floor(canvas.width / size);
+    const rows = Math.floor(canvas.height / size);
+    let snake = [{ x: 5, y: 5 }];
+    let dir = { x: 1, y: 0 };
+    let food = spawnFood();
+    let score = 0;
+    let gameOver = false;
+
+    function spawnFood() {
+      return { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
+    }
+
+    function draw() {
+      // Background
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      ctx.fillStyle = isDark ? '#0d1117' : '#1a1a2e';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Grid lines (subtle)
+      ctx.strokeStyle = isDark ? '#161b22' : '#232340';
+      ctx.lineWidth = 0.5;
+      for (let x = 0; x <= cols; x++) {
+        ctx.beginPath(); ctx.moveTo(x * size, 0); ctx.lineTo(x * size, canvas.height); ctx.stroke();
+      }
+      for (let y = 0; y <= rows; y++) {
+        ctx.beginPath(); ctx.moveTo(0, y * size); ctx.lineTo(canvas.width, y * size); ctx.stroke();
+      }
+
+      // Food
+      ctx.fillStyle = '#ff5f56';
+      ctx.fillRect(food.x * size + 1, food.y * size + 1, size - 2, size - 2);
+
+      // Snake
+      snake.forEach((s, i) => {
+        ctx.fillStyle = i === 0 ? '#27c93f' : '#7ee787';
+        ctx.fillRect(s.x * size + 1, s.y * size + 1, size - 2, size - 2);
+      });
+
+      // Score
+      ctx.fillStyle = '#8b949e';
+      ctx.font = '10px JetBrains Mono, monospace';
+      ctx.fillText(`Score: ${score}`, 4, canvas.height - 4);
+
+      if (gameOver) {
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ff5f56';
+        ctx.font = 'bold 16px Space Grotesk, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 8);
+        ctx.fillStyle = '#8b949e';
+        ctx.font = '11px JetBrains Mono, monospace';
+        ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 + 12);
+        ctx.textAlign = 'start';
+      }
+    }
+
+    function update() {
+      if (gameOver) return;
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+      if (head.x < 0 || head.x >= cols || head.y < 0 || head.y >= rows ||
+          snake.some(s => s.x === head.x && s.y === head.y)) {
+        gameOver = true;
+        draw();
+        log(`🐍 Game Over! Final score: ${score}`);
+        return;
+      }
+
+      snake.unshift(head);
+      if (head.x === food.x && head.y === food.y) {
+        score++;
+        food = spawnFood();
+      } else {
+        snake.pop();
+      }
+      draw();
+    }
+
+    document.addEventListener('keydown', function snakeKeys(e: KeyboardEvent) {
+      if (!canvas.style.display || canvas.style.display === 'none') {
+        document.removeEventListener('keydown', snakeKeys);
+        return;
+      }
+      if (e.key === 'ArrowUp' && dir.y === 0) { dir = { x: 0, y: -1 }; e.preventDefault(); }
+      if (e.key === 'ArrowDown' && dir.y === 0) { dir = { x: 0, y: 1 }; e.preventDefault(); }
+      if (e.key === 'ArrowLeft' && dir.x === 0) { dir = { x: -1, y: 0 }; e.preventDefault(); }
+      if (e.key === 'ArrowRight' && dir.x === 0) { dir = { x: 1, y: 0 }; e.preventDefault(); }
+    });
+
+    draw();
+    snakeInterval = setInterval(update, 120);
+    log('🐍 Snake started! Use arrow keys to play.');
+  }
+
+  // Matrix rain
+  function startMatrix() {
+    clearGame();
+    canvas.style.display = 'block';
+    const ctx = canvas.getContext('2d')!;
+    const fontSize = 10;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = new Array(columns).fill(1);
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()ｱｲｳｴｵｶｷｸｹｺ';
+    let frames = 0;
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#27c93f';
+      ctx.font = `${fontSize}px JetBrains Mono, monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+
+      frames++;
+      if (frames < 300) requestAnimationFrame(draw);
+      else { log('Matrix rain ended.'); canvas.style.display = 'none'; }
+    }
+
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    draw();
+    log('🟢 Matrix rain started...');
+  }
+
+  function runCode() {
+    clearGame();
+    output.innerHTML = '';
+    const code = textarea?.value || '';
+
+    // Check for special commands
+    if (code.includes('snake()')) { startSnake(); return; }
+    if (code.includes('matrix()')) { startMatrix(); return; }
+
+    try {
+      const result = new Function(`
+        const console = { log: function() { return Array.from(arguments).join(' '); } };
+        function hello() { return "Hey! I'm Anas 👋"; }
+        function snake() { return "__SNAKE__"; }
+        function matrix() { return "__MATRIX__"; }
+        return (function() { ${code} \n return eval(${JSON.stringify(code.split('\n').pop())}); })();
+      `)();
+
+      if (result === '__SNAKE__') { startSnake(); return; }
+      if (result === '__MATRIX__') { startMatrix(); return; }
+      if (result !== undefined) log(`<span class="pg-result">${String(result)}</span>`);
+    } catch (err: any) {
+      log(`<span class="pg-error">${err.message}</span>`);
+    }
+  }
+
+  runBtn?.addEventListener('click', runCode);
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && document.activeElement === textarea) {
+      e.preventDefault();
+      runCode();
+    }
+  });
+</script>
+
+<style>
+  .playground-section {
+    padding: 4rem 0;
+    background: var(--bg-primary);
+    transition: background-color 0.3s ease;
+  }
+
+  .playground-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--terminal-border);
+    background: var(--terminal-bg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .pg-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: #161b22;
+    border-bottom: 1px solid var(--terminal-border);
+  }
+
+  .pg-dots { display: flex; gap: 5px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+
+  .pg-title {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #8b949e;
+  }
+
+  .pg-run {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #27c93f;
+    background: rgba(39, 201, 63, 0.1);
+    border: 1px solid rgba(39, 201, 63, 0.3);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s ease;
+  }
+
+  .pg-run:hover {
+    background: rgba(39, 201, 63, 0.2);
+  }
+
+  .pg-body {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    min-height: 280px;
+  }
+
+  .pg-editor {
+    display: flex;
+    border-right: 1px solid var(--terminal-border);
+  }
+
+  .pg-lines {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+    min-width: 32px;
+    text-align: right;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .pg-line-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    color: #484f58;
+    padding-right: 0.5rem;
+  }
+
+  .pg-textarea {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: #c9d1d9;
+    padding: 0.75rem 0.5rem;
+    tab-size: 2;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+  }
+
+  .pg-output-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pg-output-bar {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: #484f58;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.75rem;
+    border-bottom: 1px solid var(--terminal-border);
+    background: #0d1117;
+  }
+
+  .pg-output {
+    flex: 1;
+    padding: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #c9d1d9;
+    overflow-y: auto;
+    background: #0d1117;
+  }
+
+  .pg-canvas {
+    background: #0d1117;
+    display: block;
+    width: 280px;
+    height: 280px;
+  }
+
+  .pg-prompt { color: var(--terminal-green); }
+  .pg-hint { color: #484f58; }
+  .pg-log { margin: 0.15rem 0; }
+  .pg-result { color: #58a6ff; }
+  .pg-error { color: #ff5f56; }
+
+  @media (max-width: 768px) {
+    .pg-body {
+      grid-template-columns: 1fr;
+    }
+
+    .pg-editor {
+      border-right: none;
+      border-bottom: 1px solid var(--terminal-border);
+      min-height: 180px;
+    }
+
+    .pg-output-wrap {
+      min-height: 180px;
+    }
+
+    .pg-canvas {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    .playground-section {
+      padding: 3rem 0;
+    }
+  }
+</style>
