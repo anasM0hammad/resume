@@ -17,7 +17,6 @@ interface Company {
   name: string;
   location: string;
   logo: any;
-  logoClass?: string;
   period: string;
   website?: string;
   roles: Role[];
@@ -65,7 +64,6 @@ const companies: Company[] = [
     name: "Samsung",
     location: "Noida",
     logo: samsung,
-    logoClass: "logo-wide",
     period: "Feb 2021 - May 2021",
     website: "https://research.samsung.com/sri-n",
     roles: [
@@ -84,7 +82,6 @@ const companies: Company[] = [
     name: "Emvoke",
     location: "Remote",
     logo: emvoke,
-    logoClass: "logo-wide",
     period: "Dec 2019 - Feb 2021",
     website: "https://www.emvoke.com/",
     roles: [
@@ -161,7 +158,9 @@ const companies: Company[] = [
 
           <div class="timeline-content">
             <div class="company-header">
-              <Image src={company.logo} class={`company-logo ${company.logoClass || ''}`} alt={`${company.name} logo`} />
+              <div class="company-logo-wrap">
+                <Image src={company.logo} class="company-logo" alt={`${company.name} logo`} />
+              </div>
               <div class="company-info">
                 <h4 class="company-name">
                   {company.name}
@@ -238,7 +237,7 @@ const companies: Company[] = [
     border: 2px solid var(--bg-primary);
     box-shadow: 0 0 0 3px var(--accent-light);
     flex-shrink: 0;
-    margin-top: 6px;
+    margin-top: 10px;
     z-index: 1;
     transition: background-color 0.3s ease;
   }
@@ -263,20 +262,32 @@ const companies: Company[] = [
     margin-bottom: 1rem;
   }
 
-  .company-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: contain;
-    background: var(--bg-secondary);
-    padding: 4px;
+  /* Improved company logo styling */
+  .company-logo-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    transition: background-color 0.3s ease;
+    padding: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
 
-  .company-logo.logo-wide {
-    width: 56px;
-    height: 32px;
+  [data-theme="dark"] .company-logo-wrap {
+    background: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .company-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     border-radius: 6px;
   }
 
@@ -288,8 +299,8 @@ const companies: Company[] = [
   }
 
   .company-name {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
@@ -364,6 +375,7 @@ const companies: Company[] = [
   }
 
   .role-highlights li {
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.82rem;
     color: var(--text-secondary);
     line-height: 1.5;
@@ -416,8 +428,13 @@ const companies: Company[] = [
     }
 
     .company-header {
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.75rem;
+    }
+
+    .company-logo-wrap {
+      width: 44px;
+      height: 44px;
+      padding: 5px;
     }
 
     .company-info {
