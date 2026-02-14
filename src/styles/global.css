@@ -1,58 +1,133 @@
-/* Global Styles */
+/* ============================================
+   THEME SYSTEM - CSS Custom Properties
+   ============================================ */
+:root {
+  /* Light theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f3f0;
+  --bg-card: #faf8f6;
+  --bg-code: #1e1e2e;
+  --bg-header: rgba(255, 255, 255, 0.92);
+  --bg-accent-block: #8B3A3A;
+  --bg-footer: #1a1a1a;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #7a7a7a;
+  --text-inverse: #ffffff;
+
+  --accent: #8B3A3A;
+  --accent-hover: #6d2e2e;
+  --accent-light: rgba(139, 58, 58, 0.1);
+  --accent-glow: rgba(139, 58, 58, 0.15);
+
+  --border: #e5e0db;
+  --border-light: #f0ece8;
+
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  --timeline-line: #d4cfca;
+  --timeline-dot: #8B3A3A;
+
+  --tag-bg: rgba(139, 58, 58, 0.08);
+  --tag-text: #8B3A3A;
+  --tag-border: rgba(139, 58, 58, 0.2);
+
+  --code-green: #50fa7b;
+  --code-comment: #6272a4;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #161616;
+  --bg-card: #1a1a1a;
+  --bg-code: #111111;
+  --bg-header: rgba(13, 13, 13, 0.92);
+  --bg-accent-block: #8B3A3A;
+  --bg-footer: #0a0a0a;
+
+  --text-primary: #e8e8e8;
+  --text-secondary: #b0b0b0;
+  --text-muted: #707070;
+  --text-inverse: #0d0d0d;
+
+  --accent: #c25656;
+  --accent-hover: #d46a6a;
+  --accent-light: rgba(194, 86, 86, 0.12);
+  --accent-glow: rgba(194, 86, 86, 0.2);
+
+  --border: #2a2a2a;
+  --border-light: #1f1f1f;
+
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+  --timeline-line: #333;
+  --timeline-dot: #c25656;
+
+  --tag-bg: rgba(194, 86, 86, 0.1);
+  --tag-text: #d46a6a;
+  --tag-border: rgba(194, 86, 86, 0.25);
+
+  --code-green: #50fa7b;
+  --code-comment: #6272a4;
+}
+
+/* ============================================
+   GLOBAL RESET & BASE
+   ============================================ */
 * {
   margin: 0;
-  /* padding: 0; */
   box-sizing: border-box;
 }
 
 html {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: var(--text-primary);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #fff;
+  background: var(--bg-primary);
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Typography */
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
+  color: var(--text-primary);
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
+h1 { font-size: 2.5rem; font-weight: 700; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
 
 p {
   margin-bottom: 1rem;
-  color: #4B5563;
+  color: var(--text-secondary);
   line-height: 1.8;
 }
 
 a {
-  color: #4D57DE;
+  color: var(--accent);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: #3a42c7;
+  color: var(--accent-hover);
 }
 
-/* Code Styling */
+/* ============================================
+   CODE STYLING
+   ============================================ */
 code {
-  background: #2d3748;
+  background: var(--bg-code);
   color: #e2e8f0;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
@@ -61,7 +136,7 @@ code {
 }
 
 pre {
-  background: #2d3748;
+  background: var(--bg-code);
   color: #e2e8f0;
   padding: 1.5rem;
   border-radius: 8px;
@@ -77,84 +152,56 @@ pre code {
   color: inherit;
 }
 
-/* Syntax highlighting colors (Dracula-inspired) */
+/* Syntax highlighting */
 .keyword { color: #ff79c6; }
 .string { color: #f1fa8c; }
 .comment { color: #6272a4; }
 .function { color: #50fa7b; }
 .number { color: #bd93f9; }
 
-/* Container */
+/* ============================================
+   LAYOUT
+   ============================================ */
 .container-bg {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* Buttons */
-/* .btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: #4D57DE;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: #3a42c7;
-  transform: translateY(-1px);
-  color: white;
-}
-
-.btn-outline {
-  background: transparent;
-  color: #4D57DE;
-  border: 2px solid #4D57DE;
-}
-
-.btn-outline:hover {
-  background: #4D57DE;
-  color: white;
-} */
-
-.righteous{
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.righteous {
   font-family: 'Righteous';
 }
 
-.box{
-  background-color: #F8FAFC;
+.box {
+  background-color: var(--bg-card);
+  transition: background-color 0.3s ease;
 }
 
-.job-header{
-  background-color: #4D57DE;
-  color: white;
+.job-header {
+  background-color: var(--bg-accent-block);
+  color: var(--text-inverse);
   padding: 20px;
 }
 
-.cursive-font{
+.cursive-font {
   font-family: 'Lobster', cursive;
 }
 
-.monospace-font{ 
-  font-family: 'Courier New', Courier, monospace;
+.monospace-font {
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
 }
 
-/* Responsive */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 768px) {
   .container-bg {
     padding: 0 1rem;
   }
-  
-  h1 {
-    font-size: 2rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-  }
+
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
 }
