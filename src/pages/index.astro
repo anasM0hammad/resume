@@ -565,7 +565,7 @@ import CodePlayground from '../components/CodePlayground.astro';
 
     .hero-grid {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .hero-name {
@@ -576,12 +576,43 @@ import CodePlayground from '../components/CodePlayground.astro';
       font-size: 1.2rem;
     }
 
+    .hero-tagline {
+      font-size: 0.78rem;
+    }
+
     .hero-right {
       order: -1;
     }
 
     .hero-terminal {
       max-width: 100%;
+    }
+
+    .hero-comment {
+      font-size: 0.8rem;
+    }
+
+    .resume-btn {
+      font-size: 0.8rem;
+      padding: 0.55rem 1rem;
+    }
+
+    .npx-badge {
+      font-size: 0.7rem;
+    }
+
+    .hero-social a {
+      font-size: 1.25rem;
+    }
+
+    .social-icon-img {
+      height: 20px;
+      width: 20px;
+    }
+
+    .term-body {
+      font-size: 0.7rem;
+      padding: 0.6rem 0.75rem;
     }
 
     .ach-card {
@@ -602,6 +633,33 @@ import CodePlayground from '../components/CodePlayground.astro';
 
     .achievements-section {
       padding: 3rem 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-name {
+      font-size: 2rem;
+    }
+
+    .hero-role {
+      font-size: 1rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.72rem;
+    }
+
+    .npx-copied {
+      right: -50px;
+      font-size: 0.6rem;
+    }
+
+    .ach-item {
+      font-size: 0.78rem;
+    }
+
+    .ach-card {
+      padding: 1rem;
     }
   }
 </style>

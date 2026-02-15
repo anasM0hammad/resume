@@ -281,9 +281,36 @@ pre code {
 
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
 
   .section-header {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  pre {
+    padding: 1rem;
+    font-size: 0.8em;
+  }
+
+  code {
+    font-size: 0.85em;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-bg {
+    padding: 0 0.75rem;
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.3rem; }
+
+  .section-header {
+    font-size: 0.72rem;
+    margin-bottom: 1.5rem;
   }
 }
 

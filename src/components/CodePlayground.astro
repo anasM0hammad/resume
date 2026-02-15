@@ -315,7 +315,7 @@
 
   .pg-body {
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 1fr 1fr;
     min-height: 280px;
   }
 
@@ -406,21 +406,57 @@
     .pg-editor {
       border-right: none;
       border-bottom: 1px solid var(--terminal-border);
-      min-height: 180px;
+      min-height: 160px;
     }
 
     .pg-output-wrap {
-      min-height: 180px;
+      min-height: 160px;
     }
 
     .pg-canvas {
       width: 100%;
       height: auto;
-      aspect-ratio: 1;
+      aspect-ratio: 4/3;
     }
 
     .playground-section {
       padding: 3rem 0;
+    }
+
+    .pg-textarea {
+      font-size: 0.7rem;
+    }
+
+    .pg-line-num {
+      font-size: 0.65rem;
+    }
+
+    .pg-output {
+      font-size: 0.68rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pg-editor {
+      min-height: 140px;
+    }
+
+    .pg-output-wrap {
+      min-height: 140px;
+    }
+
+    .pg-textarea {
+      font-size: 0.65rem;
+      padding: 0.5rem 0.4rem;
+    }
+
+    .pg-lines {
+      min-width: 26px;
+    }
+
+    .pg-line-num {
+      font-size: 0.6rem;
+      padding-right: 0.35rem;
     }
   }
 </style>
