@@ -1,9 +1,14 @@
 ---
+import dice3dImg from '../assets/Projects/dice3d.png';
+import threeVertexImg from '../assets/Projects/three-vertex.png';
+import flyingBalloonImg from '../assets/Projects/flying-balloon.png';
+import wakeaiImg from '../assets/Projects/wakeai.png';
+
 interface Product {
   name: string;
   tagline: string;
   category: string;
-  icon: string;
+  image: ImageMetadata;
   status: string;
   highlights: { label: string; value: string }[];
   stats: { label: string; value: string }[];
@@ -17,7 +22,7 @@ const products: Product[] = [
     name: "Dice 3D",
     tagline: "A Dice app with realistic 3D rendered dice and multi-texture support. User can create their own custom dice with text or images",
     category: "Mobile App",
-    icon: "fas fa-brain",
+    image: dice3dImg,
     status: "Shipped",
     highlights: [
       { label: "MRR", value: "$0" },
@@ -34,7 +39,7 @@ const products: Product[] = [
     name: "Three Vertex",
     tagline: "Collaboration platform for 3D model creators and builder. Web first native interactive 3D viewer with one click sharing and annotations",
     category: "Web Platform",
-    icon: "fas fa-heartbeat",
+    image: threeVertexImg,
     status: "Shipped",
     highlights: [
       { label: "MRR", value: "$0" },
@@ -50,7 +55,7 @@ const products: Product[] = [
     name: "Flying Balloon",
     tagline: "An arcade game mobile app. One tap mechanics with fast pace difficulty, this game has it all. Currently in development",
     category: "Mobile Game",
-    icon: "fas fa-rocket",
+    image: flyingBalloonImg,
     status: "Development",
     highlights: [
       { label: "MRR", value: "$0" },
@@ -67,7 +72,7 @@ const products: Product[] = [
     name: "WakeAI",
     tagline: "A smart alarm app that let AI ask you questions to wake you up smartly. Answer the questions and dismiss the alarm",
     category: "Mobile App",
-    icon: "fas fa-dice",
+    image: wakeaiImg,
     status: "Development",
     highlights: [
       { label: "MRR", value: "$0" },
@@ -125,7 +130,7 @@ const products: Product[] = [
               </div>
             </div>
             <div class="product-icon-area">
-              <i class={product.icon}></i>
+              <img src={product.image.src} alt={product.name} class="product-logo" />
             </div>
           </div>
         </div>
@@ -238,14 +243,14 @@ const products: Product[] = [
     white-space: nowrap;
   }
 
-  .product-status[data-status="Active"] {
-    color: #27c93f;
-    border: 1px solid rgba(39, 201, 63, 0.3);
+  .product-status[data-status="Development"] {
+    color: #4a9eff;
+    border: 1px solid rgba(74, 158, 255, 0.3);
   }
 
   .product-status[data-status="Shipped"] {
-    color: #61dafb;
-    border: 1px solid rgba(97, 218, 251, 0.3);
+    color: #27c93f;
+    border: 1px solid rgba(39, 201, 63, 0.3);
   }
 
   .product-status[data-status="Beta"] {
@@ -333,7 +338,7 @@ const products: Product[] = [
     color: var(--accent);
   }
 
-  /* Big icon on the right */
+  /* Product logo on the right */
   .product-icon-area {
     flex-shrink: 0;
     width: 64px;
@@ -341,17 +346,19 @@ const products: Product[] = [
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
-    opacity: 0.15;
+    opacity: 0.85;
     transition: opacity 0.2s ease;
   }
 
-  .product-icon-area i {
-    font-size: 3rem;
+  .product-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
   }
 
   .product-card:hover .product-icon-area {
-    opacity: 0.25;
+    opacity: 1;
   }
 
   /* Responsive */
@@ -390,7 +397,8 @@ const products: Product[] = [
     }
 
     .product-icon-area {
-      display: none;
+      width: 48px;
+      height: 48px;
     }
 
     .highlight-val {
