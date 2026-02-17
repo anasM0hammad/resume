@@ -30,7 +30,7 @@ import CodePlayground from '../components/CodePlayground.astro';
       <div class="hero-grid container-bg">
         <div class="hero-left">
           <p class="hero-comment">// hello world</p>
-          <h1 class="hero-name">I AM <span class="hero-accent">ANAS</span></h1>
+          <h1 class="hero-name">I AM <span class="hero-accent hero-name-cycle" id="hero-name-cycle">ANAS</span></h1>
           <h2 class="hero-role">A <span id="typewritter-text"></span></h2>
 
           <p class="hero-tagline" id="hero-tagline">
@@ -249,6 +249,39 @@ import CodePlayground from '../components/CodePlayground.astro';
     '%c> Curious dev? Check out the source: github.com/anasM0hammad',
     'color: #7ee787; font-family: monospace; font-size: 12px;'
   );
+
+  // Multilingual name cycling
+  const nameVariants = [
+    { text: 'ANAS', lang: 'en' },
+    { text: 'انس', lang: 'ur' },
+    { text: 'अनस', lang: 'hi' },
+    { text: 'アナス', lang: 'ja' },
+    { text: 'أنس', lang: 'ar' },
+    { text: '阿纳斯', lang: 'zh' },
+  ];
+
+  const nameEl = document.getElementById('hero-name-cycle');
+  if (nameEl) {
+    let nameIndex = 0;
+
+    setInterval(() => {
+      nameEl.classList.add('slide-out');
+
+      setTimeout(() => {
+        nameIndex = (nameIndex + 1) % nameVariants.length;
+        nameEl.textContent = nameVariants[nameIndex].text;
+        nameEl.setAttribute('lang', nameVariants[nameIndex].lang);
+        nameEl.classList.remove('slide-out');
+        nameEl.classList.add('slide-in');
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            nameEl.classList.remove('slide-in');
+          });
+        });
+      }, 400);
+    }, 3000);
+  }
 </script>
 
 <style>
@@ -303,6 +336,21 @@ import CodePlayground from '../components/CodePlayground.astro';
 
   .hero-accent {
     color: var(--accent);
+  }
+
+  .hero-name-cycle {
+    display: inline-block;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .hero-name-cycle.slide-out {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .hero-name-cycle.slide-in {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
   .hero-role {
