@@ -608,7 +608,9 @@ import CodePlayground from '../components/CodePlayground.astro';
   @media (max-width: 768px) {
     .hero {
       padding: 1.5rem 0;
-      min-height: auto;
+      min-height: calc(100vh - 60px);
+      min-height: calc(100dvh - 60px);
+      justify-content: center;
     }
 
     .hero-grid {
