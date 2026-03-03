@@ -1,7 +1,7 @@
 ---
 // privacy-policy.astro
 const pageTitle = "Flying Balloon - Privacy Policy";
-const lastUpdated = "January 23, 2026";
+const lastUpdated = "March 03, 2026";
 ---
 
 <html class="light scroll-smooth" lang="en">
@@ -570,10 +570,13 @@ const lastUpdated = "January 23, 2026";
                         <a class="sidebar-link active" href="#introduction">Introduction</a>
                         <a class="sidebar-link" href="#info-collect">1. Information We Collect</a>
                         <a class="sidebar-link" href="#permissions">2. Device Permissions</a>
-                        <a class="sidebar-link" href="#third-party">3. Third-Party Services</a>
-                        <a class="sidebar-link" href="#security">4. Data Security</a>
-                        <a class="sidebar-link" href="#children">5. Children's Privacy</a>
-                        <a class="sidebar-link" href="#contact">6. Contact Us</a>
+                        <a class="sidebar-link" href="#advertising">3. Advertising</a>
+                        <a class="sidebar-link" href="#third-party">4. Third-Party Services</a>
+                        <a class="sidebar-link" href="#security">5. Data Storage & Security</a>
+                        <a class="sidebar-link" href="#children">6. Children's Privacy</a>
+                        <a class="sidebar-link" href="#rights">7. Your Rights & Choices</a>
+                        <a class="sidebar-link" href="#changes">8. Changes to This Policy</a>
+                        <a class="sidebar-link" href="#contact">9. Contact Us</a>
                     </nav>
                 </div>
             </aside>
@@ -595,11 +598,11 @@ const lastUpdated = "January 23, 2026";
                     <!-- Introduction -->
                     <div class="section" id="introduction">
                         <p class="intro-text">
-                            Thank you for choosing <strong>Flying Balloon</strong>. This Privacy Policy describes our policies and procedures on the collection, use, and disclosure of your information when you use our mobile game and tells you about your privacy rights and how the law protects you. We are committed to protecting your personal information and your right to privacy.
+                            Thank you for choosing <strong>Flying Balloon</strong> ("the App"), a casual arcade game developed by Gravity Lab ("we", "us", or "our"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application available on the Google Play Store and Apple App Store. Please read this Privacy Policy carefully. By downloading, installing, or using the App, you agree to the practices described in this policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the App.
                         </p>
                     </div>
 
-                    <!-- Section 1 -->
+                    <!-- Section 1: Information We Collect -->
                     <div class="section" id="info-collect">
                         <div class="section-header">
                             <span class="icon-wrapper">
@@ -608,41 +611,98 @@ const lastUpdated = "January 23, 2026";
                             <h2 class="section-title">1. Information We Collect</h2>
                         </div>
                         <p class="section-text">
-                            Flying Balloon is a simple arcade game and does not collect any personally identifiable information such as your name, email address, phone number, or location.
+                            Flying Balloon is designed with a privacy-first approach. We do not require account creation or login, and we do not collect personally identifiable information such as your real name, email address, phone number, or physical address. The information associated with the App falls into the following categories:
+                        </p>
+                        <p class="section-text"><strong>a. Information Stored Locally on Your Device</strong></p>
+                        <p class="section-text">
+                            The App stores gameplay data exclusively on your device using local storage. This data never leaves your device and is not transmitted to our servers or any third party. Locally stored data includes:
                         </p>
                         <ul class="section-list">
-                            <li><strong>Device Information:</strong> We do not collect any information about your mobile device, including model, operating system version, and unique device identifiers.</li>
+                            <li><strong>Player Name:</strong> A self-chosen display name (up to 12 characters) used for your local leaderboard. This is not linked to any real identity.</li>
+                            <li><strong>Game Progress:</strong> High scores, total games played, coins earned, daily challenge progress, and daily login streak data.</li>
+                            <li><strong>Preferences:</strong> Sound and haptic feedback settings, equipped balloon skin, and onboarding completion status.</li>
+                            <li><strong>Cosmetic Inventory:</strong> Owned and equipped balloon skins, earned badges, and trial skin data.</li>
+                            <li><strong>Ad & Consent Data:</strong> Session count, daily ad count, and your advertising consent status (for GDPR compliance).</li>
                         </ul>
+                        <div class="alert">
+                            <p class="alert-text">All gameplay data is stored locally on your device. We do not operate any servers that collect or store your personal data. You can delete all stored data at any time through the Settings screen in the App.</p>
+                        </div>
+                        <p class="section-text"><strong>b. Information Collected by Third-Party Services</strong></p>
+                        <p class="section-text">
+                            The App integrates third-party services that may collect certain information automatically. This data is collected and processed by those third parties in accordance with their own privacy policies. See Section 4 (Third-Party Services) for details.
+                        </p>
                     </div>
 
-                    <!-- Section 3 -->
+                    <!-- Section 2: Device Permissions -->
                     <div class="section" id="permissions">
                         <div class="section-header">
                             <span class="icon-wrapper">
                                 <span class="material-symbols-outlined" style="font-size: 1.125rem;">security</span>
                             </span>
-                            <h2 class="section-title">3. Device Permissions</h2>
+                            <h2 class="section-title">2. Device Permissions</h2>
                         </div>
                         <p class="section-text">
-                            The app does not required any permissions to be enabled.
+                            The App requests the following device permissions to provide its core functionality. Each permission is used solely for the purpose described below:
                         </p>
-                        <!-- <div class="permission-grid">
+                        <div class="permission-grid">
                             <div class="permission-card">
                                 <div class="permission-header">
-                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">photo_library</span>
-                                    <span>Storage / Gallery</span>
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">wifi</span>
+                                    <span>Internet Access</span>
                                 </div>
+                                <p class="permission-text">Required to load and display advertisements through Google AdMob, and to send optional analytics data if enabled.</p>
                             </div>
                             <div class="permission-card">
                                 <div class="permission-header">
-                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">photo_camera</span>
-                                    <span>Camera</span>
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">signal_cellular_alt</span>
+                                    <span>Network State</span>
                                 </div>
+                                <p class="permission-text">Used to check your network connectivity status before attempting to load advertisements or analytics.</p>
                             </div>
-                        </div> -->
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">notifications</span>
+                                    <span>Notifications</span>
+                                </div>
+                                <p class="permission-text">Used to send local reminders for daily rewards and daily challenges. No push notifications are sent from external servers. This permission is requested on Android 13+ devices.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">ad_units</span>
+                                    <span>Advertising ID</span>
+                                </div>
+                                <p class="permission-text">Used by Google AdMob to serve relevant advertisements. On Android 13+ devices, this permission is explicitly requested. You may opt out of personalized ads through the consent dialog or your device settings.</p>
+                            </div>
+                        </div>
+                        <div class="alert">
+                            <p class="alert-text">The App does not access your camera, microphone, contacts, location, photos, or any other sensitive device features.</p>
+                        </div>
                     </div>
 
-                    <!-- Section 4 -->
+                    <!-- Section 3: Advertising -->
+                    <div class="section" id="advertising">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">ads_click</span>
+                            </span>
+                            <h2 class="section-title">3. Advertising</h2>
+                        </div>
+                        <p class="section-text">
+                            The App is free to play and is supported by advertisements served through <strong>Google AdMob</strong>. We display the following types of ads:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Interstitial Ads:</strong> Full-screen ads displayed between gameplay sessions. These are shown after every third game over, capped at a maximum of five per day, and only begin appearing after your third app session.</li>
+                            <li><strong>Rewarded Video Ads:</strong> Optional ads you can choose to watch in exchange for in-game benefits, such as continuing a game after a game over or doubling coins earned.</li>
+                        </ul>
+                        <p class="section-text">
+                            The App does not display banner ads. Google AdMob may collect device information, advertising identifiers, and usage data to serve advertisements. For users in the European Economic Area (EEA), we implement Google's User Messaging Platform (UMP) to obtain your consent before serving personalized advertisements. If you decline consent, you will only receive non-personalized ads.
+                        </p>
+                        <p class="section-text">
+                            For more information about how Google uses your data, please visit: <a href="https://policies.google.com/privacy" style="color: var(--color-primary);">Google Privacy Policy</a>.
+                        </p>
+                    </div>
+
+                    <!-- Section 4: Third-Party Services -->
                     <div class="section" id="third-party">
                         <div class="section-header">
                             <span class="icon-wrapper">
@@ -651,28 +711,42 @@ const lastUpdated = "January 23, 2026";
                             <h2 class="section-title">4. Third-Party Services</h2>
                         </div>
                         <p class="section-text">
-                            We do not use or deploy any third party service. The app is ad free.
+                            The App uses the following third-party services. Each service operates under its own privacy policy, and we encourage you to review them:
                         </p>
-                        <!-- <ul class="section-list">
-                            <li><strong>Google AdMob:</strong> We use AdMob to display advertisements to support the development of the app. AdMob may collect data to provide personalized ads.</li>
-                            <li><strong>Unity Analytics:</strong> Used to understand game performance and crash reporting.</li>
-                        </ul> -->
+                        <ul class="section-list">
+                            <li><strong>Google AdMob:</strong> Used to display interstitial and rewarded video advertisements. AdMob may collect device identifiers, IP address, and usage data to serve and measure ads. <a href="https://policies.google.com/privacy" style="color: var(--color-primary);">Google Privacy Policy</a></li>
+                            <li><strong>Firebase Analytics:</strong> Used to collect anonymous usage data such as gameplay events (game starts, game overs, ad interactions, skin purchases, badge achievements). This data helps us understand how the App is used and improve the user experience. No personally identifiable information is collected. <a href="https://firebase.google.com/support/privacy" style="color: var(--color-primary);">Firebase Privacy Information</a></li>
+                            <li><strong>Firebase Crashlytics:</strong> Used to collect anonymous crash reports and error logs to help us identify and fix technical issues. Crash data may include device model, operating system version, and the state of the App at the time of the crash. <a href="https://firebase.google.com/support/privacy" style="color: var(--color-primary);">Firebase Privacy Information</a></li>
+                            <li><strong>Google Play Services / App Store:</strong> Required for app distribution, in-app review prompts, and platform integration.</li>
+                        </ul>
+                        <div class="alert">
+                            <p class="alert-text">We do not sell, trade, or otherwise transfer your information to any parties beyond the third-party services described above. No data is shared for marketing or advertising profiling purposes beyond what is required for ad delivery.</p>
+                        </div>
                     </div>
 
-                    <!-- Section 5 -->
+                    <!-- Section 5: Data Storage & Security -->
                     <div class="section" id="security">
                         <div class="section-header">
                             <span class="icon-wrapper">
                                 <span class="material-symbols-outlined" style="font-size: 1.125rem;">lock</span>
                             </span>
-                            <h2 class="section-title">5. Data Security</h2>
+                            <h2 class="section-title">5. Data Storage & Security</h2>
                         </div>
                         <p class="section-text">
-                            The security of your data is important to us. The app does not in any way access or use any personal data. The app uses browser local storage to score game metrics only and does not access or use direct mobile sotrage in any way
+                            The security of your data is important to us. All gameplay data, preferences, and progress are stored exclusively in your device's local storage (browser localStorage). This data is never transmitted to external servers operated by us.
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>No Cloud Sync:</strong> Your game progress, scores, and settings are not synchronized to any cloud service. All data remains on your device.</li>
+                            <li><strong>No Backend Servers:</strong> We do not operate backend servers that receive or process your personal data.</li>
+                            <li><strong>Local Leaderboard:</strong> The in-game leaderboard stores only your top five scores locally on your device. Scores are not shared with other players or uploaded to any server.</li>
+                            <li><strong>Data Deletion:</strong> You can delete all locally stored data at any time by using the reset option in the App's Settings screen. Uninstalling the App will also remove all locally stored data.</li>
+                        </ul>
+                        <p class="section-text">
+                            While we take reasonable measures to protect the data stored locally on your device, please be aware that no method of electronic storage is 100% secure. Data processed by third-party services (AdMob, Firebase) is secured according to their respective security practices.
                         </p>
                     </div>
 
-                    <!-- Section 6 -->
+                    <!-- Section 6: Children's Privacy -->
                     <div class="section" id="children">
                         <div class="section-header">
                             <span class="icon-wrapper">
@@ -680,22 +754,60 @@ const lastUpdated = "January 23, 2026";
                             </span>
                             <h2 class="section-title">6. Children's Privacy</h2>
                         </div>
-                        <!-- <p class="section-text">
-                            Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us.
-                        </p> -->
-                        <p>We do not collect any personal identifiable information of anyone. The app is safe for children of all age allowed by Google Play store policies</p>
+                        <p class="section-text">
+                            Flying Balloon is a casual arcade game suitable for players of all ages. We do not knowingly collect personally identifiable information from children under the age of 13 (or the applicable age of consent in your jurisdiction). The App does not require account creation, login, or submission of any personal information.
+                        </p>
+                        <p class="section-text">
+                            Advertisements displayed through Google AdMob comply with applicable children's advertising regulations. If you are a parent or guardian and believe your child has somehow provided personal information through the App, please contact us at the email address provided below and we will take steps to address the matter.
+                        </p>
                     </div>
 
-                    <!-- Section 7 -->
+                    <!-- Section 7: Your Rights & Choices -->
+                    <div class="section" id="rights">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">gavel</span>
+                            </span>
+                            <h2 class="section-title">7. Your Rights & Choices</h2>
+                        </div>
+                        <p class="section-text">
+                            You have the following choices regarding your data and privacy:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Ad Personalization:</strong> When prompted by the consent dialog (for EEA users), you can choose to receive only non-personalized ads. You can also manage ad personalization through your device's advertising settings.</li>
+                            <li><strong>Advertising ID:</strong> You can reset or opt out of your device's advertising identifier through your Android or iOS device settings.</li>
+                            <li><strong>Local Notifications:</strong> You can disable notifications from the App at any time through your device's notification settings.</li>
+                            <li><strong>Data Deletion:</strong> You can erase all locally stored game data by using the reset feature in the App's Settings screen. Uninstalling the App removes all local data.</li>
+                            <li><strong>Analytics Opt-Out:</strong> Firebase Analytics data collection may be limited through your device's privacy settings for Google services.</li>
+                        </ul>
+                        <p class="section-text">
+                            If you are located in the European Economic Area (EEA), you may have additional rights under the General Data Protection Regulation (GDPR), including the right to access, rectify, or erase data processed by third-party services. To exercise these rights, please contact the respective third-party service providers directly or reach out to us for assistance.
+                        </p>
+                    </div>
+
+                    <!-- Section 8: Changes to This Policy -->
+                    <div class="section" id="changes">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">update</span>
+                            </span>
+                            <h2 class="section-title">8. Changes to This Policy</h2>
+                        </div>
+                        <p class="section-text">
+                            We may update this Privacy Policy from time to time to reflect changes in our practices, third-party services, or applicable laws. When we make changes, we will update the "Last Updated" date at the top of this page. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information. Your continued use of the App after any modifications to this Privacy Policy constitutes your acceptance of such changes.
+                        </p>
+                    </div>
+
+                    <!-- Section 9: Contact Us -->
                     <div class="section" id="contact">
                         <div class="section-header">
                             <span class="icon-wrapper">
                                 <span class="material-symbols-outlined" style="font-size: 1.125rem;">mail</span>
                             </span>
-                            <h2 class="section-title">7. Contact Us</h2>
+                            <h2 class="section-title">9. Contact Us</h2>
                         </div>
                         <p class="section-text">
-                            If you have any questions about this Privacy Policy, You can contact us:
+                            If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
                         </p>
                         <div class="contact-box">
                             <div class="contact-item">
@@ -704,7 +816,7 @@ const lastUpdated = "January 23, 2026";
                             </div>
                             <div class="contact-item">
                                 <p class="contact-label">Website</p>
-                                <a class="contact-link" href="www.mohdanas.me">www.mohdanas.me</a>
+                                <a class="contact-link" href="https://www.mohdanas.me">www.mohdanas.me</a>
                             </div>
                         </div>
                     </div>
