@@ -1,0 +1,1289 @@
+---
+// formAI-privacy-policy.astro
+const pageTitle = "FormAI - Privacy Policy";
+const lastUpdated = "March 4, 2026";
+---
+
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #135bec;
+            --color-background-light: #f6f6f8;
+            --color-background-dark: #101622;
+            --color-text-dark: #111318;
+            --color-text-gray: #616f89;
+            --color-text-slate: #334155;
+            --color-border-light: #f0f2f4;
+            --color-white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background-light);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border-light);
+            transition: all 0.2s;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--color-text-dark);
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+        }
+
+        .nav-desktop {
+            display: none;
+            flex: 1;
+            justify-content: flex-end;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.25rem;
+        }
+
+        .nav-link {
+            color: var(--color-text-dark);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            color: var(--color-text-dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header-container {
+                padding: 0.75rem 2.5rem;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+            .main-content {
+                padding: 2.5rem 2.5rem;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: none;
+            width: 16rem;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+            }
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 7rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .sidebar-link {
+            color: #475569;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-left: 2px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--color-primary);
+            border-left-color: rgba(19, 91, 236, 0.3);
+        }
+
+        .sidebar-link.active {
+            color: var(--color-primary);
+            font-weight: 500;
+            border-left-color: var(--color-primary);
+        }
+
+        /* Article Card */
+        .article {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .article-card {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .article-card {
+                padding: 3rem;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .page-title {
+            color: var(--color-text-dark);
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.033em;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .badge {
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .last-updated {
+            color: var(--color-text-gray);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+            scroll-margin-top: 7rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+        }
+
+        .section-title {
+            color: var(--color-text-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .section-text {
+            color: var(--color-text-slate);
+            font-size: 1rem;
+            line-height: 1.625;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            color: var(--color-text-gray);
+            font-size: 1rem;
+            line-height: 1.625;
+        }
+
+        @media (min-width: 768px) {
+            .intro-text {
+                font-size: 1.125rem;
+            }
+        }
+
+        .section-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            color: var(--color-text-slate);
+            margin-bottom: 1rem;
+        }
+
+        .section-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Subsection */
+        .subsection {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .subsection-title {
+            color: var(--color-text-dark);
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Alert Box */
+        .alert {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .alert-text {
+            font-size: 0.875rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .data-table thead {
+            background-color: #f8fafc;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .data-table td {
+            padding: 0.75rem 1rem;
+            color: var(--color-text-slate);
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table code {
+            background-color: #f1f5f9;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.8125rem;
+            font-family: monospace;
+            color: #475569;
+        }
+
+        @media (max-width: 767px) {
+            .data-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Code Block */
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        /* Permission Cards */
+        .permission-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .permission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .permission-card {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+
+        .permission-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .permission-text {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background-color: var(--color-background-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-box {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .contact-item {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-link {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-border-light);
+            padding: 2.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-container {
+                padding: 0 2.5rem;
+            }
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-brand {
+                text-align: left;
+            }
+        }
+
+        .footer-title {
+            color: var(--color-text-dark);
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-copyright {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: #475569;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--color-primary);
+        }
+
+        /* Rights List */
+        .rights-list {
+            list-style-type: none;
+            padding-left: 0;
+            color: var(--color-text-slate);
+            margin-bottom: 1rem;
+        }
+
+        .rights-list li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .rights-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        /* Ordered List */
+        .section-list-ordered {
+            list-style-type: decimal;
+            padding-left: 1.25rem;
+            color: var(--color-text-slate);
+            margin-bottom: 1rem;
+        }
+
+        .section-list-ordered li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 1.875rem;">edit_note</span>
+                </div>
+                <h2 class="logo-text">FormAI</h2>
+            </div>
+            <div class="nav-desktop">
+                <nav class="nav-links">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="mailto:info@mohdanas.me">Support</a>
+                </nav>
+            </div>
+            <button class="mobile-menu-btn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-sticky">
+                    <h3 class="sidebar-title">Table of Contents</h3>
+                    <nav class="sidebar-nav">
+                        <a class="sidebar-link active" href="#introduction">Introduction</a>
+                        <a class="sidebar-link" href="#data-collect">2. Data We Collect</a>
+                        <a class="sidebar-link" href="#data-use">3. How We Use Your Data</a>
+                        <a class="sidebar-link" href="#data-storage">4. How We Store Your Data</a>
+                        <a class="sidebar-link" href="#data-sharing">5. Data Sharing</a>
+                        <a class="sidebar-link" href="#data-retention">6. Data Retention & Deletion</a>
+                        <a class="sidebar-link" href="#your-rights">7. Your Rights</a>
+                        <a class="sidebar-link" href="#children">8. Children's Privacy</a>
+                        <a class="sidebar-link" href="#security">9. Security</a>
+                        <a class="sidebar-link" href="#csp">10. Content Security Policy</a>
+                        <a class="sidebar-link" href="#permissions">11. Permissions</a>
+                        <a class="sidebar-link" href="#changes">12. Changes to Policy</a>
+                        <a class="sidebar-link" href="#limited-use">13. Limited Use Disclosure</a>
+                        <a class="sidebar-link" href="#ccpa">14. CCPA</a>
+                        <a class="sidebar-link" href="#gdpr">15. GDPR</a>
+                        <a class="sidebar-link" href="#contact">16. Contact</a>
+                        <a class="sidebar-link" href="#open-source">17. Open Source</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Article -->
+            <article class="article">
+                <div class="article-card">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="header-content">
+                            <h1 class="page-title">Privacy Policy</h1>
+                            <div class="header-meta">
+                                <span class="badge">Legal</span>
+                                <p class="last-updated">Last Updated: {lastUpdated}</p>
+                            </div>
+                            <p class="intro-text" style="margin-top: 0.5rem;">
+                                <strong>Extension Name:</strong> FormAI — AI Job Application Autofill<br />
+                                <strong>Developer:</strong> FormAI<br />
+                                <strong>Contact:</strong> info@mohdanas.me
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 1: Introduction -->
+                    <div class="section" id="introduction">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">info</span>
+                            </span>
+                            <h2 class="section-title">1. Introduction</h2>
+                        </div>
+                        <p class="section-text">
+                            FormAI ("the Extension," "we," "our") is a Chrome browser extension that helps users fill out online job application forms using AI. This Privacy Policy describes what data the Extension collects, how it is used, how it is stored, and your rights regarding that data. We are committed to protecting your privacy. The Extension is designed with a local-first, privacy-first architecture — your data stays in your browser.
+                        </p>
+                    </div>
+
+                    <!-- Section 2: Data We Collect -->
+                    <div class="section" id="data-collect">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">database</span>
+                            </span>
+                            <h2 class="section-title">2. Data We Collect</h2>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">2.1 Data You Provide Directly</h3>
+                            <p class="section-text">
+                                When you use FormAI, you may voluntarily provide the following personal information by entering it into the Extension's Data tab or by importing it from a resume PDF:
+                            </p>
+                            <ul class="section-list">
+                                <li><strong>Full Name</strong></li>
+                                <li><strong>Email Address</strong></li>
+                                <li><strong>Phone Number</strong></li>
+                                <li><strong>Location</strong> (city/state/country — typed by you, not derived from device GPS)</li>
+                                <li><strong>LinkedIn Profile URL</strong></li>
+                                <li><strong>Work Experience</strong> (job titles, company names, dates, descriptions)</li>
+                                <li><strong>Education</strong> (schools, degrees, dates)</li>
+                                <li><strong>Skills</strong> (comma-separated list)</li>
+                                <li><strong>Additional Information</strong> (free-form text)</li>
+                            </ul>
+                            <p class="section-text">
+                                You choose what to enter. All fields are optional. You can delete all data at any time using the "Reset" function.
+                            </p>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">2.2 API Keys (Authentication Credentials)</h3>
+                            <p class="section-text">
+                                If you choose a cloud-based AI provider (OpenAI or Google Gemini), you provide your own API key. This key is:
+                            </p>
+                            <ul class="section-list">
+                                <li>Encrypted using <strong>AES-256-GCM</strong> via the Web Crypto API before storage</li>
+                                <li>Encrypted with a unique 256-bit key generated at installation time</li>
+                                <li>Encrypted with a random 12-byte initialization vector (IV) per encryption operation</li>
+                                <li>Stored only in <code>chrome.storage.local</code> (browser-local, not synced)</li>
+                                <li>Decrypted only at the moment of an API call, then immediately discarded from memory</li>
+                                <li>Never logged, never displayed in plain text in the UI, and never transmitted to any party other than the AI provider you configured</li>
+                            </ul>
+                            <p class="section-text">
+                                If you choose WebLLM (Local AI) or Ollama, no API key is needed.
+                            </p>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">2.3 Form Fill History</h3>
+                            <p class="section-text">
+                                When you use the "Fill This Page" feature, the Extension records:
+                            </p>
+                            <ul class="section-list">
+                                <li>The domain name (e.g., "boards.greenhouse.io")</li>
+                                <li>The full page URL</li>
+                                <li>The timestamp</li>
+                                <li>The number of form fields detected</li>
+                                <li>The number of fields successfully filled</li>
+                            </ul>
+                            <p class="section-text">
+                                This is stored locally (last 50 entries) so you can see where you've previously used FormAI. No fill history is transmitted externally.
+                            </p>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">2.4 Form Field Labels (Transient — Not Stored)</h3>
+                            <p class="section-text">
+                                When you click "Fill This Page," the Extension reads form field labels from the current page (e.g., "First Name," "Email Address," "Years of Experience"). These labels are:
+                            </p>
+                            <ul class="section-list">
+                                <li>Processed in memory to match against your saved data</li>
+                                <li>Sent to your configured AI provider (if using a cloud provider) as part of the form-filling prompt</li>
+                                <li><strong>Not stored</strong> persistently — they exist only during the active fill operation</li>
+                            </ul>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">2.5 Resume PDF Text (Transient — Not Stored)</h3>
+                            <p class="section-text">
+                                When you use "Import from Resume," the Extension extracts text from your uploaded PDF file using the pdf.js library running locally in your browser. The extracted text is:
+                            </p>
+                            <ul class="section-list">
+                                <li>Processed locally to extract structured fields (name, email, phone via regex; experience, education, skills via AI)</li>
+                                <li>Sent to your configured AI provider for parsing (if using a cloud provider)</li>
+                                <li><strong>Not stored</strong> after parsing is complete — only the extracted structured fields are saved to your profile</li>
+                            </ul>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">2.6 Data We Do NOT Collect</h3>
+                            <p class="section-text">
+                                FormAI does <strong>NOT</strong> collect:
+                            </p>
+                            <ul class="section-list">
+                                <li>Browsing history or web history</li>
+                                <li>Keystrokes, mouse movements, scroll activity, or clicks (outside the explicit picker mode)</li>
+                                <li>Device geolocation (GPS, IP-based location, etc.)</li>
+                                <li>Health information</li>
+                                <li>Financial or payment information</li>
+                                <li>Personal communications (emails, messages, chats)</li>
+                                <li>Cookies or tracking identifiers</li>
+                                <li>Device fingerprints or hardware identifiers</li>
+                                <li>Network traffic or monitoring data</li>
+                                <li>Screenshots or page content (other than form field labels)</li>
+                                <li>Any data when the Extension is not actively being used by you</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: How We Use Your Data -->
+                    <div class="section" id="data-use">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">assignment</span>
+                            </span>
+                            <h2 class="section-title">3. How We Use Your Data</h2>
+                        </div>
+                        <p class="section-text">
+                            All data collected by FormAI is used for a <strong>single purpose</strong>: filling job application forms.
+                        </p>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>How It Is Used</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Personal information (name, email, etc.)</td>
+                                    <td>Matched to form fields to auto-fill job applications</td>
+                                </tr>
+                                <tr>
+                                    <td>Work experience, education, skills</td>
+                                    <td>Provided as context to AI for intelligent field matching and cover letter generation</td>
+                                </tr>
+                                <tr>
+                                    <td>API key</td>
+                                    <td>Authenticates requests to your chosen cloud AI provider</td>
+                                </tr>
+                                <tr>
+                                    <td>Fill history</td>
+                                    <td>Displayed to you in the Extension popup so you can track your applications</td>
+                                </tr>
+                                <tr>
+                                    <td>Form field labels</td>
+                                    <td>Matched against your profile data to determine the correct value for each field</td>
+                                </tr>
+                                <tr>
+                                    <td>Resume PDF text</td>
+                                    <td>Parsed to extract your personal information to pre-populate your profile</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="section-text">
+                            We do <strong>NOT</strong> use your data for:
+                        </p>
+                        <ul class="section-list">
+                            <li>Advertising or personalized ads</li>
+                            <li>User profiling or behavioral analysis</li>
+                            <li>Credit assessment or lending decisions</li>
+                            <li>Training AI models (your data is not used to train any models)</li>
+                            <li>Selling or transferring to data brokers</li>
+                            <li>Analytics, telemetry, or usage tracking</li>
+                            <li>Any purpose unrelated to form filling</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 4: How We Store Your Data -->
+                    <div class="section" id="data-storage">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">folder</span>
+                            </span>
+                            <h2 class="section-title">4. How We Store Your Data</h2>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">4.1 Local Storage Only</h3>
+                            <p class="section-text">
+                                All user data is stored exclusively within your browser using:
+                            </p>
+                            <ul class="section-list">
+                                <li><strong><code>chrome.storage.local</code></strong>: Your personal information, encrypted API key, provider settings, fill history</li>
+                                <li><strong><code>chrome.storage.sync</code></strong>: Theme preference (dark/light) and onboarding completion flag only — synced across your Chrome profile</li>
+                                <li><strong>IndexedDB</strong> (via EntityDB library): Vector embeddings of your profile data for semantic search during form filling. The embedding model (<code>Xenova/all-MiniLM-L6-v2</code>) runs locally in your browser</li>
+                            </ul>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">4.2 No External Servers</h3>
+                            <div class="alert">
+                                <p class="alert-text">
+                                    <strong>Important:</strong> FormAI has no backend server, no database, no cloud storage, and no developer-operated infrastructure. There is no server for your data to be sent to. The developer never has access to your data.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">4.3 Encryption</h3>
+                            <p class="section-text">
+                                API keys are encrypted before storage using:
+                            </p>
+                            <ul class="section-list">
+                                <li><strong>Algorithm:</strong> AES-256-GCM (authenticated encryption)</li>
+                                <li><strong>Key derivation:</strong> A 256-bit random key generated via <code>crypto.getRandomValues()</code> at Extension installation, stored in <code>chrome.storage.local</code></li>
+                                <li><strong>IV:</strong> A fresh random 12-byte IV is generated for each encryption operation</li>
+                                <li><strong>Implementation:</strong> The Web Crypto API (<code>crypto.subtle</code>), which is the browser's native cryptographic library</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Data Sharing and Third-Party Access -->
+                    <div class="section" id="data-sharing">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">hub</span>
+                            </span>
+                            <h2 class="section-title">5. Data Sharing and Third-Party Access</h2>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">5.1 Cloud AI Providers (User-Configured)</h3>
+                            <p class="section-text">
+                                If you choose to use a cloud-based AI provider, the following data is sent to that provider's API when you initiate a form fill or cover letter generation:
+                            </p>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Provider</th>
+                                        <th>Endpoint</th>
+                                        <th>Data Sent</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OpenAI</td>
+                                        <td><code>api.openai.com/v1/chat/completions</code></td>
+                                        <td>Your API key (in Authorization header), form field labels, relevant portions of your profile data as context</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Google Gemini</td>
+                                        <td><code>generativelanguage.googleapis.com/v1beta/openai/</code></td>
+                                        <td>Your API key (in Authorization header), form field labels, relevant portions of your profile data as context</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ollama</td>
+                                        <td><code>localhost:11434/v1/chat/completions</code></td>
+                                        <td>Form field labels and relevant portions of your profile data — <strong>no data leaves your machine</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>WebLLM</td>
+                                        <td>None (runs in browser)</td>
+                                        <td><strong>No data is transmitted anywhere</strong>. All inference happens locally via WebGPU</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="alert">
+                                <p class="alert-text">
+                                    <strong>Important:</strong> When using OpenAI or Gemini, the data sent to those providers is governed by their respective privacy policies, not ours. You are using your own API key and your own account with those providers. We encourage you to review:
+                                    <br /><br />
+                                    <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" style="color: #1e40af;">OpenAI's Privacy Policy</a> &nbsp;|&nbsp;
+                                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: #1e40af;">Google's Privacy Policy</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">5.2 Model Weight Downloads</h3>
+                            <ul class="section-list">
+                                <li><strong>WebLLM:</strong> The Gemma 2 2B model weights (~1.5 GB) are downloaded from Hugging Face's CDN (<code>huggingface.co</code>) the first time you activate local AI. This is a one-time download of model data files, cached in your browser. No personal data is sent to Hugging Face during this download.</li>
+                                <li><strong>Embedding model:</strong> The <code>all-MiniLM-L6-v2</code> ONNX model is downloaded from Hugging Face via the <code>transformers.js</code> library. Same as above — no personal data is transmitted.</li>
+                            </ul>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">5.3 No Other Third Parties</h3>
+                            <p class="section-text">
+                                FormAI does <strong>NOT</strong> share data with:
+                            </p>
+                            <ul class="section-list">
+                                <li>Advertising networks or platforms</li>
+                                <li>Data brokers or information resellers</li>
+                                <li>Analytics services (no Google Analytics, no Mixpanel, no telemetry)</li>
+                                <li>Social media platforms</li>
+                                <li>The extension developer or any affiliated entity</li>
+                                <li>Any other third party not listed above</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 6: Data Retention and Deletion -->
+                    <div class="section" id="data-retention">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">delete</span>
+                            </span>
+                            <h2 class="section-title">6. Data Retention and Deletion</h2>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">6.1 Retention</h3>
+                            <p class="section-text">
+                                Your data persists in local browser storage for as long as the Extension is installed. There is no time-based expiration. Fill history is automatically trimmed to the most recent 50 entries.
+                            </p>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">6.2 Deletion</h3>
+                            <p class="section-text">
+                                You can delete your data at any time through:
+                            </p>
+                            <ol class="section-list-ordered">
+                                <li><strong>Reset button</strong> in the Extension's Data tab: Deletes all personal information and fill history from <code>chrome.storage.local</code> and clears the IndexedDB vector database</li>
+                                <li><strong>Uninstalling the Extension</strong>: Chrome automatically removes all data in <code>chrome.storage.local</code>, <code>chrome.storage.sync</code>, and IndexedDB associated with the Extension</li>
+                                <li><strong>Browser data clearing</strong>: Using Chrome's "Clear browsing data" → "Cookies and other site data" will clear IndexedDB. Storage data can be cleared via Developer Tools → Application → Storage</li>
+                            </ol>
+                            <div class="alert">
+                                <p class="alert-text">
+                                    When you delete your data, it is permanently removed. There are no backups, no retention periods, and no recovery options (unless you previously used the Export feature).
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">6.3 Export and Import</h3>
+                            <p class="section-text">
+                                FormAI includes a data export feature that downloads a JSON file containing your profile data, fill history, and settings. This file is saved to your local device. You can import this file to restore your data (e.g., after reinstalling or on a new device). The export file does <strong>not</strong> include your API key for security reasons.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 7: Your Rights -->
+                    <div class="section" id="your-rights">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">gavel</span>
+                            </span>
+                            <h2 class="section-title">7. Your Rights</h2>
+                        </div>
+                        <p class="section-text">
+                            You have the right to:
+                        </p>
+                        <ul class="rights-list">
+                            <li><strong>Access:</strong> View all data the Extension has stored about you (visible in the Data and Settings tabs, or via the Export feature)</li>
+                            <li><strong>Modify:</strong> Edit any of your stored personal information at any time</li>
+                            <li><strong>Delete:</strong> Remove all stored data using the Reset function or by uninstalling the Extension</li>
+                            <li><strong>Portability:</strong> Export your data as a JSON file for backup or migration</li>
+                            <li><strong>Choose your AI provider:</strong> Switch between cloud (OpenAI, Gemini) and fully local (WebLLM, Ollama) providers at any time</li>
+                            <li><strong>Opt out of cloud processing:</strong> By selecting WebLLM or Ollama, you ensure that absolutely no personal data is transmitted over the internet</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 8: Children's Privacy -->
+                    <div class="section" id="children">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">child_care</span>
+                            </span>
+                            <h2 class="section-title">8. Children's Privacy</h2>
+                        </div>
+                        <p class="section-text">
+                            FormAI is not directed at children under the age of 13 (or the applicable age of digital consent in your jurisdiction). We do not knowingly collect personal information from children. If you are a parent or guardian and believe your child has provided personal information to the Extension, please contact us and we will delete that information.
+                        </p>
+                    </div>
+
+                    <!-- Section 9: Security -->
+                    <div class="section" id="security">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">lock</span>
+                            </span>
+                            <h2 class="section-title">9. Security</h2>
+                        </div>
+                        <p class="section-text">
+                            We take reasonable measures to protect your data:
+                        </p>
+                        <ul class="section-list">
+                            <li>API keys are encrypted with AES-256-GCM before storage</li>
+                            <li>Encryption keys are unique per installation</li>
+                            <li>The content script is injected only when explicitly triggered by you, not on every page</li>
+                            <li>The Extension's Content Security Policy restricts executable code to bundled sources only (<code>script-src 'self' 'wasm-unsafe-eval'</code>)</li>
+                            <li>No data is transmitted to developer-controlled servers</li>
+                            <li>No remote code is loaded or executed</li>
+                        </ul>
+                        <p class="section-text">
+                            However, as a browser extension, FormAI's security ultimately depends on the security of your browser, your operating system, and your device. We recommend keeping Chrome updated to the latest version.
+                        </p>
+                    </div>
+
+                    <!-- Section 10: Content Security Policy -->
+                    <div class="section" id="csp">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">shield</span>
+                            </span>
+                            <h2 class="section-title">10. Content Security Policy</h2>
+                        </div>
+                        <p class="section-text">
+                            The Extension uses the following Content Security Policy:
+                        </p>
+                        <div class="code-block">script-src 'self' 'wasm-unsafe-eval'; object-src 'self';</div>
+                        <ul class="section-list">
+                            <li><strong><code>'self'</code></strong>: Only scripts bundled with the Extension can execute</li>
+                            <li><strong><code>'wasm-unsafe-eval'</code></strong>: Required for WebLLM's WebAssembly modules, which perform local AI inference on your GPU</li>
+                            <li>No remote scripts, inline scripts, or <code>eval()</code> are permitted</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 11: Permissions Explanation -->
+                    <div class="section" id="permissions">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">security</span>
+                            </span>
+                            <h2 class="section-title">11. Permissions Explanation</h2>
+                        </div>
+                        <div class="permission-grid">
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">storage</span>
+                                    <span><code>storage</code></span>
+                                </div>
+                                <p class="permission-text">Saves your profile data, settings, encrypted API key, and fill history locally in the browser.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">tab</span>
+                                    <span><code>activeTab</code></span>
+                                </div>
+                                <p class="permission-text">Accesses the current tab's form fields ONLY when you click the extension icon or "Fill This Page."</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">code</span>
+                                    <span><code>scripting</code></span>
+                                </div>
+                                <p class="permission-text">Injects the form-filling script into the active page ONLY when you explicitly request it.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">cloud</span>
+                                    <span>OpenAI API</span>
+                                </div>
+                                <p class="permission-text">Communicates with OpenAI's API when you've selected OpenAI as your provider.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">cloud</span>
+                                    <span>Google Gemini API</span>
+                                </div>
+                                <p class="permission-text">Communicates with Google Gemini's API when you've selected Gemini as your provider.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">computer</span>
+                                    <span>Ollama (localhost)</span>
+                                </div>
+                                <p class="permission-text">Communicates with your local Ollama server when you've selected Ollama as your provider.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 12: Changes to This Privacy Policy -->
+                    <div class="section" id="changes">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">update</span>
+                            </span>
+                            <h2 class="section-title">12. Changes to This Privacy Policy</h2>
+                        </div>
+                        <p class="section-text">
+                            We may update this Privacy Policy from time to time. If we make material changes, we will update the "Last Updated" date at the top of this policy. Your continued use of the Extension after any changes constitutes acceptance of the updated policy. We recommend reviewing this policy periodically.
+                        </p>
+                    </div>
+
+                    <!-- Section 13: Limited Use Disclosure -->
+                    <div class="section" id="limited-use">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">verified</span>
+                            </span>
+                            <h2 class="section-title">13. Limited Use Disclosure</h2>
+                        </div>
+                        <p class="section-text">
+                            The use of information received from Chrome APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements. Specifically:
+                        </p>
+                        <ul class="section-list">
+                            <li>Data is used only for the Extension's core functionality (form filling)</li>
+                            <li>Data is not sold or transferred to third parties outside of the approved use cases</li>
+                            <li>Data is not used for purposes unrelated to form filling</li>
+                            <li>Data is not used to determine creditworthiness or for lending purposes</li>
+                            <li>Data is not used for serving advertisements</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 14: California Privacy Rights (CCPA) -->
+                    <div class="section" id="ccpa">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">balance</span>
+                            </span>
+                            <h2 class="section-title">14. California Privacy Rights (CCPA)</h2>
+                        </div>
+                        <p class="section-text">
+                            If you are a California resident, you have the right to know what personal information is collected, the right to delete it, and the right to opt out of the sale of your personal information. FormAI does not sell personal information. You can exercise your rights by using the Extension's built-in Reset and Export features, or by contacting us.
+                        </p>
+                    </div>
+
+                    <!-- Section 15: European Privacy Rights (GDPR) -->
+                    <div class="section" id="gdpr">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">public</span>
+                            </span>
+                            <h2 class="section-title">15. European Privacy Rights (GDPR)</h2>
+                        </div>
+                        <p class="section-text">
+                            If you are in the European Economic Area (EEA), you have additional rights including the right to access, rectification, erasure, data portability, and the right to lodge a complaint with a supervisory authority. FormAI processes data based on your explicit consent (you choose to enter your data and choose when to fill forms). All data is stored locally in your browser. You can exercise your rights by using the Extension's built-in data management features, or by contacting us.
+                        </p>
+                    </div>
+
+                    <!-- Section 16: Contact -->
+                    <div class="section" id="contact">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">mail</span>
+                            </span>
+                            <h2 class="section-title">16. Contact</h2>
+                        </div>
+                        <p class="section-text">
+                            For questions or concerns about this Privacy Policy or the Extension's data practices, please contact:
+                        </p>
+                        <div class="contact-box">
+                            <div class="contact-item">
+                                <p class="contact-label">Email Support</p>
+                                <a class="contact-link" href="mailto:info@mohdanas.me">info@mohdanas.me</a>
+                            </div>
+                            <div class="contact-item">
+                                <p class="contact-label">Website</p>
+                                <a class="contact-link" href="https://www.mohdanas.me">www.mohdanas.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 17: Open Source -->
+                    <div class="section" id="open-source">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">code</span>
+                            </span>
+                            <h2 class="section-title">17. Open Source</h2>
+                        </div>
+                        <p class="section-text">
+                            FormAI's source code is available for review. You can inspect exactly what data the Extension accesses, stores, and transmits by reading the source code directly.
+                        </p>
+                        <p class="section-text" style="font-style: italic; color: var(--color-text-gray);">
+                            This privacy policy applies to FormAI version 1.0.0 and later.
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <p class="footer-title">FormAI</p>
+                <p class="footer-copyright">&copy; 2026 All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
