@@ -1,0 +1,969 @@
+---
+// wakeai-privacy-policy.astro
+const pageTitle = "WakeAI - Privacy Policy";
+const lastUpdated = "March 5, 2026";
+---
+
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #135bec;
+            --color-background-light: #f6f6f8;
+            --color-background-dark: #101622;
+            --color-text-dark: #111318;
+            --color-text-gray: #616f89;
+            --color-text-slate: #334155;
+            --color-border-light: #f0f2f4;
+            --color-white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background-light);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border-light);
+            transition: all 0.2s;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--color-text-dark);
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+        }
+
+        .nav-desktop {
+            display: none;
+            flex: 1;
+            justify-content: flex-end;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.25rem;
+        }
+
+        .nav-link {
+            color: var(--color-text-dark);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 2.5rem;
+            padding: 0 1.5rem;
+            background-color: var(--color-primary);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(19, 91, 236, 0.2);
+        }
+
+        .btn-download:hover {
+            background-color: #1d4ed8;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            color: var(--color-text-dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header-container {
+                padding: 0.75rem 2.5rem;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+            .main-content {
+                padding: 2.5rem 2.5rem;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: none;
+            width: 16rem;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+            }
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 7rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .sidebar-link {
+            color: #475569;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-left: 2px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--color-primary);
+            border-left-color: rgba(19, 91, 236, 0.3);
+        }
+
+        .sidebar-link.active {
+            color: var(--color-primary);
+            font-weight: 500;
+            border-left-color: var(--color-primary);
+        }
+
+        /* Article Card */
+        .article {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .article-card {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .article-card {
+                padding: 3rem;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .page-title {
+            color: var(--color-text-dark);
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.033em;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .badge {
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .last-updated {
+            color: var(--color-text-gray);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+            scroll-margin-top: 7rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+        }
+
+        .section-title {
+            color: var(--color-text-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .section-text {
+            color: var(--color-text-slate);
+            font-size: 1rem;
+            line-height: 1.625;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            color: var(--color-text-gray);
+            font-size: 1rem;
+            line-height: 1.625;
+        }
+
+        @media (min-width: 768px) {
+            .intro-text {
+                font-size: 1.125rem;
+            }
+        }
+
+        .section-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            color: var(--color-text-slate);
+        }
+
+        .section-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Alert Box */
+        .alert {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .alert-text {
+            font-size: 0.875rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        /* Permission Cards */
+        .permission-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .permission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .permission-card {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+
+        .permission-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .permission-text {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background-color: var(--color-background-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-box {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .contact-item {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-link {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-border-light);
+            padding: 2.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-container {
+                padding: 0 2.5rem;
+            }
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-brand {
+                text-align: left;
+            }
+        }
+
+        .footer-title {
+            color: var(--color-text-dark);
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-copyright {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: #475569;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 1.875rem;">alarm</span>
+                </div>
+                <h2 class="logo-text">WakeAI</h2>
+            </div>
+            <div class="nav-desktop">
+                <nav class="nav-links">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="mailto:info@mohdanas.me">Support</a>
+                </nav>
+                <button class="btn-download">
+                    <span>Download App</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-sticky">
+                    <h3 class="sidebar-title">Table of Contents</h3>
+                    <nav class="sidebar-nav">
+                        <a class="sidebar-link active" href="#introduction">Introduction</a>
+                        <a class="sidebar-link" href="#info-collect">1. Information We Collect</a>
+                        <a class="sidebar-link" href="#how-we-use">2. How We Use Information</a>
+                        <a class="sidebar-link" href="#permissions">3. Device Permissions</a>
+                        <a class="sidebar-link" href="#ai-processing">4. On-Device AI Processing</a>
+                        <a class="sidebar-link" href="#advertising">5. Advertising</a>
+                        <a class="sidebar-link" href="#third-party">6. Third-Party Services</a>
+                        <a class="sidebar-link" href="#security">7. Data Storage & Security</a>
+                        <a class="sidebar-link" href="#data-retention">8. Data Retention</a>
+                        <a class="sidebar-link" href="#children">9. Children's Privacy</a>
+                        <a class="sidebar-link" href="#rights">10. Your Rights & Choices</a>
+                        <a class="sidebar-link" href="#international">11. International Users</a>
+                        <a class="sidebar-link" href="#changes">12. Changes to This Policy</a>
+                        <a class="sidebar-link" href="#contact">13. Contact Us</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Article -->
+            <article class="article">
+                <div class="article-card">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="header-content">
+                            <h1 class="page-title">Privacy Policy</h1>
+                            <div class="header-meta">
+                                <span class="badge">Legal</span>
+                                <p class="last-updated">Last Updated: {lastUpdated}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Introduction -->
+                    <div class="section" id="introduction">
+                        <p class="intro-text">
+                            Thank you for choosing <strong>WakeAI</strong> ("the App"), an intelligent alarm clock application developed by Gravity Lab ("we", "us", or "our"). WakeAI uses on-device artificial intelligence to generate quiz questions that help you wake up by engaging your brain. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application available on the Google Play Store and Apple App Store. Please read this Privacy Policy carefully. By downloading, installing, or using the App, you agree to the practices described in this policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the App.
+                        </p>
+                    </div>
+
+                    <!-- Section 1: Information We Collect -->
+                    <div class="section" id="info-collect">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">info</span>
+                            </span>
+                            <h2 class="section-title">1. Information We Collect</h2>
+                        </div>
+                        <p class="section-text">
+                            WakeAI is built with a <strong>privacy-first, offline-first</strong> architecture. We do not require account creation, login, or any form of user registration. We do not collect personally identifiable information such as your real name, email address, phone number, or physical address. The information associated with the App falls into the following categories:
+                        </p>
+                        <p class="section-text"><strong>a. Information Stored Locally on Your Device</strong></p>
+                        <p class="section-text">
+                            The App stores all user data exclusively on your device using local storage (localStorage). This data never leaves your device and is not transmitted to our servers or any third party. Locally stored data includes:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Alarm Configuration:</strong> Alarm time, enabled/disabled status, selected difficulty level (Easy, Medium, or Hard), alarm tone preference (Gentle, Classic, or Intense), and vibration settings.</li>
+                            <li><strong>User Settings:</strong> Difficulty preference, selected question categories (Math, Patterns, General Knowledge, Logic), alarm tone choice, kill switch PIN code (a 4-digit emergency dismissal code), and onboarding completion status.</li>
+                            <li><strong>Usage Statistics:</strong> Total alarms triggered, number of successful wake-ups (wins), number of kill switch uses, number of failed alarm sessions, total questions answered, total correct answers, current streak count, longest streak count, and last wake-up timestamp.</li>
+                            <li><strong>AI-Generated Question Cache:</strong> Pre-generated quiz questions stored locally for offline use, including question text, answer options, correct answer index, question category, generation timestamp, and question source identifier. A pool of 12-18 questions is maintained per alarm.</li>
+                            <li><strong>Question History:</strong> Hashes of up to 200 previously used questions to prevent repetition and ensure fresh content each morning.</li>
+                            <li><strong>AI Model Data:</strong> Downloaded AI model weights (approximately 300MB-900MB depending on device capability) cached locally for on-device inference.</li>
+                        </ul>
+                        <div class="alert">
+                            <p class="alert-text">All user data is stored locally on your device. We do not operate any servers that collect or store your personal data. Uninstalling the App will remove all locally stored data from your device.</p>
+                        </div>
+                        <p class="section-text"><strong>b. Information Collected by Third-Party Services</strong></p>
+                        <p class="section-text">
+                            The App integrates third-party advertising services that may collect certain information automatically. This data is collected and processed by those third parties in accordance with their own privacy policies. See Section 6 (Third-Party Services) for details.
+                        </p>
+                        <p class="section-text"><strong>c. Information We Do NOT Collect</strong></p>
+                        <p class="section-text">
+                            To be explicit about the scope of our data practices, we do not collect:
+                        </p>
+                        <ul class="section-list">
+                            <li>Names, email addresses, phone numbers, or physical addresses</li>
+                            <li>Location data or GPS coordinates</li>
+                            <li>Photos, videos, or media files</li>
+                            <li>Contact lists or call logs</li>
+                            <li>Browsing history or search queries</li>
+                            <li>Financial or payment information</li>
+                            <li>Biometric data (fingerprints, face scans, voice recordings)</li>
+                            <li>Health or fitness data</li>
+                            <li>Contents of your messages or communications</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 2: How We Use Information -->
+                    <div class="section" id="how-we-use">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">analytics</span>
+                            </span>
+                            <h2 class="section-title">2. How We Use Information</h2>
+                        </div>
+                        <p class="section-text">
+                            All locally stored data is used solely to provide and improve the core functionality of the App. Specifically:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Alarm Scheduling:</strong> Your alarm configuration is used to schedule alarms at the correct time, trigger notifications, and play your selected alarm tone with vibration feedback.</li>
+                            <li><strong>AI Question Generation:</strong> Your selected difficulty level and question categories are used to generate personalized quiz questions using the on-device AI model. Question hashes are tracked to avoid repeating previously answered questions.</li>
+                            <li><strong>Statistics & Progress Tracking:</strong> Your usage statistics (wins, streaks, accuracy) are used to display your performance dashboard within the App, helping you track your wake-up habits over time.</li>
+                            <li><strong>Device Capability Detection:</strong> Device RAM information is used once at setup to automatically select the appropriate AI model size (smaller model for devices under 6GB RAM, larger model for devices with 6GB or more) to ensure optimal performance.</li>
+                            <li><strong>Kill Switch:</strong> Your 4-digit PIN code is stored locally and used solely to authenticate emergency alarm dismissals when you choose to bypass the quiz questions.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 3: Device Permissions -->
+                    <div class="section" id="permissions">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">security</span>
+                            </span>
+                            <h2 class="section-title">3. Device Permissions</h2>
+                        </div>
+                        <p class="section-text">
+                            The App requests the following device permissions to provide its core alarm clock functionality. Each permission is used solely for the purpose described below:
+                        </p>
+                        <div class="permission-grid">
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">wifi</span>
+                                    <span>Internet Access</span>
+                                </div>
+                                <p class="permission-text">Required for the initial download of the on-device AI model and to load and display advertisements through Google AdMob. Once the AI model is downloaded, the App can function fully offline.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">notifications</span>
+                                    <span>Notifications</span>
+                                </div>
+                                <p class="permission-text">Used to display alarm notifications when your alarm triggers. This ensures you are alerted even when the App is in the background. Required on Android 13+ devices.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">alarm</span>
+                                    <span>Exact Alarms</span>
+                                </div>
+                                <p class="permission-text">Required to schedule alarms at precise times using Android's AlarmManager. This includes SCHEDULE_EXACT_ALARM (Android 12+) and USE_EXACT_ALARM (Android 14+) permissions to ensure your alarm fires at the exact time you set.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">fullscreen</span>
+                                    <span>Full-Screen Intent</span>
+                                </div>
+                                <p class="permission-text">Allows the alarm interface to display over the lock screen when your alarm rings, so you can interact with the quiz questions without first unlocking your device.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">lock_clock</span>
+                                    <span>Wake Lock</span>
+                                </div>
+                                <p class="permission-text">Keeps the device CPU active while the alarm is ringing to ensure uninterrupted audio playback, vibration, and quiz interaction until you successfully dismiss the alarm.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">vibration</span>
+                                    <span>Vibration</span>
+                                </div>
+                                <p class="permission-text">Used to provide haptic vibration patterns when the alarm triggers, working alongside the alarm tone to ensure you wake up effectively.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">restart_alt</span>
+                                    <span>Boot Completed</span>
+                                </div>
+                                <p class="permission-text">Allows the App to automatically reschedule your alarms after your device restarts, ensuring your alarms are never lost due to a device reboot.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">play_circle</span>
+                                    <span>Foreground Service</span>
+                                </div>
+                                <p class="permission-text">Enables a foreground service for reliable alarm audio playback and notification display. The service type is media playback (Android 14+), ensuring the alarm tone plays reliably even under system restrictions.</p>
+                            </div>
+                        </div>
+                        <div class="alert">
+                            <p class="alert-text">The App does not access your camera, microphone, contacts, location, calendar, photos, files, or any other sensitive device features beyond those listed above.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: On-Device AI Processing -->
+                    <div class="section" id="ai-processing">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">psychology</span>
+                            </span>
+                            <h2 class="section-title">4. On-Device AI Processing</h2>
+                        </div>
+                        <p class="section-text">
+                            WakeAI uses an on-device large language model (LLM) to generate unique quiz questions. This is a key privacy feature of the App:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Local Inference:</strong> All AI processing occurs entirely on your device. Quiz questions are generated using the Qwen2.5 language model running locally through WebLLM technology. No prompts, questions, or answers are sent to any external server or cloud service.</li>
+                            <li><strong>Model Download:</strong> The AI model (approximately 300MB for smaller devices or 900MB for more capable devices) is downloaded once during initial setup. After the download, the model is cached locally and no further internet connection is required for question generation.</li>
+                            <li><strong>Adaptive Model Selection:</strong> The App automatically detects your device's available RAM to select the most appropriate model size — a smaller, faster model (Qwen2.5-0.5B) for devices with less than 6GB RAM, or a larger, more capable model (Qwen2.5-1.5B) for devices with 6GB or more.</li>
+                            <li><strong>Preloading Strategy:</strong> Questions are pre-generated approximately 30 minutes before your scheduled alarm time to ensure instant availability when the alarm rings, even if your device loses internet connectivity.</li>
+                            <li><strong>Fallback System:</strong> If the AI model is unavailable or cannot generate questions, the App uses a curated library of 160 hand-crafted fallback questions to ensure the alarm always functions correctly.</li>
+                        </ul>
+                        <div class="alert">
+                            <p class="alert-text">No AI processing data, prompts, generated questions, or model interactions are ever transmitted off your device. The entire AI pipeline runs locally, ensuring complete privacy of your quiz interactions.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Advertising -->
+                    <div class="section" id="advertising">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">ads_click</span>
+                            </span>
+                            <h2 class="section-title">5. Advertising</h2>
+                        </div>
+                        <p class="section-text">
+                            The App is free to use and is supported by advertisements served through <strong>Google AdMob</strong>. The App may display the following types of ads:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Interstitial Ads:</strong> Full-screen ads displayed at natural transition points within the App, such as after dismissing an alarm or returning to the home screen.</li>
+                            <li><strong>Rewarded Video Ads:</strong> Optional ads you can choose to watch in exchange for in-app benefits, such as unlocking premium features temporarily.</li>
+                        </ul>
+                        <p class="section-text">
+                            Google AdMob may collect device information, advertising identifiers, and usage data to serve advertisements. For users in the European Economic Area (EEA), we implement Google's User Messaging Platform (UMP) to obtain your consent before serving personalized advertisements. If you decline consent, you will only receive non-personalized ads.
+                        </p>
+                        <p class="section-text">
+                            For more information about how Google uses your data, please visit: <a href="https://policies.google.com/privacy" style="color: var(--color-primary);">Google Privacy Policy</a>.
+                        </p>
+                    </div>
+
+                    <!-- Section 6: Third-Party Services -->
+                    <div class="section" id="third-party">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">hub</span>
+                            </span>
+                            <h2 class="section-title">6. Third-Party Services</h2>
+                        </div>
+                        <p class="section-text">
+                            The App uses the following third-party services. Each service operates under its own privacy policy, and we encourage you to review them:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Google AdMob:</strong> Used to display interstitial and rewarded video advertisements. AdMob may collect device identifiers, IP address, and usage data to serve and measure ads. <a href="https://policies.google.com/privacy" style="color: var(--color-primary);">Google Privacy Policy</a></li>
+                            <li><strong>Google Play Services:</strong> Required for app distribution, in-app review prompts, and platform integration on Android devices. <a href="https://policies.google.com/privacy" style="color: var(--color-primary);">Google Privacy Policy</a></li>
+                            <li><strong>WebLLM (MLC AI):</strong> An open-source library used for on-device AI model execution. The initial model download is fetched from public model repositories. After download, all processing is performed locally with no data sent to MLC AI servers. <a href="https://mlc.ai/" style="color: var(--color-primary);">MLC AI</a></li>
+                        </ul>
+                        <div class="alert">
+                            <p class="alert-text">We do not sell, trade, or otherwise transfer your information to any parties beyond the third-party services described above. No data is shared for marketing or advertising profiling purposes beyond what is required for ad delivery.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 7: Data Storage & Security -->
+                    <div class="section" id="security">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">lock</span>
+                            </span>
+                            <h2 class="section-title">7. Data Storage & Security</h2>
+                        </div>
+                        <p class="section-text">
+                            The security of your data is important to us. All alarm configurations, user settings, usage statistics, and generated questions are stored exclusively in your device's local storage (browser localStorage within the App's WebView). This data is never transmitted to external servers operated by us.
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>No Cloud Sync:</strong> Your alarm settings, statistics, and progress are not synchronized to any cloud service. All data remains solely on your device.</li>
+                            <li><strong>No Backend Servers:</strong> We do not operate backend servers that receive or process your personal data. The App functions entirely as a local, standalone application.</li>
+                            <li><strong>No User Accounts:</strong> The App does not require account creation, login credentials, or authentication with any external service.</li>
+                            <li><strong>Local AI Model:</strong> The AI model weights are cached within the App's local storage on your device. No inference data, prompts, or generated outputs are transmitted externally.</li>
+                            <li><strong>Kill Switch PIN:</strong> Your 4-digit emergency dismissal PIN is stored locally on your device and is never transmitted or backed up to any server.</li>
+                            <li><strong>Data Deletion:</strong> You can delete all locally stored data at any time by clearing the App's data through your device settings. Uninstalling the App will also remove all locally stored data, including cached AI model weights.</li>
+                        </ul>
+                        <p class="section-text">
+                            While we take reasonable measures to ensure that data stored locally on your device is handled responsibly, please be aware that no method of electronic storage is 100% secure. Data processed by third-party services (AdMob, Google Play Services) is secured according to their respective security practices.
+                        </p>
+                    </div>
+
+                    <!-- Section 8: Data Retention -->
+                    <div class="section" id="data-retention">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">schedule</span>
+                            </span>
+                            <h2 class="section-title">8. Data Retention</h2>
+                        </div>
+                        <p class="section-text">
+                            Since all data is stored locally on your device, data retention is entirely within your control:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Alarm & Settings Data:</strong> Retained on your device indefinitely until you clear the App's data or uninstall the App.</li>
+                            <li><strong>Usage Statistics:</strong> Retained on your device indefinitely as part of your cumulative performance history. You can reset these at any time through your device settings.</li>
+                            <li><strong>Cached Questions:</strong> Pre-generated questions are refreshed before each alarm and outdated questions are automatically replaced. The question history (used question hashes) retains up to 200 entries to prevent repetition.</li>
+                            <li><strong>AI Model Cache:</strong> The downloaded AI model remains cached on your device until you clear the App's data or uninstall the App. You can re-download the model at any time.</li>
+                            <li><strong>Third-Party Data:</strong> Data collected by Google AdMob and Google Play Services is retained according to their respective data retention policies.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 9: Children's Privacy -->
+                    <div class="section" id="children">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">child_care</span>
+                            </span>
+                            <h2 class="section-title">9. Children's Privacy</h2>
+                        </div>
+                        <p class="section-text">
+                            WakeAI is a general-purpose alarm clock application and is not specifically directed at children under the age of 13 (or the applicable age of consent in your jurisdiction). We do not knowingly collect personally identifiable information from children. The App does not require account creation, login, or submission of any personal information.
+                        </p>
+                        <p class="section-text">
+                            Advertisements displayed through Google AdMob comply with applicable children's advertising regulations. If you are a parent or guardian and believe your child has somehow provided personal information through the App, please contact us at the email address provided below and we will take steps to address the matter promptly.
+                        </p>
+                    </div>
+
+                    <!-- Section 10: Your Rights & Choices -->
+                    <div class="section" id="rights">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">gavel</span>
+                            </span>
+                            <h2 class="section-title">10. Your Rights & Choices</h2>
+                        </div>
+                        <p class="section-text">
+                            You have the following choices regarding your data and privacy:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Ad Personalization:</strong> When prompted by the consent dialog (for EEA users), you can choose to receive only non-personalized ads. You can also manage ad personalization through your device's advertising settings.</li>
+                            <li><strong>Advertising ID:</strong> You can reset or opt out of your device's advertising identifier through your Android or iOS device settings.</li>
+                            <li><strong>Notifications:</strong> You can disable notifications from the App at any time through your device's notification settings. Note that disabling notifications may affect the App's ability to alert you when an alarm triggers.</li>
+                            <li><strong>Data Deletion:</strong> You can erase all locally stored data at any time by clearing the App's data through your device settings or by uninstalling the App.</li>
+                            <li><strong>AI Model Management:</strong> You can remove the cached AI model by clearing the App's data. The model will need to be re-downloaded on next use.</li>
+                            <li><strong>Permission Management:</strong> You can revoke any granted permissions at any time through your device's app permission settings. Revoking certain permissions (such as exact alarms or notifications) may affect the App's core functionality.</li>
+                        </ul>
+                        <p class="section-text">
+                            If you are located in the European Economic Area (EEA), you may have additional rights under the General Data Protection Regulation (GDPR), including the right to access, rectify, or erase data processed by third-party services. To exercise these rights, please contact the respective third-party service providers directly or reach out to us for assistance.
+                        </p>
+                    </div>
+
+                    <!-- Section 11: International Users -->
+                    <div class="section" id="international">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">public</span>
+                            </span>
+                            <h2 class="section-title">11. International Users</h2>
+                        </div>
+                        <p class="section-text">
+                            WakeAI is available for download globally. Since we do not collect or transmit personal data to our servers, there are no cross-border data transfers initiated by us. However, third-party services integrated into the App (such as Google AdMob) may process data in accordance with their own international data transfer practices.
+                        </p>
+                        <p class="section-text">
+                            If you are accessing the App from outside the country where Google's servers are located, please be aware that data collected by Google's services may be transferred to, stored, and processed in countries other than your own. By using the App and consenting to third-party data collection, you acknowledge and consent to such transfers as described in Google's privacy policy.
+                        </p>
+                    </div>
+
+                    <!-- Section 12: Changes to This Policy -->
+                    <div class="section" id="changes">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">update</span>
+                            </span>
+                            <h2 class="section-title">12. Changes to This Policy</h2>
+                        </div>
+                        <p class="section-text">
+                            We may update this Privacy Policy from time to time to reflect changes in our practices, third-party services, or applicable laws. When we make changes, we will update the "Last Updated" date at the top of this page. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information. Your continued use of the App after any modifications to this Privacy Policy constitutes your acceptance of such changes.
+                        </p>
+                    </div>
+
+                    <!-- Section 13: Contact Us -->
+                    <div class="section" id="contact">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">mail</span>
+                            </span>
+                            <h2 class="section-title">13. Contact Us</h2>
+                        </div>
+                        <p class="section-text">
+                            If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
+                        </p>
+                        <div class="contact-box">
+                            <div class="contact-item">
+                                <p class="contact-label">Email Support</p>
+                                <a class="contact-link" href="mailto:info@mohdanas.me">info@mohdanas.me</a>
+                            </div>
+                            <div class="contact-item">
+                                <p class="contact-label">Website</p>
+                                <a class="contact-link" href="https://www.mohdanas.me">www.mohdanas.me</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <p class="footer-title">WakeAI</p>
+                <p class="footer-copyright">&copy; 2026 Gravity Lab. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
