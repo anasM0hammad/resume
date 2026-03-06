@@ -3,6 +3,7 @@ import dice3dImg from '../assets/Projects/dice3d.png';
 import threeVertexImg from '../assets/Projects/three-vertex.png';
 import flyingBalloonImg from '../assets/Projects/flying-balloon.png';
 import wakeaiImg from '../assets/Projects/wakeai.png';
+import formAI from '../assets/Projects/formai.png';
 
 interface Product {
   name: string;
@@ -49,6 +50,22 @@ const products: Product[] = [
     ],
     tech: ["Three.js", "Next.js", "Cloudflare", "Firebase", "R3F", "Typescript"],
     sourceUrl: "https://spaces.threevertex.co/",
+  },
+  {
+    name: "FormAI",
+    tagline: "FormAI Extension is a Chrome extension that revolutionizes the job application process by automatically filling form fields with intelligent, context-aware responses. Built with privacy-first architecture, all your data stays local and encrypted on your device.",
+    category: "Chrome Extension",
+    image: formAI,
+    status: "Shipped",
+    highlights: [
+      { label: "MRR", value: "$0" },
+      { label: "Downloads", value: "10+" },
+    ],
+    stats: [
+      { label: "Version", value: "v2.0.0" },
+    ],
+    tech: ["Typescript", "React", "ManifestV3", "WebLLM", "AI"],
+    sourceUrl: "https://chromewebstore.google.com/detail/formai/mkgoodfdechhjgclfojlckjebffffjmj",
   },
   {
     name: "Flying Balloon",
