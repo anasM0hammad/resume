@@ -71,7 +71,7 @@ const projects: Project[] = [
 ]
 
 // Fetch GitHub stats at BUILD TIME (server-side, no rate limit issues)
-let ghData = { repos: 56, followers: 18, stars: 57, commits: 374 };
+let ghData = { repos: 56, followers: 19, stars: 57, commits: 817 };
 try {
   const userRes = await fetch('https://api.github.com/users/anasM0hammad');
   if (userRes.ok) {
