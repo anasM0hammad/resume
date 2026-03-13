@@ -16,7 +16,7 @@ interface Product {
   category: string;
   image: ImageMetadata;
   status: string;
-  pricing: 'Free' | 'Paid';
+  pricing: 'Free' | 'Paid' | '';
   mrr?: string;
   highlights: { label: string; value: string }[];
   stats: { label: string; value: string }[];
@@ -31,8 +31,9 @@ const products: Product[] = [
     category: "Mobile App",
     image: dice3dImg,
     status: "Shipped",
-    pricing: "Free",
+    pricing: "",
     highlights: [
+      { label: "MRR", value: "$0" },
       { label: "Downloads", value: "100+" },
     ],
     stats: [
@@ -41,7 +42,6 @@ const products: Product[] = [
     tech: ["Three.js", "React", "Capacitor", "Typescript"],
     links: [
       { type: "playstore", url: "https://play.google.com/store/apps/details?id=com.anaslyzer.thedice" },
-      { type: "web", url: "https://dice.threevertex.co" },
     ],
   },
   {
@@ -86,8 +86,9 @@ const products: Product[] = [
     category: "Mobile Game",
     image: flyingBalloonImg,
     status: "Shipped",
-    pricing: "Free",
+    pricing: "",
     highlights: [
+      { label: "MRR", value: "$0" },
       { label: "Downloads", value: "10+" },
     ],
     stats: [
@@ -104,7 +105,7 @@ const products: Product[] = [
     category: "Mobile App",
     image: wakeaiImg,
     status: "Development",
-    pricing: "Free",
+    pricing: "",
     highlights: [
       { label: "Downloads", value: "--" },
     ],
@@ -113,7 +114,6 @@ const products: Product[] = [
     ],
     tech: ["JavaScript", "React", "WebLLM", "OpenAI SDK", "Capacitor", "AI"],
     links: [
-      { type: "github", url: "https://github.com/anasM0hammad/wake-ai" },
     ],
   },
 ];
