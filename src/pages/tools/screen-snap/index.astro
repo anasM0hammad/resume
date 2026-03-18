@@ -2,7 +2,7 @@
 const title = "ScreenSnap — Free App Store Screenshot Generator & Resizer";
 const description = "Free online tool to generate pixel-perfect screenshots for Apple App Store and Google Play Store. Batch resize to all required dimensions, preview live, and download as a structured ZIP. No signup required.";
 const url = "https://mohdanas.me/tools/screen-snap";
-const ogImage = "https://mohdanas.me/og-screensnap.png";
+const ogImage = "https://mohdanas.me/og-screensnap.jpg";
 ---
 <!doctype html>
 <html lang="en">
@@ -1169,7 +1169,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
   };
 
   // ===== STATE =====
-  let activeRows = []; // { key, images: [{ file, dataUrl }|null, ...] }
+  let activeRows: { key: any; images: any[]; }[] = []; // { key, images: [{ file, dataUrl }|null, ...] }
   let resizeMode = 'fill';
 
   // ===== DOM =====
@@ -1196,8 +1196,8 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
   });
 
   // ===== TOAST =====
-  let toastTimeout;
-  function showToast(msg) {
+  let toastTimeout: string | number | NodeJS.Timeout | undefined;
+  function showToast(msg: string | null) {
     toastEl.textContent = msg;
     toastEl.classList.add('show');
     clearTimeout(toastTimeout);
@@ -1280,7 +1280,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
       chip.classList.add('active');
 
       // Add devices not already present
-      devices.forEach(key => {
+      devices.forEach((key: string | number) => {
         if (!activeRows.find(r => r.key === key)) {
           const spec = DEVICE_SPECS[key];
           activeRows.push({ key, images: new Array(spec.maxSlots).fill(null) });
@@ -1347,7 +1347,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
       const slotsRow = rowEl.querySelector('.slots-row');
 
       // Render image slots
-      row.images.forEach((img, slotIdx) => {
+      row.images.forEach((img: any, slotIdx: any) => {
         const slot = createSlot(rowIdx, slotIdx, img);
         slotsRow.appendChild(slot);
       });
@@ -1394,7 +1394,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
     const row = activeRows[rowIdx];
     const spec = DEVICE_SPECS[row.key];
     const dims = getSlotDimensions(spec);
-
     const slot = document.createElement('div');
     slot.className = 'slot' + (imgData ? ' has-image' : '');
     slot.style.width = dims.w + 'px';
@@ -1466,7 +1465,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
   }
 
   // ===== FILE HANDLING =====
-  function triggerFileUpload(rowIdx, slotIdx) {
+  function triggerFileUpload(rowIdx: number, slotIdx: undefined) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
@@ -1480,7 +1479,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
     input.click();
   }
 
-  function handleFilesForRow(rowIdx, startSlot, files) {
+  function handleFilesForRow(rowIdx: string | number, startSlot: undefined, files: any[]) {
     const row = activeRows[rowIdx];
     if (!row) return;
 
@@ -1488,7 +1487,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
     let loaded = 0;
     const total = files.length;
 
-    files.forEach((file) => {
+    files.forEach((file: Blob) => {
       if (currentSlot >= row.images.length) return;
 
       const reader = new FileReader();
@@ -1513,7 +1512,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
     });
   }
 
-  function findFirstEmptySlot(row, from = 0) {
+  function findFirstEmptySlot(row: { images: string | any[]; }, from = 0) {
     for (let i = from; i < row.images.length; i++) {
       if (row.images[i] === null) return i;
     }
@@ -1523,7 +1522,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
   // ===== DOWNLOAD =====
   function updateDownloadBar() {
     let total = 0;
-    activeRows.forEach(r => r.images.forEach(img => { if (img) total++; }));
+    activeRows.forEach(r => r.images.forEach((img: any) => { if (img) total++; }));
     if (total > 0) {
       downloadBar.style.display = 'flex';
       downloadSummary.textContent = `${total} screenshot${total !== 1 ? 's' : ''} across ${activeRows.length} device type${activeRows.length !== 1 ? 's' : ''} — ready to export`;
@@ -1543,7 +1542,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
 
     try {
       const zip = new JSZip();
-      const promises = [];
+      const promises: any[] = [];
 
       activeRows.forEach((row) => {
         const spec = DEVICE_SPECS[row.key];
@@ -1551,7 +1550,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
         const deviceFolder = spec.name.replace(/"/g, 'in');
         const folderPath = `${storeFolder}/${deviceFolder}`;
 
-        row.images.forEach((img, idx) => {
+        row.images.forEach((img: { dataUrl: any; }, idx: number) => {
           if (!img) return;
 
           const promise = resizeImage(img.dataUrl, spec.w, spec.h, resizeMode).then(blob => {
@@ -1581,7 +1580,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.png";
   });
 
   // ===== IMAGE RESIZE =====
-  function resizeImage(dataUrl, targetW, targetH, mode) {
+  function resizeImage(dataUrl: string, targetW: number, targetH: number, mode: string) {
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => {
