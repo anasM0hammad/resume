@@ -1424,11 +1424,11 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
   }
 
   // ===== FILE HANDLING =====
-  function triggerFileUpload(rowIdx: number, slotIdx: undefined) {
+  function triggerFileUpload(rowIdx, slotIdx) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    input.multiple = (slotIdx === undefined);
+    input.multiple = true;
     input.addEventListener('change', () => {
       const files = Array.from(input.files);
       if (files.length > 0) {
@@ -1438,44 +1438,29 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     input.click();
   }
 
-  function handleFilesForRow(rowIdx: string | number, startSlot: undefined, files: any[]) {
+  function handleFilesForRow(rowIdx, startSlot, files) {
     const row = activeRows[rowIdx];
     if (!row) return;
 
-    let currentSlot = startSlot !== undefined ? startSlot : findFirstEmptySlot(row);
+    const maxSlots = row.images.length;
     let loaded = 0;
-    const total = files.length;
+    const total = Math.min(files.length, maxSlots - startSlot);
 
-    files.forEach((file: Blob) => {
-      if (currentSlot >= row.images.length) return;
+    files.slice(0, total).forEach((file, i) => {
+      // First file goes to the clicked slot, rest fill forward
+      const targetSlot = startSlot + i;
+      if (targetSlot >= maxSlots) return;
 
       const reader = new FileReader();
       reader.onload = (e) => {
-        row.images[currentSlot] = { file, dataUrl: e.target.result };
+        row.images[targetSlot] = { file, dataUrl: e.target.result };
         loaded++;
-        // Find next empty slot for multi-upload
-        if (startSlot === undefined && loaded < total) {
-          currentSlot = findFirstEmptySlot(row, currentSlot + 1);
-        }
-        if (loaded === total || currentSlot >= row.images.length) {
+        if (loaded === total) {
           renderRows();
         }
       };
       reader.readAsDataURL(file);
-
-      if (startSlot !== undefined) {
-        // Single slot replace - just use that slot
-      } else {
-        currentSlot = findFirstEmptySlot(row, currentSlot + 1);
-      }
     });
-  }
-
-  function findFirstEmptySlot(row: { images: string | any[]; }, from = 0) {
-    for (let i = from; i < row.images.length; i++) {
-      if (row.images[i] === null) return i;
-    }
-    return row.images.length; // overflow
   }
 
   // ===== DOWNLOAD =====
