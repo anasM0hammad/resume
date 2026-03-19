@@ -4,6 +4,7 @@ import threeVertexImg from '../assets/Projects/three-vertex.png';
 import flyingBalloonImg from '../assets/Projects/flying-balloon.png';
 import wakeaiImg from '../assets/Projects/wakeai.png';
 import formAI from '../assets/Projects/formai.png';
+import screenSnapImg from '../assets/Projects/screensnap.jpg';
 
 interface ProductLink {
   type: 'playstore' | 'appstore' | 'web' | 'chrome' | 'github';
@@ -25,6 +26,22 @@ interface Product {
 }
 
 const products: Product[] = [
+  {
+    name: "ScreenSnap",
+    tagline: "A free online tool to resize screenshots to pixel-perfect dimensions for Apple App Store and Google Play Store. Batch resize to all required device sizes, preview live, and download as a structured ZIP. No signup required — all processing happens in your browser.",
+    category: "Web Tool",
+    image: screenSnapImg,
+    status: "Shipped",
+    pricing: "Free",
+    highlights: [],
+    stats: [
+      { label: "Version", value: "v1.0.0" },
+    ],
+    tech: ["Astro", "TypeScript", "Canvas API", "JSZip"],
+    links: [
+      { type: "web", url: "https://mohdanas.me/tools/screen-snap" },
+    ],
+  },
   {
     name: "Dice 3D",
     tagline: "A 3D interactive dice roller with realistic physics, customizable face values, uploadable face images, and multiple dice skins. Available cross-platform on web, Android, and iOS with RPG dice support, daily challenges, and rich theme options.",
