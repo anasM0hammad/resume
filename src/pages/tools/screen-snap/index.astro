@@ -165,9 +165,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
 
   <!-- Controls Bar -->
   <section class="controls">
-    <!-- Preset Groups -->
     <div class="control-group">
-      <label class="control-label">Quick Presets</label>
       <div class="preset-chips">
         <button class="chip" data-preset="essential-ios">Essential iOS</button>
         <button class="chip" data-preset="full-ios">Full iOS</button>
@@ -177,10 +175,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
         <button class="chip" data-preset="all">Everything</button>
       </div>
     </div>
-
-    <!-- Resize Mode -->
     <div class="control-group">
-      <label class="control-label">Resize Mode</label>
       <div class="toggle-group">
         <button class="toggle-btn active" data-mode="fill">Fill (Crop)</button>
         <button class="toggle-btn" data-mode="fit">Fit (Letterbox)</button>
@@ -580,15 +575,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
 
   .control-group { display: flex; align-items: center; gap: 0.5rem; }
   .control-group:first-child { flex: 1; min-width: 0; }
-  .control-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--ss-text-muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
 
   .preset-chips { display: flex; flex-wrap: nowrap; gap: 0.3rem; overflow-x: auto; }
   .chip {
@@ -687,11 +673,8 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     overflow: visible;
     transition: border-color 0.2s, box-shadow 0.2s;
     animation: fadeSlideIn 0.25s ease;
-    border-left: 3px solid var(--ss-border);
   }
   .device-row:hover { border-color: var(--ss-accent-glow); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-  .device-row.store-apple { border-left-color: var(--ss-text); }
-  .device-row.store-google { border-left-color: #34A853; }
 
   .row-header {
     display: flex;
@@ -762,8 +745,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
   .slot {
     position: relative;
     flex-shrink: 0;
-    width: 250px;
-    height: 400px;
     border: 2px dotted #3a3d52;
     border-radius: 10px;
     display: flex;
@@ -859,21 +840,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     backdrop-filter: blur(4px);
   }
 
-  .slot-add-more {
-    flex-shrink: 0;
-    width: 60px;
-    height: 400px;
-    border: 2px dotted var(--ss-border);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--ss-text-muted);
-    transition: all 0.2s ease;
-    background: transparent;
-  }
-  .slot-add-more:hover { border-color: var(--ss-accent); color: var(--ss-accent); background: var(--ss-accent-light); }
 
   /* ===== FAB ===== */
   .fab {
@@ -1136,8 +1102,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     .row-header-left { gap: 0.5rem; }
     .row-dimensions { font-size: 0.68rem; }
     .seo-content { padding: 1.25rem; }
-    .slot { width: 180px; height: 300px; }
-    .slot-add-more { height: 300px; }
     .btn-toolbar-add { display: none !important; }
   }
 
@@ -1147,8 +1111,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     .hero-sub { font-size: 0.8rem; }
     .chip { font-size: 0.72rem; padding: 0.3rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center; }
     .brand-name { font-size: 0.95rem; }
-    .slot { width: 150px; height: 250px; }
-    .slot-add-more { height: 250px; }
   }
 </style>
 
@@ -1367,15 +1329,6 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
         slotsRow.appendChild(slot);
       });
 
-      // Add-more button
-      const addMore = document.createElement('button');
-      addMore.className = 'slot-add-more';
-      addMore.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>';
-      addMore.addEventListener('click', () => {
-        triggerFileUpload(rowIdx);
-      });
-      slotsRow.appendChild(addMore);
-
       // Event: copy dims
       rowEl.querySelector('.copy-row-dim').addEventListener('click', () => {
         const dim = `${spec.w} × ${spec.h}`;
@@ -1395,8 +1348,15 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
   }
 
   function createSlot(rowIdx, slotIdx, imgData) {
+    const row = activeRows[rowIdx];
+    const spec = DEVICE_SPECS[row.key];
+    const slotH = 400;
+    const slotW = Math.round(slotH * (spec.w / spec.h));
+
     const slot = document.createElement('div');
     slot.className = 'slot' + (imgData ? ' has-image' : '');
+    slot.style.width = slotW + 'px';
+    slot.style.height = slotH + 'px';
 
     const preview = document.createElement('img');
     preview.className = 'slot-preview';
@@ -1464,11 +1424,11 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
   }
 
   // ===== FILE HANDLING =====
-  function triggerFileUpload(rowIdx: number, slotIdx: undefined) {
+  function triggerFileUpload(rowIdx, slotIdx) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    input.multiple = (slotIdx === undefined);
+    input.multiple = true;
     input.addEventListener('change', () => {
       const files = Array.from(input.files);
       if (files.length > 0) {
@@ -1478,44 +1438,29 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     input.click();
   }
 
-  function handleFilesForRow(rowIdx: string | number, startSlot: undefined, files: any[]) {
+  function handleFilesForRow(rowIdx, startSlot, files) {
     const row = activeRows[rowIdx];
     if (!row) return;
 
-    let currentSlot = startSlot !== undefined ? startSlot : findFirstEmptySlot(row);
+    const maxSlots = row.images.length;
     let loaded = 0;
-    const total = files.length;
+    const total = Math.min(files.length, maxSlots - startSlot);
 
-    files.forEach((file: Blob) => {
-      if (currentSlot >= row.images.length) return;
+    files.slice(0, total).forEach((file, i) => {
+      // First file goes to the clicked slot, rest fill forward
+      const targetSlot = startSlot + i;
+      if (targetSlot >= maxSlots) return;
 
       const reader = new FileReader();
       reader.onload = (e) => {
-        row.images[currentSlot] = { file, dataUrl: e.target.result };
+        row.images[targetSlot] = { file, dataUrl: e.target.result };
         loaded++;
-        // Find next empty slot for multi-upload
-        if (startSlot === undefined && loaded < total) {
-          currentSlot = findFirstEmptySlot(row, currentSlot + 1);
-        }
-        if (loaded === total || currentSlot >= row.images.length) {
+        if (loaded === total) {
           renderRows();
         }
       };
       reader.readAsDataURL(file);
-
-      if (startSlot !== undefined) {
-        // Single slot replace - just use that slot
-      } else {
-        currentSlot = findFirstEmptySlot(row, currentSlot + 1);
-      }
     });
-  }
-
-  function findFirstEmptySlot(row: { images: string | any[]; }, from = 0) {
-    for (let i = from; i < row.images.length; i++) {
-      if (row.images[i] === null) return i;
-    }
-    return row.images.length; // overflow
   }
 
   // ===== DOWNLOAD =====
