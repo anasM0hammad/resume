@@ -337,6 +337,23 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
             </label>
           </div>
         </div>
+
+        <!-- Chrome Extension Section -->
+        <div class="store-section">
+          <div class="store-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001-3.953 6.848c.539.073 1.088.111 1.646.111 6.075 0 11.027-4.509 11.852-10.352h-7.906zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg>
+            <span>Chrome Extension</span>
+          </div>
+          <div class="device-options">
+            <label class="device-option" data-store="chrome" data-device="icons">
+              <input type="checkbox" />
+              <div class="option-info">
+                <span class="option-name">Extension Icons</span>
+                <span class="option-dim">16, 32, 48, 128</span>
+              </div>
+            </label>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" id="modal-cancel">Cancel</button>
@@ -698,6 +715,7 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
   }
   .store-badge.apple { background: var(--ss-text); color: var(--ss-bg); }
   .store-badge.google { background: #34A853; color: #fff; }
+  .store-badge.chrome { background: #4285F4; color: #fff; }
 
   .row-device-name { font-weight: 600; font-size: 0.9rem; }
   .row-dimensions {
@@ -1130,6 +1148,8 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
     'google|phone':      { store: 'Google Play Store', name: 'Phone',       w: 1080, h: 1920, maxSlots: 8 },
     'google|tablet-7':   { store: 'Google Play Store', name: '7" Tablet',   w: 1200, h: 1920, maxSlots: 8 },
     'google|tablet-10':  { store: 'Google Play Store', name: '10" Tablet',  w: 1920, h: 2560, maxSlots: 8 },
+    // Chrome Extension
+    'chrome|icons':      { store: 'Chrome Extension',  name: 'Extension Icons', w: 128, h: 128, maxSlots: 1, sizes: [16, 32, 48, 128] },
   };
 
   const PRESETS = {
@@ -1293,7 +1313,9 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
 
     activeRows.forEach((row, rowIdx) => {
       const spec = DEVICE_SPECS[row.key];
-      const storeClass = row.key.startsWith('apple') ? 'apple' : 'google';
+      const storeClass = row.key.startsWith('apple') ? 'apple' : row.key.startsWith('google') ? 'google' : 'chrome';
+      const badgeLabel = storeClass === 'apple' ? 'iOS' : storeClass === 'google' ? 'Android' : 'Chrome';
+      const dimLabel = spec.sizes ? spec.sizes.map(s => s + 'px').join(', ') : `${spec.w} × ${spec.h}`;
 
       const rowEl = document.createElement('div');
       rowEl.className = 'device-row store-' + storeClass;
@@ -1303,12 +1325,12 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
       rowEl.innerHTML = `
         <div class="row-header">
           <div class="row-header-left">
-            <span class="store-badge ${storeClass}">${storeClass === 'apple' ? 'iOS' : 'Android'}</span>
+            <span class="store-badge ${storeClass}">${badgeLabel}</span>
             <span class="row-device-name">${spec.name}</span>
-            <span class="row-dimensions">${spec.w} × ${spec.h}</span>
+            <span class="row-dimensions">${dimLabel}</span>
           </div>
           <div class="row-header-right">
-            <button class="btn-sm copy-row-dim" title="Copy dimensions" data-dim="${spec.w}x${spec.h}">
+            <button class="btn-sm copy-row-dim" title="Copy dimensions" data-dim="${dimLabel}">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
             </button>
             <button class="btn-sm danger remove-row" title="Remove device type">
@@ -1490,19 +1512,35 @@ const ogImage = "https://mohdanas.me/og-screensnap.jpg";
 
       activeRows.forEach((row) => {
         const spec = DEVICE_SPECS[row.key];
-        const storeFolder = row.key.startsWith('apple') ? 'Apple App Store' : 'Google Play Store';
-        const deviceFolder = spec.name.replace(/"/g, 'in');
-        const folderPath = `${storeFolder}/${deviceFolder}`;
 
-        row.images.forEach((img: { dataUrl: any; }, idx: number) => {
+        if (spec.sizes) {
+          // Chrome Extension icons — resize single image to multiple sizes
+          const folderPath = 'Chrome Extension';
+          const img = row.images[0];
           if (!img) return;
 
-          const promise = resizeImage(img.dataUrl, spec.w, spec.h, resizeMode).then(blob => {
-            const filename = `screenshot_${(idx + 1).toString().padStart(2, '0')}.png`;
-            zip.file(`${folderPath}/${filename}`, blob);
+          spec.sizes.forEach((size) => {
+            const promise = resizeImage(img.dataUrl, size, size, 'fill').then(blob => {
+              zip.file(`${folderPath}/icon_${size}x${size}.png`, blob);
+            });
+            promises.push(promise);
           });
-          promises.push(promise);
-        });
+        } else {
+          // Normal device — one resize per image
+          const storeFolder = row.key.startsWith('apple') ? 'Apple App Store' : 'Google Play Store';
+          const deviceFolder = spec.name.replace(/"/g, 'in');
+          const folderPath = `${storeFolder}/${deviceFolder}`;
+
+          row.images.forEach((img: { dataUrl: any; }, idx: number) => {
+            if (!img) return;
+
+            const promise = resizeImage(img.dataUrl, spec.w, spec.h, resizeMode).then(blob => {
+              const filename = `screenshot_${(idx + 1).toString().padStart(2, '0')}.png`;
+              zip.file(`${folderPath}/${filename}`, blob);
+            });
+            promises.push(promise);
+          });
+        }
       });
 
       await Promise.all(promises);
