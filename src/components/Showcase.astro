@@ -5,6 +5,7 @@ import flyingBalloonImg from '../assets/Projects/flying-balloon.png';
 import wakeaiImg from '../assets/Projects/wakeai.png';
 import formAI from '../assets/Projects/formai.png';
 import screenSnapImg from '../assets/Projects/screensnap.jpg';
+import writex from '../assets/Projects/writex.png';
 
 interface ProductLink {
   type: 'playstore' | 'appstore' | 'web' | 'chrome' | 'github';
@@ -26,6 +27,22 @@ interface Product {
 }
 
 const products: Product[] = [
+  {
+    name: "Write𝕏",
+    tagline: "a free Chrome extension that rewrites your X (Twitter) posts using AI — entirely on your device. Pick a tone, click Rewrite, and get a polished post in seconds. No accounts. No API keys. No cloud. Your words never leave your browser.",
+    category: "Chrome Extension",
+    image: writex,
+    status: "Shipped",
+    pricing: "Free",
+    highlights: [],
+    stats: [
+      { label: "Version", value: "v0.1.0" },
+    ],
+    tech: ["TypeScript", "WebLLM", "AI", "ManifestV3"],
+    links: [
+      { type: "chrome", url: "https://chromewebstore.google.com/detail/write%F0%9D%95%8F-%E2%80%94-enhance-x-post/dobmadonaimlngjobdoedoegoldpbioe" },
+    ],
+  },
   {
     name: "ScreenSnap",
     tagline: "A free online tool to resize screenshots to pixel-perfect dimensions for Apple App Store and Google Play Store. Batch resize to all required device sizes, preview live, and download as a structured ZIP. No signup required — all processing happens in your browser.",
@@ -50,8 +67,8 @@ const products: Product[] = [
     status: "Shipped",
     pricing: "",
     highlights: [
-      { label: "MRR", value: "$0" },
-      { label: "Downloads", value: "100+" },
+      { label: "MRR", value: "$3" },
+      { label: "Downloads", value: "300+" },
     ],
     stats: [
       { label: "Version", value: "v3.0.2" },
@@ -88,7 +105,7 @@ const products: Product[] = [
     status: "Shipped",
     pricing: "Free",
     highlights: [
-      { label: "Downloads", value: "10+" },
+      { label: "Downloads", value: "50+" },
     ],
     stats: [
       { label: "Version", value: "v2.0.0" },
