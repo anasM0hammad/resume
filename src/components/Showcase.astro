@@ -6,6 +6,7 @@ import wakeaiImg from '../assets/Projects/wakeai.png';
 import formAI from '../assets/Projects/formai.png';
 import screenSnapImg from '../assets/Projects/screensnap.jpg';
 import writex from '../assets/Projects/writex.png';
+import claroImg from '../assets/Projects/claro.svg';
 
 interface ProductLink {
   type: 'playstore' | 'appstore' | 'web' | 'chrome' | 'github';
@@ -41,6 +42,21 @@ const products: Product[] = [
     tech: ["TypeScript", "WebLLM", "AI", "ManifestV3"],
     links: [
       { type: "chrome", url: "https://chromewebstore.google.com/detail/write%F0%9D%95%8F-%E2%80%94-enhance-x-post/dobmadonaimlngjobdoedoegoldpbioe" },
+    ],
+  },
+  {
+    name: "Claro",
+    tagline: "A habit-building mobile app that helps you quit smoking using the Atomic Habits framework. Claro guides you through mindset shifts, tracks your progress, and delivers AI-powered insights — all with a calm, focused experience designed for lasting change.",
+    category: "Mobile App",
+    image: claroImg,
+    status: "Development",
+    pricing: "",
+    highlights: [],
+    stats: [
+      { label: "Version", value: "v0.1.0" },
+    ],
+    tech: ["Flutter", "Dart", "AI", "Firebase"],
+    links: [
     ],
   },
   {
