@@ -1,0 +1,836 @@
+---
+// privacy-policy.astro
+const pageTitle = "Well - Privacy Policy";
+const lastUpdated = "June 09, 2026";
+---
+
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #135bec;
+            --color-background-light: #f6f6f8;
+            --color-background-dark: #101622;
+            --color-text-dark: #111318;
+            --color-text-gray: #616f89;
+            --color-text-slate: #334155;
+            --color-border-light: #f0f2f4;
+            --color-white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background-light);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border-light);
+            transition: all 0.2s;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--color-text-dark);
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+        }
+
+        .nav-desktop {
+            display: none;
+            flex: 1;
+            justify-content: flex-end;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.25rem;
+        }
+
+        .nav-link {
+            color: var(--color-text-dark);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 2.5rem;
+            padding: 0 1.5rem;
+            background-color: var(--color-primary);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(19, 91, 236, 0.2);
+            text-decoration: none;
+        }
+
+        .btn-download:hover {
+            background-color: #1d4ed8;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            color: var(--color-text-dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header-container {
+                padding: 0.75rem 2.5rem;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+            .main-content {
+                padding: 2.5rem 2.5rem;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: none;
+            width: 16rem;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+            }
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 7rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .sidebar-link {
+            color: #475569;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-left: 2px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--color-primary);
+            border-left-color: rgba(19, 91, 236, 0.3);
+        }
+
+        .sidebar-link.active {
+            color: var(--color-primary);
+            font-weight: 500;
+            border-left-color: var(--color-primary);
+        }
+
+        /* Article Card */
+        .article {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .article-card {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .article-card {
+                padding: 3rem;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .page-title {
+            color: var(--color-text-dark);
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.033em;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .badge {
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .last-updated {
+            color: var(--color-text-gray);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+            scroll-margin-top: 7rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            background-color: rgba(19, 91, 236, 0.1);
+            color: var(--color-primary);
+        }
+
+        .section-title {
+            color: var(--color-text-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .section-text {
+            color: var(--color-text-slate);
+            font-size: 1rem;
+            line-height: 1.625;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            color: var(--color-text-gray);
+            font-size: 1rem;
+            line-height: 1.625;
+        }
+
+        @media (min-width: 768px) {
+            .intro-text {
+                font-size: 1.125rem;
+            }
+        }
+
+        .section-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            color: var(--color-text-slate);
+        }
+
+        .section-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Alert Box */
+        .alert {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .alert-text {
+            font-size: 0.875rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        /* Permission Cards */
+        .permission-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .permission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .permission-card {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+
+        .permission-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .permission-text {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background-color: var(--color-background-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-box {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .contact-item {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-link {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-border-light);
+            padding: 2.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-container {
+                padding: 0 2.5rem;
+            }
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-brand {
+                text-align: left;
+            }
+        }
+
+        .footer-title {
+            color: var(--color-text-dark);
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-copyright {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: #475569;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 1.875rem;">water_drop</span>
+                </div>
+                <h2 class="logo-text">Well</h2>
+            </div>
+            <div class="nav-desktop">
+                <nav class="nav-links">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="mailto:info@mohdanas.me">Support</a>
+                </nav>
+                <button class="btn-download">
+                    <span>Download App</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-sticky">
+                    <h3 class="sidebar-title">Table of Contents</h3>
+                    <nav class="sidebar-nav">
+                        <a class="sidebar-link active" href="#introduction">Introduction</a>
+                        <a class="sidebar-link" href="#info-collect">1. Information We Collect</a>
+                        <a class="sidebar-link" href="#permissions">2. Device Permissions</a>
+                        <a class="sidebar-link" href="#advertising">3. Advertising</a>
+                        <a class="sidebar-link" href="#third-party">4. Third-Party Services</a>
+                        <a class="sidebar-link" href="#security">5. Data Storage & Security</a>
+                        <a class="sidebar-link" href="#children">6. Children's Privacy</a>
+                        <a class="sidebar-link" href="#rights">7. Your Rights & Choices</a>
+                        <a class="sidebar-link" href="#changes">8. Changes to This Policy</a>
+                        <a class="sidebar-link" href="#contact">9. Contact Us</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Article -->
+            <article class="article">
+                <div class="article-card">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="header-content">
+                            <h1 class="page-title">Privacy Policy</h1>
+                            <div class="header-meta">
+                                <span class="badge">Legal</span>
+                                <p class="last-updated">Last Updated: {lastUpdated}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Introduction -->
+                    <div class="section" id="introduction">
+                        <p class="intro-text">
+                            Thank you for choosing <strong>Well</strong>, a beautiful water tracking app developed for iOS and Android. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application. Please read this Privacy Policy carefully. By downloading, installing, or using the App, you agree to the practices described in this policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the App.
+                        </p>
+                    </div>
+
+                    <!-- Section 1: Information We Collect -->
+                    <div class="section" id="info-collect">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">info</span>
+                            </span>
+                            <h2 class="section-title">1. Information We Collect</h2>
+                        </div>
+                        <p class="section-text">
+                            Well is designed with a privacy-first approach. We do not require account creation or login, and we do not collect personally identifiable information such as your real name, email address, phone number, or physical address. All information associated with the App falls into the following categories:
+                        </p>
+                        <p class="section-text"><strong>a. Information Stored Locally on Your Device</strong></p>
+                        <p class="section-text">
+                            The App stores all health and preference data exclusively on your device using local storage (shared preferences). This data never leaves your device and is not transmitted to our servers or any third party. Locally stored data includes:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Water Intake Logs:</strong> Daily water consumption entries including amounts, timestamps, and drink types.</li>
+                            <li><strong>Daily Goals:</strong> Your personal daily water intake target.</li>
+                            <li><strong>Statistics & History:</strong> Historical water intake data used to generate charts and progress summaries.</li>
+                            <li><strong>App Preferences:</strong> Settings such as preferred units (ml/oz), notification times, theme, and language.</li>
+                            <li><strong>Notification Schedule:</strong> Reminder times configured for hydration prompts. These notifications are generated locally on your device and not sent from external servers.</li>
+                            <li><strong>Home Widget Data:</strong> Water intake progress displayed on your device's home screen widget, rendered locally using data stored on your device.</li>
+                        </ul>
+                        <div class="alert">
+                            <p class="alert-text">All health and preference data is stored locally on your device. We do not operate servers that collect, store, or process your personal health information. You can delete all stored data at any time by uninstalling the App or using the reset option in Settings.</p>
+                        </div>
+                        <p class="section-text"><strong>b. Information Collected by Third-Party Services</strong></p>
+                        <p class="section-text">
+                            The App integrates third-party advertising services that may collect certain information automatically. This data is collected and processed by those third parties in accordance with their own privacy policies. See Section 4 (Third-Party Services) for details.
+                        </p>
+                    </div>
+
+                    <!-- Section 2: Device Permissions -->
+                    <div class="section" id="permissions">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">security</span>
+                            </span>
+                            <h2 class="section-title">2. Device Permissions</h2>
+                        </div>
+                        <p class="section-text">
+                            The App requests the following device permissions to provide its core functionality. Each permission is used solely for the purpose described below:
+                        </p>
+                        <div class="permission-grid">
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">wifi</span>
+                                    <span>Internet Access</span>
+                                </div>
+                                <p class="permission-text">Required to load and display advertisements through Google AdMob.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">notifications</span>
+                                    <span>Notifications</span>
+                                </div>
+                                <p class="permission-text">Used to send local hydration reminders at times you configure. All notifications are generated on your device — no push notifications are sent from external servers.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">widgets</span>
+                                    <span>Home Screen Widget</span>
+                                </div>
+                                <p class="permission-text">Used to display your daily water intake progress on your device's home screen. Widget data is read from local storage only.</p>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-header">
+                                    <span class="material-symbols-outlined" style="color: var(--color-primary);">ad_units</span>
+                                    <span>Advertising ID</span>
+                                </div>
+                                <p class="permission-text">Used by Google AdMob to serve relevant advertisements. You may opt out of personalized ads through the consent dialog or your device settings.</p>
+                            </div>
+                        </div>
+                        <div class="alert" style="margin-top: 1rem;">
+                            <p class="alert-text">The App does not access your camera, microphone, contacts, location, photos, or any other sensitive device features beyond what is listed above.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Advertising -->
+                    <div class="section" id="advertising">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">ads_click</span>
+                            </span>
+                            <h2 class="section-title">3. Advertising</h2>
+                        </div>
+                        <p class="section-text">
+                            The App is free to download and is supported by advertisements served through <strong>Google AdMob</strong>. Ads are displayed in a non-intrusive manner to keep the core water tracking experience uninterrupted.
+                        </p>
+                        <p class="section-text">
+                            Google AdMob may collect device information, advertising identifiers, and usage data to serve advertisements. For users in the European Economic Area (EEA), we display a consent dialog powered by Google's User Messaging Platform (UMP) before serving personalized advertisements. If you decline consent, you will only receive non-personalized ads.
+                        </p>
+                        <p class="section-text">
+                            For more information about how Google uses your data, please visit: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary);">Google Privacy Policy</a>.
+                        </p>
+                    </div>
+
+                    <!-- Section 4: Third-Party Services -->
+                    <div class="section" id="third-party">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">hub</span>
+                            </span>
+                            <h2 class="section-title">4. Third-Party Services</h2>
+                        </div>
+                        <p class="section-text">
+                            The App uses the following third-party services. Each service operates under its own privacy policy, and we encourage you to review them:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Google AdMob:</strong> Used to display advertisements within the App. AdMob may collect device identifiers, IP address, and usage data to serve and measure ads. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary);">Google Privacy Policy</a></li>
+                            <li><strong>Google Play Services / App Store:</strong> Required for app distribution and platform integration on Android and iOS.</li>
+                        </ul>
+                        <div class="alert">
+                            <p class="alert-text">We do not sell, trade, or otherwise transfer your information to any parties beyond the third-party services described above. Your health and hydration data is never shared with advertisers or any other external parties.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Data Storage & Security -->
+                    <div class="section" id="security">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">lock</span>
+                            </span>
+                            <h2 class="section-title">5. Data Storage & Security</h2>
+                        </div>
+                        <p class="section-text">
+                            The security of your data is important to us. All water intake logs, daily goals, statistics, and preferences are stored exclusively in your device's local storage. This data is never transmitted to external servers operated by us.
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>No Cloud Sync:</strong> Your hydration history, goals, and settings are not synchronized to any cloud service. All data remains on your device.</li>
+                            <li><strong>No Backend Servers:</strong> We do not operate backend servers that receive or process your personal health data.</li>
+                            <li><strong>No Account Required:</strong> No registration, login, or personal information is required to use the App.</li>
+                            <li><strong>Data Deletion:</strong> You can erase all locally stored data at any time by uninstalling the App. All app data is removed from your device upon uninstallation.</li>
+                        </ul>
+                        <p class="section-text">
+                            While we take reasonable measures to protect the data stored locally on your device, please be aware that no method of electronic storage is 100% secure. Data processed by third-party services (AdMob) is secured according to their respective security practices.
+                        </p>
+                    </div>
+
+                    <!-- Section 6: Children's Privacy -->
+                    <div class="section" id="children">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">child_care</span>
+                            </span>
+                            <h2 class="section-title">6. Children's Privacy</h2>
+                        </div>
+                        <p class="section-text">
+                            Well is a health and wellness app suitable for users of all ages. We do not knowingly collect personally identifiable information from children under the age of 13 (or the applicable age of consent in your jurisdiction). The App does not require account creation, login, or submission of any personal information.
+                        </p>
+                        <p class="section-text">
+                            Advertisements displayed through Google AdMob comply with applicable children's advertising regulations. If you are a parent or guardian and believe your child has somehow provided personal information through the App, please contact us at the email address provided below and we will take steps to address the matter.
+                        </p>
+                    </div>
+
+                    <!-- Section 7: Your Rights & Choices -->
+                    <div class="section" id="rights">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">gavel</span>
+                            </span>
+                            <h2 class="section-title">7. Your Rights & Choices</h2>
+                        </div>
+                        <p class="section-text">
+                            You have the following choices regarding your data and privacy:
+                        </p>
+                        <ul class="section-list">
+                            <li><strong>Ad Personalization:</strong> When prompted by the consent dialog (for EEA users), you can choose to receive only non-personalized ads. You can also manage ad personalization through your device's advertising settings.</li>
+                            <li><strong>Advertising ID:</strong> You can reset or opt out of your device's advertising identifier through your Android or iOS device settings.</li>
+                            <li><strong>Local Notifications:</strong> You can disable or adjust hydration reminders at any time through the App's Settings screen or through your device's notification settings.</li>
+                            <li><strong>Data Deletion:</strong> You can erase all locally stored data by uninstalling the App. All personal health and preference data is removed from your device upon uninstallation.</li>
+                            <li><strong>Home Widget:</strong> You can remove the home screen widget at any time through your device's home screen settings without affecting the App's functionality.</li>
+                        </ul>
+                        <p class="section-text">
+                            If you are located in the European Economic Area (EEA), you may have additional rights under the General Data Protection Regulation (GDPR), including the right to access, rectify, or erase data processed by third-party services. To exercise these rights, please contact the respective third-party service providers directly or reach out to us for assistance.
+                        </p>
+                    </div>
+
+                    <!-- Section 8: Changes to This Policy -->
+                    <div class="section" id="changes">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">update</span>
+                            </span>
+                            <h2 class="section-title">8. Changes to This Policy</h2>
+                        </div>
+                        <p class="section-text">
+                            We may update this Privacy Policy from time to time to reflect changes in our practices, third-party services, or applicable laws. When we make changes, we will update the "Last Updated" date at the top of this page. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information. Your continued use of the App after any modifications to this Privacy Policy constitutes your acceptance of such changes.
+                        </p>
+                    </div>
+
+                    <!-- Section 9: Contact Us -->
+                    <div class="section" id="contact">
+                        <div class="section-header">
+                            <span class="icon-wrapper">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem;">mail</span>
+                            </span>
+                            <h2 class="section-title">9. Contact Us</h2>
+                        </div>
+                        <p class="section-text">
+                            If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
+                        </p>
+                        <div class="contact-box">
+                            <div class="contact-item">
+                                <p class="contact-label">Email Support</p>
+                                <a class="contact-link" href="mailto:info@mohdanas.me">info@mohdanas.me</a>
+                            </div>
+                            <div class="contact-item">
+                                <p class="contact-label">Website</p>
+                                <a class="contact-link" href="https://www.mohdanas.me">www.mohdanas.me</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <p class="footer-title">Well</p>
+                <p class="footer-copyright">© 2026 All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
